@@ -1,0 +1,2 @@
+int #stores
+storeCode,managerCode,Street,City,State,zip,country
