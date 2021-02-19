@@ -1,0 +1,143 @@
+{
+"persons": [
+ {
+   "personCode": "PGHPA5859I",
+   "type": "G",
+   "lastName": "Maloney",
+   "firstName": "Madison",
+   "address": {
+      "street": "3464 Evening Sun Dr.",
+      "city": "Las Vegas",
+      "state": "NV",
+      "zip": 89117,
+      "country": "US"
+   },
+   "email": ""
+},
+ {
+   "personCode": "72OFN7R0RL",
+   "type": "P",
+   "lastName": "Kotipalli",
+   "firstName": "Vasavi",
+   "address": {
+      "street": "2625 N 169th St",
+      "city": "Omaha",
+      "state": "NE",
+      "zip": 68116,
+      "country": "US"
+   },
+   "email": "vkotipalli086@gmail.com"
+},
+ {
+   "personCode": "R0E2QECOTP",
+   "type": "C",
+   "lastName": "Maloney",
+   "firstName": "Mallory",
+   "address": {
+      "street": "2575 Dole St 326",
+      "city": "Honolulu",
+      "state": "HI",
+      "zip": 96822,
+      "country": "US"
+   },
+   "email": ""
+},
+ {
+   "personCode": "4CQ9USQH10",
+   "type": "E",
+   "lastName": "Scherf",
+   "firstName": "Jordan",
+   "address": {
+      "street": "6621 Lowden Ln",
+      "city": "Las Vegas",
+      "state": "NV",
+      "zip": 89107,
+      "country": "US"
+   },
+   "email": ""
+},
+ {
+   "personCode": "EVCDH4PET3",
+   "type": "P",
+   "lastName": "Smith",
+   "firstName": "Sam",
+   "address": {
+      "street": "871 CobbleStone Dr.",
+      "city": "Grandville",
+      "state": "MI",
+      "zip": 49418,
+      "country": "US"
+   },
+   "email": ""
+},
+ {
+   "personCode": "8XUXEI4T0W",
+   "type": "E",
+   "lastName": "Ponnatha",
+   "firstName": "Niheala",
+   "address": {
+      "street": "8187 Summerhouse Av",
+      "city": "Ronkonkoma",
+      "state": "NY",
+      "zip": 11779,
+      "country": "US"
+   },
+   "email": ""
+},
+ {
+   "personCode": "UWUA6YGS9X",
+   "type": "C",
+   "lastName": "Chada",
+   "firstName": "Shreya",
+   "address": {
+      "street": "8408 Theatre Dr.",
+      "city": "Gettysburg",
+      "state": "PA",
+      "zip": 17325,
+      "country": "US"
+   },
+   "email": ""
+},
+ {
+   "personCode": "CZDOL8TJ6I",
+   "type": "G",
+   "lastName": "Boinpally",
+   "firstName": "Teju",
+   "address": {
+      "street": "210 Military St.",
+      "city": "Tucson",
+      "state": "AZ",
+      "zip": 85718,
+      "country": "US"
+   },
+   "email": ""
+},
+ {
+   "personCode": "E3SBKH0OK6",
+   "type": "P",
+   "lastName": "Builder",
+   "firstName": "Bob",
+   "address": {
+      "street": "710 Center Dr.",
+      "city": "Flushing",
+      "state": "NY",
+      "zip": 11354,
+      "country": "US"
+   },
+   "email": ""
+},
+ {
+   "personCode": "XC9P4020OQ",
+   "type": "G",
+   "lastName": "Brady",
+   "firstName": "Tom",
+   "address": {
+      "street": "99 Rainbow Ln",
+      "city": "Louisa",
+      "state": "KY",
+      "zip": 41230,
+      "country": "US"
+   },
+   "email": ""
+}
+]}
