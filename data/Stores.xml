@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Store>
+<Stores>
   <Store1>
     <StoreCode>HJWPT13Z3V</StoreCode>
     <ManagerCode>LTV9CIAW5D</ManagerCode>
@@ -110,4 +110,4 @@
       <Country>US</Country>
     </Address>
   </Store10>
-</Store>
+</Stores>
