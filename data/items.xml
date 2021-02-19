@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<items>
+  <NewProduct>
+    <itemCode>fc63ef</itemCode>
+    <name>Cyberpunk 2077</name>
+    <basePrice>55.99</basePrice>
+  </NewProduct>
+  <NewProduct>
+    <itemCode>84594c</itemCode>
+    <name>Grand Theft Auto V</name>
+    <basePrice>59.99</basePrice>
+  </NewProduct>
+  <NewProduct>
+    <itemCode>68cdc8</itemCode>
+    <name>Xbox Series X</name>
+    <basePrice>499.99</basePrice>
+  </NewProduct>
+  <UsedProduct>
+    <itemCode>1719c4</itemCode>
+    <name>Nintendo Switch (Animal Crossing Edition)</name>
+    <basePrice>549.99</basePrice>
+  </UsedProduct>
+  <GiftCard>
+    <itemCode>90a51d</itemCode>
+    <name>Nintendo eShop Credit</name>
+  </GiftCard>
+  <GiftCard>
+    <itemCode>e4ed68</itemCode>
+    <name>League of Legends Riot Points</name>
+  </GiftCard>
+  <UsedProduct>
+    <itemCode>76c395</itemCode>
+    <name>Stardew Valley</name>
+    <basePrice>10.99</basePrice>
+  </UsedProduct>
+  <Service>
+    <itemCode>8b095e</itemCode>
+    <name>Computer Repair</name>
+    <hourlyRate>19.99</hourlyRate>
+  </Service>
+  <Service>
+    <itemCode>3c43d0</itemCode>
+    <name>Game Room Design</name>
+    <hourlyRate>39.99</hourlyRate>
+  </Service>
+  <Subscription>
+    <itemCode>516454</itemCode>
+    <name>Nintendo Switch Online</name>
+    <annualFee>19.99</annualFee>
+  </Subscription>
+  <Subscription>
+    <itemCode>7982fe</itemCode>
+    <name>Xbox magazine</name>
+    <annualFee>99.99</annualFee>
+  </Subscription>
+  <Subscription>
+    <itemCode>d09a87</itemCode>
+    <name>Netflix</name>
+    <annualFee>101.99</annualFee>
+  </Subscription>
+  <Subscription>
+    <itemCode>774196</itemCode>
+    <annualFee>Apple Arcade</annualFee>
+    <price>69.99</price>
+  </Subscription>
+</items>
