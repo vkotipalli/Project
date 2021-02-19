@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Store>
+  <Store1>
+    <StoreCode>HJWPT13Z3V</StoreCode>
+    <ManagerCode>LTV9CIAW5D</ManagerCode>
+    <Address>
+      <Street>973 Spring Avenue</Street>
+      <City>Phila</City>
+      <State>PA</State>
+      <Zip>19103</Zip>
+      <Country>US</Country>
+    </Address>
+  </Store1>
+  <Store2>
+    <StoreCode>BSNGQH84ZW</StoreCode>
+    <ManagerCode>ME15GH9ZMT</ManagerCode>
+    <Address>
+      <Street>2434 Mount Tabor</Street>
+      <City>Winchester</City>
+      <State>TN</State>
+      <Zip>37398</Zip>
+      <Country>US</Country>
+    </Address>
+  </Store2>
+  <Store3>
+    <StoreCode>Y33N4W1E8G</StoreCode>
+    <ManagerCode>MA9XIJJKUJ</ManagerCode>
+    <Address>
+      <Street>1956 Ashford Drive</Street>
+      <City>Alexandria</City>
+      <State>VA</State>
+      <Zip>22304</Zip>
+      <Country>US</Country>
+    </Address>
+  </Store3>
+  <Store4>
+    <StoreCode>YYW8GS50PL</StoreCode>
+    <ManagerCode>FI9D90U74Q</ManagerCode>
+    <Address>
+      <Street>2189 Rowes Lane</Street>
+      <City>Paducah</City>
+      <State>KY</State>
+      <Zip>42001</Zip>
+      <Country>US</Country>
+    </Address>
+  </Store4>
+  <Store5>
+    <StoreCode>BXOLMSCUQV</StoreCode>
+    <ManagerCode>6GREEGBN4B</ManagerCode>
+    <Address>
+      <Street>4288 Parrish Avenue</Street>
+      <City>San Antonio</City>
+      <State>TX</State>
+      <Zip>78217</Zip>
+      <Country>US</Country>
+    </Address>
+  </Store5>
+  <Store6>
+    <StoreCode>9KOICUR4S1</StoreCode>
+    <ManagerCode>KRKK1KU2HS</ManagerCode>
+    <Address>
+      <Street>406 Essex Court</Street>
+      <City>South Burlington</City>
+      <State>VT</State>
+      <Zip>50403</Zip>
+      <Country>US</Country>
+    </Address>
+  </Store6>
+  <Store7>
+    <StoreCode>H04SOSFZ5J</StoreCode>
+    <ManagerCode>VFSI3F7QES</ManagerCode>
+    <Address>
+      <Street>893 Front Street</Street>
+      <City>Southfield</City>
+      <State>MI</State>
+      <Zip>48075</Zip>
+      <Country>US</Country>
+    </Address>
+  </Store7>
+  <Store8>
+    <StoreCode>F9ZAUR57XO</StoreCode>
+    <ManagerCode>R8SI4XNK96</ManagerCode>
+    <Address>
+      <Street>2148 Middleville Road</Street>
+      <City>Pasadena</City>
+      <State>CA</State>
+      <Zip>91109</Zip>
+      <Country>US</Country>
+    </Address>
+  </Store8>
+  <Store9>
+    <StoreCode>ZG1F5MHIOG</StoreCode>
+    <ManagerCode>RARDF2PKEP</ManagerCode>
+    <Address>
+      <Street>4294 Old House Drive</Street>
+      <City>Summerfield</City>
+      <State>OH</State>
+      <Zip>43788</Zip>
+      <Country>US</Country>
+    </Address>
+  </Store9>
+  <Store10>
+    <StoreCode>100HYR52FL</StoreCode>
+    <ManagerCode>ECZZIQC09F</ManagerCode>
+    <Address>
+      <Street>4021 Gnatty Creek Road</Street>
+      <City>Westbury</City>
+      <State>NY</State>
+      <Zip>11590</Zip>
+      <Country>US</Country>
+    </Address>
+  </Store10>
+</Store>
