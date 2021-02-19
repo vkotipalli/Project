@@ -1,5 +1,5 @@
 {
-"persons": [
+"Persons": [
  {
    "personCode": "PGHPA5859I",
    "type": "G",
@@ -12,7 +12,9 @@
       "zip": 89117,
       "country": "US"
    },
-   "email": ""
+  "email": {
+	  "email1": "mmaloney2@unl.edu"
+   }
 },
  {
    "personCode": "72OFN7R0RL",
@@ -26,7 +28,10 @@
       "zip": 68116,
       "country": "US"
    },
-   "email": "vkotipalli086@gmail.com"
+   "email": {
+	  "email1": "vkotipalli086@gmail.com",
+	  "email2": "vasavi.kotipalli@yahoo.com"
+   }
 },
  {
    "personCode": "R0E2QECOTP",
@@ -40,7 +45,9 @@
       "zip": 96822,
       "country": "US"
    },
-   "email": ""
+   "email": {
+	  "email1": ""
+   }
 },
  {
    "personCode": "4CQ9USQH10",
@@ -54,7 +61,9 @@
       "zip": 89107,
       "country": "US"
    },
-   "email": ""
+   "email": {
+	  "email1": ""
+   }
 },
  {
    "personCode": "EVCDH4PET3",
@@ -68,7 +77,9 @@
       "zip": 49418,
       "country": "US"
    },
-   "email": ""
+   "email": {
+	  "email1": ""
+   }
 },
  {
    "personCode": "8XUXEI4T0W",
@@ -82,7 +93,10 @@
       "zip": 11779,
       "country": "US"
    },
-   "email": ""
+   "email": {
+	  "email1": "Niheala.P@yahoo.com",
+	  "email2": "nponnatha@gmail.com"
+   }
 },
  {
    "personCode": "UWUA6YGS9X",
@@ -96,7 +110,9 @@
       "zip": 17325,
       "country": "US"
    },
-   "email": ""
+   "email": {
+	  "email1": ""
+   }
 },
  {
    "personCode": "CZDOL8TJ6I",
@@ -110,7 +126,9 @@
       "zip": 85718,
       "country": "US"
    },
-   "email": ""
+   "email": {
+	  "email1": "tboinpally275@gmail.com"
+   }
 },
  {
    "personCode": "E3SBKH0OK6",
@@ -124,7 +142,11 @@
       "zip": 11354,
       "country": "US"
    },
-   "email": ""
+   "email": {
+	   "email1": "bbuilder123@yahoo.com",
+	   "email2": "bob.builder@gmail.com",
+	   "email3": "bobb@hotmail.com"
+   }
 },
  {
    "personCode": "XC9P4020OQ",
@@ -138,6 +160,8 @@
       "zip": 41230,
       "country": "US"
    },
-   "email": ""
+   "email": {
+	  "email1": "tomBrady@gmail.com"
+   }
 }
 ]}
