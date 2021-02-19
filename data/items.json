@@ -1,0 +1,66 @@
+{
+"items": [
+ {
+   "itemCode": "fc63ef",
+   "name": "Cyberpunk 2077",
+   "basePrice": 55.99
+ },
+ {
+   "itemCode": "84594c",
+   "name": "Grand Theft Auto V",
+   "basePrice": 59.99
+ },
+ {
+   "itemCode": "68cdc8",
+   "name": "Xbox Series X",
+   "basePrice": 499.99
+ },
+ {
+   "itemCode": "1719c4",
+   "name": "Nintendo Switch (Animal Crossing Edition)",
+   "basePrice": 549.99
+ },
+ {
+   "itemCode": "90a51d",
+   "name": "Nintendo eShop Credit",
+ },
+ {
+   "itemCode": "e4ed68",
+   "name": "League of Legends Riot Points",
+ },
+ {
+   "itemCode": "76c395",
+   "name": "Stardew Valley",
+   "basePrice": 10.99
+ },
+ {
+   "itemCode": "8b095e",
+   "name": "Computer Repair",
+   "hourlyRate": 19.99
+ },
+ {
+   "itemCode": "3c43d0",
+   "name": "Game Room Design",
+   "hourlyRate": 39.99
+ },
+ {
+   "itemCode": "516454",
+   "name": "Nintendo Switch Online",
+   "annualFee": 19.99
+ },
+ {
+   "itemCode": "7982fe",
+   "name": "Xbox magazine",
+   "annualFee": 99.99
+ },
+ {
+   "itemCode": "d09a87",
+   "name": "Netflix",
+   "annualFee": 101.99
+ },
+ {
+   "itemCode": "774196",
+   "name": "Apple Arcade",
+   "annualFee": 69.99
+ }
+]}
