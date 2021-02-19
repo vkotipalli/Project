@@ -1,4 +1,4 @@
-# project
-## CSCE 156
+# Reinventing the Modern Greek Games
+## Computer Science II Project
 
-Authors: Madision Maloney & Vasavi Kotipalli
+Authors: Madison Maloney & Vasavi Kotipalli
