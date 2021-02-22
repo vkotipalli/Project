@@ -1,7 +1,8 @@
-package unl.cse;
+package com.mgg;
+
+import unl.cse.Address;
 
 public class Store {
-	
 	private String storeCode;
 	private String managerCode;
 	private Address storeAddress;
@@ -36,7 +37,5 @@ public class Store {
 	public void setStoreAddress(Address storeAddress) {
 		this.storeAddress = storeAddress;
 	}
-	
-	
-	
+
 }

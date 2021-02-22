@@ -1,7 +1,7 @@
-package unl.cse;
+package com.mgg;
 
 public class Subscription {
-//	code,SB,name,annualFee
+	
 	private String code;
 	private String subscription;
 	private String name;
@@ -46,7 +46,5 @@ public class Subscription {
 	public void setAnnualFee(String annualFee) {
 		this.annualFee = annualFee;
 	}
-	
-	
-	
+
 }

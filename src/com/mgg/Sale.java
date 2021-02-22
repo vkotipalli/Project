@@ -1,4 +1,4 @@
-package unl.cse;
+package com.mgg;
 
 public class Sale {
 	private Person customer;
@@ -30,5 +30,4 @@ public class Sale {
 	public void setItem(Item item) {
 		this.item = item;
 	}
-	
 }

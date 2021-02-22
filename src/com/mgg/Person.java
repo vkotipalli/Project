@@ -1,7 +1,8 @@
-package unl.cse;
+package com.mgg;
+
+import unl.cse.Address;
 
 public class Person {
-	
 	private Character type;
 	private String lastName;
 	private String firstName;

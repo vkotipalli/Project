@@ -1,4 +1,4 @@
-package unl.cse;
+package com.mgg;
 
 public class Service {
 	private String code;
@@ -36,6 +36,4 @@ public class Service {
 	public void setHourlyRate(Double hourlyRate) {
 		this.hourlyRate = hourlyRate;
 	}
-	
-	
 }

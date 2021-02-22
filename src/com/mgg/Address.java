@@ -1,4 +1,4 @@
-package unl.cse;
+package com.mgg;
 
 public class Address {
 	
@@ -57,8 +57,5 @@ public class Address {
 		Country = country;
 	}
 	
-	
-	
+
 }
-
-
