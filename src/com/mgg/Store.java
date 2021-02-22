@@ -1,13 +1,11 @@
 package com.mgg;
 
-import unl.cse.Address;
-
 public class Store {
 	private String storeCode;
-	private String managerCode;
+	private Person managerCode;
 	private Address storeAddress;
 	
-	public Store(String storeCode, String managerCode, Address storeAddress) {
+	public Store(String storeCode, Person managerCode, Address storeAddress) {
 		super();
 		this.storeCode = storeCode;
 		this.managerCode = managerCode;
@@ -22,11 +20,11 @@ public class Store {
 		this.storeCode = storeCode;
 	}
 
-	public String getManagerCode() {
+	public Person getManagerCode() {
 		return managerCode;
 	}
 
-	public void setManagerCode(String managerCode) {
+	public void setManagerCode(Person managerCode) {
 		this.managerCode = managerCode;
 	}
 

@@ -6,7 +6,7 @@ public class Address {
 	private String city;
 	private String state;
 	private String zip;
-	private String Country;
+	private String country;
 	
 	public Address(String street, String city, String state, String zip, String country) {
 		super();
@@ -14,7 +14,7 @@ public class Address {
 		this.city = city;
 		this.state = state;
 		this.zip = zip;
-		this.Country = country;
+		this.country = country;
 	}
 
 	public String getStreet() {
@@ -50,11 +50,11 @@ public class Address {
 	}
 
 	public String getCountry() {
-		return Country;
+		return country;
 	}
 
 	public void setCountry(String country) {
-		Country = country;
+		this.country = country;
 	}
 	
 

@@ -1,28 +1,34 @@
 package com.mgg;
 
-import unl.cse.Address;
-
 public class Person {
-	private Character type;
+	private String personCode;
+	private String type;
 	private String lastName;
 	private String firstName;
 	private Address currentAddress;
 	private String email;
 	
-	public Person(Character type, String lastName, String firstName, Address currentAddress, String email) {
+	public Person(String personCode, String type, String lastName, String firstName, Address currentAddress, String email) {
 //		super();
+		this.personCode = personCode;
 		this.type = type;
 		this.lastName = lastName;
 		this.firstName = firstName;
 		this.currentAddress = currentAddress;
 		this.email = email;
 	}
+	public String getPersonCode() {
+		return personCode;
+	}
 
-	public Character getType() {
+	public void setPersonCode(String personCode) {
+		this.personCode = personCode;
+	}
+	public String getType() {
 		return type;
 	}
 
-	public void setType(Character type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 
@@ -56,6 +62,12 @@ public class Person {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	@Override
+	public String toString() {
+		return personCode+ "," + type + "," + lastName + "," + firstName + ","
+				+ currentAddress + "," + email;
 	}
 	
 	
