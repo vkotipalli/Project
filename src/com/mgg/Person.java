@@ -1,14 +1,16 @@
 package com.mgg;
 
+import java.util.List;
+
 public class Person {
 	private String personCode;
 	private String type;
 	private String lastName;
 	private String firstName;
 	private Address currentAddress;
-	private String email;
+	private List<String> email;
 	
-	public Person(String personCode, String type, String lastName, String firstName, Address currentAddress, String email) {
+	public Person(String personCode, String type, String lastName, String firstName, Address currentAddress, List<String> email) {
 //		super();
 		this.personCode = personCode;
 		this.type = type;
@@ -56,11 +58,11 @@ public class Person {
 		this.currentAddress = currentAddress;
 	}
 
-	public String getEmail() {
+	public List<String> getEmail() {
 		return email;
 	}
 
-	public void setEmail(String email) {
+	public void setEmail(List<String> email) {
 		this.email = email;
 	}
 
