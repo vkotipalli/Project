@@ -29,7 +29,6 @@ public class DataConverter {
 			System.out.println(numOfItems);
 			
 			while (scan.hasNextLine()) {
-				Item i = null;
 				String line = scan.nextLine();
 				String token[] = line.split(",");
 				String code = token[0];
@@ -76,6 +75,21 @@ public class DataConverter {
 		scan.close();
 		return itemsList;
 	}
+	
+	public static void itemsFileToJson(List<Item> itemsList, String filePath){
+		File outputFileItems = new File("data/Items.json");
+		PrintWriter itemOutput = null;
+		try { 
+			itemOutput = new PrintWriter(outputFileItems);
+			GsonBuilder builder = new GsonBuilder();
+			builder.setPrettyPrinting();
+			Gson gson = builder.create();
+			itemOutput.print(gson.toJson(itemsList));
+			itemOutput.close();
+			} catch (FileNotFoundException e ) {
+				e.printStackTrace();
+			}
+	}
 	public static List<Store> loadStoreFile() {
 		File storesInput = new File("data/Stores.csv");
 		List<Store> storesList = new ArrayList<>();
@@ -112,6 +126,23 @@ public class DataConverter {
 		
 		return storesList;
 	}
+	
+	public static void storeFileToJson(List<Store> storesList, String filePath){
+		File outputFileStores = new File("data/Stores.json");
+		PrintWriter storeOutput = null;
+		try { 
+			storeOutput = new PrintWriter(outputFileStores);
+			GsonBuilder builder = new GsonBuilder();
+			builder.setPrettyPrinting();
+			Gson gson = builder.create();
+			storeOutput.print(gson.toJson(storesList));
+			storeOutput.close();
+			} catch (FileNotFoundException e ) {
+				e.printStackTrace();
+			}
+	}
+	
+	
 	
 	public static List<Person> loadPersonFile(){
 		File f = new File("data/Persons.csv");
@@ -166,40 +197,13 @@ public class DataConverter {
 		}
 		s.close();
 		
-//		try {
-//		personOutput = new PrintWriter(outputPersonFile);
-//		GsonBuilder builder = new GsonBuilder();
-//		builder.setPrettyPrinting();
-//		Gson gson = builder.create();
-//		System.out.println(gson.toJson(personsList));
-//		personOutput.print("Hello");
-//		personOutput.print(gson.toJson(personsList));
-//		
-////		xmlList.add(xml);
-////		personOutput.print(xml);
-////		System.out.println(xml);
-//		} catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//		}
-//		
-//		//System.out.println(xml);
-//		
+	
 		return personsList;
 	}
-
-	public static void main(String[] args) {
-		
-		List<Person> personsList = loadPersonFile();
-
-		System.out.println("");
-
-		List<Store> storesList = loadStoreFile();
-		
-		System.out.println("");
-		
-		List<Item> itemsList = loadItemFile();
-		
-		File outputFile = new File("data/Persons.json");
+	
+	
+	public static void personFileToJson(List<Person> personsList, String filePath){
+		File outputFile = new File(filePath);
 		PrintWriter personOutput = null;
 		try { 
 		personOutput = new PrintWriter(outputFile);
@@ -212,6 +216,25 @@ public class DataConverter {
 		} catch (FileNotFoundException e ) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static void main(String[] args) {
+		
+		List<Person> personsList = loadPersonFile();
+		
+		personFileToJson( personsList, "data/Persons.json");
+		System.out.println("");
+
+		List<Store> storesList = loadStoreFile();
+		
+		storeFileToJson(storesList, "data/Stores.json");
+		
+		System.out.println("");
+		
+		List<Item> itemsList = loadItemFile();
+		
+		itemsFileToJson(itemsList, "data/Items.json");
+		
 		
 //		XStream xstream = new XStream();
 ////		xstream.alias("person", Person.class);

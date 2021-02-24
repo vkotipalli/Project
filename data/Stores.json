@@ -1,114 +1,112 @@
-{
-   "Stores": {
-      "Store1": {
-         "StoreCode": "HJWPT13Z3V",
-         "ManagerCode": "LTV9CIAW5D",
-         "Address": {
-            "Street": "973 Spring Avenue",
-            "City": "Phila",
-            "State": "PA",
-            "Zip": "19103",
-            "Country": "US"
-         }
-      },
-      "Store2": {
-         "StoreCode": "BSNGQH84ZW",
-         "ManagerCode": "ME15GH9ZMT",
-         "Address": {
-            "Street": "2434 Mount Tabor",
-            "City": "Winchester",
-            "State": "TN",
-            "Zip": "37398",
-            "Country": "US"
-         }
-      },
-      "Store3": {
-         "StoreCode": "Y33N4W1E8G",
-         "ManagerCode": "MA9XIJJKUJ",
-         "Address": {
-            "Street": "1956 Ashford Drive",
-            "City": "Alexandria",
-            "State": "VA",
-            "Zip": "22304",
-            "Country": "US"
-         }
-      },
-      "Store4": {
-         "StoreCode": "YYW8GS50PL",
-         "ManagerCode": "FI9D90U74Q",
-         "Address": {
-            "Street": "2189 Rowes Lane",
-            "City": "Paducah",
-            "State": "KY",
-            "Zip": "42001",
-            "Country": "US"
-         }
-      },
-      "Store5": {
-         "StoreCode": "BXOLMSCUQV",
-         "ManagerCode": "6GREEGBN4B",
-         "Address": {
-            "Street": "4288 Parrish Avenue",
-            "City": "San Antonio",
-            "State": "TX",
-            "Zip": "78217",
-            "Country": "US"
-         }
-      },
-      "Store6": {
-         "StoreCode": "9KOICUR4S1",
-         "ManagerCode": "KRKK1KU2HS",
-         "Address": {
-            "Street": "406 Essex Court",
-            "City": "South Burlington",
-            "State": "VT",
-            "Zip": "50403",
-            "Country": "US"
-         }
-      },
-      "Store7": {
-         "StoreCode": "H04SOSFZ5J",
-         "ManagerCode": "VFSI3F7QES",
-         "Address": {
-            "Street": "893 Front Street",
-            "City": "Southfield",
-            "State": "MI",
-            "Zip": "48075",
-            "Country": "US"
-         }
-      },
-      "Store8": {
-         "StoreCode": "F9ZAUR57XO",
-         "ManagerCode": "R8SI4XNK96",
-         "Address": {
-            "Street": "2148 Middleville Road",
-            "City": "Pasadena",
-            "State": "CA",
-            "Zip": "91109",
-            "Country": "US"
-         }
-      },
-      "Store9": {
-         "StoreCode": "ZG1F5MHIOG",
-         "ManagerCode": "RARDF2PKEP",
-         "Address": {
-            "Street": "4294 Old House Drive",
-            "City": "Summerfield",
-            "State": "OH",
-            "Zip": "43788",
-            "Country": "US"
-         }
-      },
-      "Store10": {
-         "StoreCode": "100HYR52FL",
-         "ManagerCode": "ECZZIQC09F",
-         "Address": {
-            "Street": "4021 Gnatty Creek Road",
-            "City": "Westbury",
-            "State": "NY",
-            "Zip": "11590",
-            "Country": "US"
-         }
-      }
-   }
-}
+[
+  {
+    "storeCode": "HJWPT13Z3V",
+    "managerCode": "LTV9CIAW5D",
+    "storeAddress": {
+      "street": "973 Spring Avenue",
+      "city": "Phila",
+      "state": "PA",
+      "zip": "19103",
+      "country": "US"
+    }
+  },
+  {
+    "storeCode": "BSNGQH84ZW",
+    "managerCode": "ME15GH9ZMT",
+    "storeAddress": {
+      "street": "2434 Mount Tabor",
+      "city": "Winchester",
+      "state": "TN",
+      "zip": "37398",
+      "country": "US"
+    }
+  },
+  {
+    "storeCode": "Y33N4W1E8G",
+    "managerCode": "MA9XIJJKUJ",
+    "storeAddress": {
+      "street": "1956 Ashford Drive",
+      "city": "Alexandria",
+      "state": "VA",
+      "zip": "22304",
+      "country": "US"
+    }
+  },
+  {
+    "storeCode": "YYW8GS50PL",
+    "managerCode": "FI9D90U74Q",
+    "storeAddress": {
+      "street": "2189 Rowes Lane",
+      "city": "Paducah",
+      "state": "KY",
+      "zip": "42001",
+      "country": "US"
+    }
+  },
+  {
+    "storeCode": "BXOLMSCUQV",
+    "managerCode": "6GREEGBN4B",
+    "storeAddress": {
+      "street": "4288 Parrish Avenue",
+      "city": "San Antonio",
+      "state": "TX",
+      "zip": "78217",
+      "country": "US"
+    }
+  },
+  {
+    "storeCode": "9KOICUR4S1",
+    "managerCode": "KRKK1KU2HS",
+    "storeAddress": {
+      "street": "406 Essex Court",
+      "city": "South Burlington",
+      "state": "VT",
+      "zip": "50403",
+      "country": "US"
+    }
+  },
+  {
+    "storeCode": "H04SOSFZ5J",
+    "managerCode": "VFSI3F7QES",
+    "storeAddress": {
+      "street": "893 Front Street",
+      "city": "Southfield",
+      "state": "MI",
+      "zip": "48075",
+      "country": "US"
+    }
+  },
+  {
+    "storeCode": "F9ZAUR57XO",
+    "managerCode": "R8SI4XNK96",
+    "storeAddress": {
+      "street": "2148 Middleville Road",
+      "city": "Pasadena",
+      "state": "CA",
+      "zip": "91109",
+      "country": "US"
+    }
+  },
+  {
+    "storeCode": "ZG1F5MHIOG",
+    "managerCode": "RARDF2PKEP",
+    "storeAddress": {
+      "street": "4294 Old House Drive",
+      "city": "Summerfield",
+      "state": "OH",
+      "zip": "43788",
+      "country": "US"
+    }
+  },
+  {
+    "storeCode": "100HYR52FL",
+    "managerCode": "ECZZIQC09F",
+    "storeAddress": {
+      "street": "4021 Gnatty Creek Road",
+      "city": "Westbury",
+      "state": "NY",
+      "zip": "11590",
+      "country": "US"
+    }
+  }
+]
