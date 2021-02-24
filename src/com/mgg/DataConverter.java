@@ -2,15 +2,21 @@ package com.mgg;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-//import java.io.PrintWriter;
+import java.io.PrintWriter;
 import java.util.Scanner;
-
-import com.thoughtworks.xstream.XStream;
-
-//import com.thoughtworks.xstream.XStream;
-
 import java.util.List;
 import java.util.ArrayList;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.thoughtworks.xstream.XStream;
+
+
+
+
+
+
+//For XML use a printwriter to write the xml list to the output file.
 
 public class DataConverter {
 	public static List<Item> loadItemFile() {
@@ -109,7 +115,9 @@ public class DataConverter {
 	
 	public static List<Person> loadPersonFile(){
 		File f = new File("data/Persons.csv");
+		File outputPersonFile = new File("data/personsTestCase1.json");
 		Scanner s = null;
+		PrintWriter personOutput = null;
 		List<Person> personsList = new ArrayList<>();
 		List<String> emailList = new ArrayList<>();
 		List<String>xmlList = new ArrayList<>();
@@ -151,17 +159,31 @@ public class DataConverter {
 				System.out.println(p);
 				emailList.clear();
 				
-
-				XStream xstream = new XStream();
-				String xml = xstream.toXML(p);
-				xmlList.add(xml);
-				System.out.println(xml);
+				
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		s.close();
 		
+//		try {
+//		personOutput = new PrintWriter(outputPersonFile);
+//		GsonBuilder builder = new GsonBuilder();
+//		builder.setPrettyPrinting();
+//		Gson gson = builder.create();
+//		System.out.println(gson.toJson(personsList));
+//		personOutput.print("Hello");
+//		personOutput.print(gson.toJson(personsList));
+//		
+////		xmlList.add(xml);
+////		personOutput.print(xml);
+////		System.out.println(xml);
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		//System.out.println(xml);
+//		
 		return personsList;
 	}
 
@@ -176,5 +198,27 @@ public class DataConverter {
 		System.out.println("");
 		
 		List<Item> itemsList = loadItemFile();
+		
+		File outputFile = new File("data/Persons.json");
+		PrintWriter personOutput = null;
+		try { 
+		personOutput = new PrintWriter(outputFile);
+		GsonBuilder builder = new GsonBuilder();
+		builder.setPrettyPrinting();
+		Gson gson = builder.create();
+		System.out.println(gson.toJson(personsList));
+		personOutput.print(gson.toJson(personsList));
+		personOutput.close();
+		} catch (FileNotFoundException e ) {
+			e.printStackTrace();
+		}
+		
+//		XStream xstream = new XStream();
+////		xstream.alias("person", Person.class);
+////		xstream.alias("address", Address.class);
+////		String xml = xstream.toXML(personsList);
+//		
+		//System.out.println(xml);
+		
 	}
 }
