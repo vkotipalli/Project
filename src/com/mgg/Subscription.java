@@ -5,9 +5,9 @@ public class Subscription {
 	private String code;
 	private String subscription;
 	private String name;
-	private String annualFee;
+	private double annualFee;
 	
-	public Subscription(String code, String subscription, String name, String annualFee) {
+	public Subscription(String code, String subscription, String name, double annualFee) {
 		super();
 		this.code = code;
 		this.subscription = subscription;
@@ -39,12 +39,16 @@ public class Subscription {
 		this.name = name;
 	}
 
-	public String getAnnualFee() {
+	public double getAnnualFee() {
 		return annualFee;
 	}
 
-	public void setAnnualFee(String annualFee) {
+	public void setAnnualFee(double annualFee) {
 		this.annualFee = annualFee;
+	}
+
+	public String toString() {
+		return code + "," + subscription + "," + name + "," + annualFee ;
 	}
 
 }

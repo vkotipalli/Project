@@ -30,10 +30,15 @@ public class Service {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Double getHourlyRate() {
+	public double getHourlyRate() {
 		return hourlyRate;
 	}
-	public void setHourlyRate(Double hourlyRate) {
+	public void setHourlyRate(double hourlyRate) {
 		this.hourlyRate = hourlyRate;
 	}
+	@Override
+	public String toString() {
+		return code + "," + service + "," + name + "," + hourlyRate;
+	}
+	
 }

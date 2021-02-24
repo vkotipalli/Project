@@ -45,6 +45,11 @@ public class Product {
 	public void setBasePrice(double basePrice) {
 		this.basePrice = basePrice;
 	}
+
+	@Override
+	public String toString() {
+		return code + "," + type + "" + name + "," + basePrice;
+	}
 	
 	
 }
