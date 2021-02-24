@@ -146,18 +146,19 @@ public class DataConverter {
 	
 	public static List<Person> loadPersonFile(){
 		File f = new File("data/Persons.csv");
-		File outputPersonFile = new File("data/personsTestCase1.json");
+		//File outputPersonFile = new File("data/personsTestCase1.json");
 		Scanner s = null;
-		PrintWriter personOutput = null;
+		//PrintWriter personOutput = null;
 		List<Person> personsList = new ArrayList<>();
-		List<String> emailList = new ArrayList<>();
-		List<String>xmlList = new ArrayList<>();
+
+		//List<String>xmlList = new ArrayList<>();
 
 		try {
 			s = new Scanner(f);
 			int numOfPersons = Integer.parseInt(s.nextLine());
 			System.out.println(numOfPersons);
 			while (s.hasNextLine()) {
+				List<String> emailList = new ArrayList<>();
 				String line = s.nextLine();
 				String token[] = line.split(",");
 				String personCode = token[0];
@@ -188,16 +189,13 @@ public class DataConverter {
 				personsList.add(p);
 				address.toString();
 				System.out.println(p);
-				emailList.clear();
-				
-				
+
+
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		s.close();
-		
-	
 		return personsList;
 	}
 	
