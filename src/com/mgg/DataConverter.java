@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 //import java.io.PrintWriter;
 import java.util.Scanner;
 
+import com.thoughtworks.xstream.XStream;
+
 //import com.thoughtworks.xstream.XStream;
 
 import java.util.List;
@@ -110,6 +112,7 @@ public class DataConverter {
 		Scanner s = null;
 		List<Person> personsList = new ArrayList<>();
 		List<String> emailList = new ArrayList<>();
+		List<String>xmlList = new ArrayList<>();
 
 		try {
 			s = new Scanner(f);
@@ -147,6 +150,12 @@ public class DataConverter {
 				address.toString();
 				System.out.println(p);
 				emailList.clear();
+				
+
+				XStream xstream = new XStream();
+				String xml = xstream.toXML(p);
+				xmlList.add(xml);
+				System.out.println(xml);
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
