@@ -11,7 +11,63 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class DataConverter {
-	
+	public static List<Item> loadItemFile() {
+		List<Item> itemsList =new ArrayList<>();
+		File file = new File("data/Items.csv");
+		Scanner scan = null;
+		try {
+			scan = new Scanner(file);
+			int numOfItems = Integer.parseInt(scan.nextLine());
+			System.out.println(numOfItems);
+			
+			while (scan.hasNextLine()) {
+				Item i = null;
+				String line = scan.nextLine();
+				String token[] = line.split(",");
+				String code = token[0];
+				String type = token[1];
+				String name = token[2];
+				if(type.equals("PN")||type.equals("PU")||type.equals("PG")) {
+					double basePrice;
+					if(token.length == 3) {
+						basePrice = 0.00;
+					}else {
+						basePrice = Double.parseDouble(token[3]);
+					}
+					Product pr = new Product(code,type,name,basePrice);
+					pr.setCode(code);
+					pr.setType(type);
+					pr.setName(name);
+					pr.setBasePrice(basePrice);
+					System.out.println(pr);
+					itemsList.add(pr);
+				}else if(type.equals("SV")) {
+					double hourlyRate = Double.parseDouble(token[3]);
+					Service sv = new Service(code,type,name,hourlyRate);
+					sv.setCode(code);
+					sv.setType(type);
+					sv.setName(name);
+					sv.setHourlyRate(hourlyRate);
+					System.out.println(sv);
+					itemsList.add(sv);
+				}else if(type.equals("SB")) {
+					double annualFee = Double.parseDouble(token[3]);
+					Subscription sb = new Subscription(code,type,name,annualFee);
+					itemsList.add(sb);
+					sb.setCode(code);
+					sb.setType(type);
+					sb.setName(name);
+					sb.setAnnualFee(annualFee);
+					System.out.println(sb);	
+				}
+			}
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}	
+		scan.close();
+		return itemsList;
+	}
 	public static List<Store> loadStoreFile() {
 		File storesInput = new File("data/Stores.csv");
 		List<Store> storesList = new ArrayList<>();
@@ -105,10 +161,11 @@ public class DataConverter {
 		List<Person> personsList = loadPersonFile();
 
 		System.out.println("");
-		
 
 		List<Store> storesList = loadStoreFile();
 		
-
+		System.out.println("");
+		
+		List<Item> itemsList = loadItemFile();
 	}
 }
