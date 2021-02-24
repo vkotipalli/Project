@@ -1,35 +1,38 @@
 package com.mgg;
 
-public class Item {
-	private Product product;
-	private Service service;
-	private Subscription subscription;
-	
-	public Item(Product product, Service service, Subscription subscription) {
-		super();
-		this.product = product;
-		this.service = service;
-		this.subscription = subscription;
+public abstract class Item {
+	private String code;
+	private String name;
+	private String type;
+
+	public Item(String code, String name, String type) {
+		this.code = code;
+		this.name = name;
+		this.type = type;
 	}
-	
-	public Product getProduct() {
-		return this.product;
+
+	public String getCode() {
+		return code;
 	}
-	public void setProduct(Product product) {
-		this.product = product;
+
+	public void setCode(String code) {
+		this.code = code;
 	}
-	public Service getService() {
-		return this.service;
+
+	public String getName() {
+		return name;
 	}
-	public void setService(Service service) {
-		this.service = service;
+
+	public void setName(String name) {
+		this.name = name;
 	}
-	public Subscription getSubscription() {
-		return this.subscription;
+
+	public String getType() {
+		return type;
 	}
-	public void setSubscription(Subscription subscription) {
-		this.subscription = subscription;
+
+	public void setType(String type) {
+		this.type = type;
 	}
-	
-	
+
 }
