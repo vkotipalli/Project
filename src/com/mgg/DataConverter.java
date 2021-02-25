@@ -6,87 +6,109 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-//import com.thoughtworks.xstream.XStream;
 
+/**
+ * @author Kotipalli, Vasavi
+ * @author Maloney, Madison 
+ * Date: 2/25/21
+ * 
+ *         Purpose of Program: This a data conversion program that takes in a
+ *         csv file for each respective class (Person, Store, Item). Then we
+ *         used the loadFile methods to get the information by reading it and
+ *         tokenizing it. We then used our FileToJson method to output the
+ *         information of each respective class into a json file.
+ */
 public class DataConverter {
-	
-//Items
+	/**
+	 * Takes in the information from the "Items.csv" file, reads the file line by
+	 * line, and tokenizes it
+	 * 
+	 * @return
+	 */
 	public static List<Item> loadItemFile() {
-		List<Item> itemsList =new ArrayList<>();
+		List<Item> itemsList = new ArrayList<>();
 		File file = new File("data/Items.csv");
 		Scanner scan = null;
 		try {
 			scan = new Scanner(file);
+			// variable stores number of items , could use for future assignments
 			int numOfItems = Integer.parseInt(scan.nextLine());
-			System.out.println(numOfItems);
-			
 			while (scan.hasNextLine()) {
 				String line = scan.nextLine();
 				String token[] = line.split(",");
 				String code = token[0];
 				String type = token[1];
 				String name = token[2];
-				if(type.equals("PN")||type.equals("PU")||type.equals("PG")) {
+				if (type.equals("PN") || type.equals("PU") || type.equals("PG")) {
 					double basePrice;
-					if(token.length == 3) {
+					if (token.length == 3) {
 						basePrice = 0.00;
-					}else {
+					} else {
 						basePrice = Double.parseDouble(token[3]);
 					}
-					Product pr = new Product(code,type,name,basePrice);
+					Product pr = new Product(code, type, name, basePrice);
 					pr.setCode(code);
 					pr.setType(type);
 					pr.setName(name);
 					pr.setBasePrice(basePrice);
-					System.out.println(pr);
 					itemsList.add(pr);
-				}else if(type.equals("SV")) {
+				} else if (type.equals("SV")) {
 					double hourlyRate = Double.parseDouble(token[3]);
-					Service sv = new Service(code,type,name,hourlyRate);
+					Service sv = new Service(code, type, name, hourlyRate);
 					sv.setCode(code);
 					sv.setType(type);
 					sv.setName(name);
 					sv.setHourlyRate(hourlyRate);
-					System.out.println(sv);
 					itemsList.add(sv);
-				}else if(type.equals("SB")) {
+				} else if (type.equals("SB")) {
 					double annualFee = Double.parseDouble(token[3]);
-					Subscription sb = new Subscription(code,type,name,annualFee);
+					Subscription sb = new Subscription(code, type, name, annualFee);
 					itemsList.add(sb);
 					sb.setCode(code);
 					sb.setType(type);
 					sb.setName(name);
 					sb.setAnnualFee(annualFee);
-					System.out.println(sb);	
 				}
 			}
-			
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-		}	
+		}
 		scan.close();
 		return itemsList;
 	}
-	public static void itemsFileToJson(List<Item> itemsList, String filePath){
+
+	/**
+	 * Takes in the list from loadItemFile() and the file path to where the json is
+	 * going to output to. After the conversion is done, the information will
+	 * printed on to the Items.json file.
+	 * 
+	 * @param itemsList
+	 * @param filePath
+	 */
+	public static void itemsFileToJson(List<Item> itemsList, String filePath) {
 		File outputFileItems = new File("data/Items.json");
 		PrintWriter itemOutput = null;
-		try { 
+		try {
 			itemOutput = new PrintWriter(outputFileItems);
 			GsonBuilder builder = new GsonBuilder();
 			builder.setPrettyPrinting();
 			Gson gson = builder.create();
-//		itemOutput.print("hello");
 			itemOutput.print(gson.toJson(itemsList));
 			itemOutput.close();
-			} catch (FileNotFoundException e ) {
-				e.printStackTrace();
-			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
-	
-//Stores
+
+	/**
+	 * Takes in the information from the "Stores.csv" file, reads the file line by
+	 * line, and tokenizes it
+	 * 
+	 * @return
+	 */
 	public static List<Store> loadStoreFile() {
 		File storesInput = new File("data/Stores.csv");
 		List<Store> storesList = new ArrayList<>();
@@ -94,8 +116,7 @@ public class DataConverter {
 		try {
 			s = new Scanner(storesInput);
 			int numOfStores = Integer.parseInt(s.nextLine());
-			System.out.println(numOfStores);
-			while(s.hasNextLine()) {
+			while (s.hasNextLine()) {
 				String line = s.nextLine();
 				String token[] = line.split(",");
 				String storeCode = token[0];
@@ -105,50 +126,59 @@ public class DataConverter {
 				String state = token[4];
 				String zip = token[5];
 				String country = token[6];
-				
-				Address storeAddress = new Address(street,city,state,zip,country);
-				Store gameStore = new Store(storeCode,managerCode,storeAddress);
-				
+
+				Address storeAddress = new Address(street, city, state, zip, country);
+				Store gameStore = new Store(storeCode, managerCode, storeAddress);
+
 				gameStore.setStoreCode(storeCode);
 				gameStore.setManagerCode(managerCode);
 				gameStore.setStoreAddress(storeAddress);
 				storesList.add(gameStore);
 				gameStore.toString();
-				System.out.println(gameStore);
-				}
+			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-		}	
+		}
 		return storesList;
 	}
-	public static void storeFileToJson(List<Store> storesList, String filePath){
+
+	/**
+	 * Takes in the list from storeFileToJson() and the file path to where the json
+	 * is going to output to. After the conversion is done, the information will
+	 * printed on to the Stores.json file.
+	 * 
+	 * @param itemsList
+	 * @param filePath
+	 */
+	public static void storeFileToJson(List<Store> storesList, String filePath) {
 		File outputFileStores = new File("data/Stores.json");
 		PrintWriter storeOutput = null;
-		try { 
+		try {
 			storeOutput = new PrintWriter(outputFileStores);
 			GsonBuilder builder = new GsonBuilder();
 			builder.setPrettyPrinting();
 			Gson gson = builder.create();
 			storeOutput.print(gson.toJson(storesList));
 			storeOutput.close();
-			} catch (FileNotFoundException e ) {
-				e.printStackTrace();
-			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
-	
-//Persons	
-	public static List<Person> loadPersonFile(){
+
+	/**
+	 * Takes in the information from the "Persons.csv" file, reads the file line by
+	 * line, and tokenizes it
+	 * 
+	 * @return
+	 */
+	public static List<Person> loadPersonFile() {
 		File f = new File("data/Persons.csv");
-		//File outputPersonFile = new File("data/personsTestCase1.json");
 		Scanner s = null;
-		//PrintWriter personOutput = null;
 		List<Person> personsList = new ArrayList<>();
 
-		//List<String>xmlList = new ArrayList<>();
 		try {
 			s = new Scanner(f);
 			int numOfPersons = Integer.parseInt(s.nextLine());
-			System.out.println(numOfPersons);
 			while (s.hasNextLine()) {
 				List<String> emailList = new ArrayList<>();
 				String line = s.nextLine();
@@ -179,7 +209,6 @@ public class DataConverter {
 				p.setEmail(emailList);
 				personsList.add(p);
 				address.toString();
-				System.out.println(p);
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -187,44 +216,43 @@ public class DataConverter {
 		s.close();
 		return personsList;
 	}
-	public static void personFileToJson(List<Person> personsList, String filePath){
+
+	/**
+	 * Takes in the list from loadPersonFile() and the file path to where the json
+	 * is going to output to. After the conversion is done, the information will
+	 * printed on to the Person.json file.
+	 * 
+	 * @param itemsList
+	 * @param filePath
+	 */
+	public static void personFileToJson(List<Person> personsList, String filePath) {
 		File outputFile = new File(filePath);
 		PrintWriter personOutput = null;
-		try { 
-		personOutput = new PrintWriter(outputFile);
-		GsonBuilder builder = new GsonBuilder();
-		builder.setPrettyPrinting();
-		Gson gson = builder.create();
-//		System.out.println(gson.toJson(personsList));
-		personOutput.print(gson.toJson(personsList));
-		personOutput.close();
-		} catch (FileNotFoundException e ) {
+		try {
+			personOutput = new PrintWriter(outputFile);
+			GsonBuilder builder = new GsonBuilder();
+			builder.setPrettyPrinting();
+			Gson gson = builder.create();
+			personOutput.print(gson.toJson(personsList));
+			personOutput.close();
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void main(String[] args) {
-		
+
 		List<Person> personsList = loadPersonFile();
 		personFileToJson(personsList, "data/Persons.json");
-		
+
 		System.out.println("");
 
 		List<Store> storesList = loadStoreFile();
 		storeFileToJson(storesList, "data/Stores.json");
-		
+
 		System.out.println("");
-		
+
 		List<Item> itemsList = loadItemFile();
 		itemsFileToJson(itemsList, "data/Items.json");
-		
-		
-//		XStream xstream = new XStream();
-////		xstream.alias("person", Person.class);
-////		xstream.alias("address", Address.class);
-////		String xml = xstream.toXML(personsList);
-//		
-		//System.out.println(xml);
-		
 	}
 }

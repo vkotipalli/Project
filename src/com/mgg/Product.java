@@ -1,5 +1,12 @@
 package com.mgg;
 
+/**
+ * @author Kotipalli, Vasavi
+ * @author Maloney, Madison 
+ * Date: 2/25/21
+ * 
+ * A Product class that extends to the Item class and represents the Products
+ */
 public class Product extends Item {
 
 	private double basePrice;

@@ -1,5 +1,12 @@
 package com.mgg;
 
+/**
+ * @author Kotipalli, Vasavi
+ * @author Maloney, Madison 
+ * Date: 2/25/21
+ * 
+ * A Subscription class that extends to the Item class and represents the Subscriptions
+ */
 public class Subscription extends Item {
 
 	private double annualFee;
@@ -17,7 +24,6 @@ public class Subscription extends Item {
 		this.annualFee = annualFee;
 	}
 
-	@Override
 	public String toString() {
 		return getCode() + "," + getType() + "," + getName() + "," + annualFee;
 	}

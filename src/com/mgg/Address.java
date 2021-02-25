@@ -1,15 +1,20 @@
 package com.mgg;
 
+/**
+ * @author Kotipalli, Vasavi
+ * @author Maloney, Madison 
+ * Date: 2/25/21
+ * 
+ * A class that represents the Address object that is used in the Person class and the Store class
+ */
 public class Address {
-	
-
 
 	private String street;
 	private String city;
 	private String state;
 	private String zip;
 	private String country;
-	
+
 	public Address(String street, String city, String state, String zip, String country) {
 		super();
 		this.street = street;
@@ -58,11 +63,9 @@ public class Address {
 	public void setCountry(String country) {
 		this.country = country;
 	}
-	
-	@Override
+
 	public String toString() {
 		return street + " " + city + ", " + state + " " + zip + " " + country;
 	}
-	
 
 }

@@ -1,5 +1,12 @@
 package com.mgg;
 
+/**
+ * @author Kotipalli, Vasavi
+ * @author Maloney, Madison 
+ * Date: 2/25/21
+ * 
+ * An abstract class that represents the Item object that's specified for the project
+ */
 public abstract class Item {
 	private String code;
 	private String name;
