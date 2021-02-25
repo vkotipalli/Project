@@ -9,16 +9,11 @@ import java.util.ArrayList;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.thoughtworks.xstream.XStream;
-
-
-
-
-
-
-//For XML use a printwriter to write the xml list to the output file.
+//import com.thoughtworks.xstream.XStream;
 
 public class DataConverter {
+	
+//Items
 	public static List<Item> loadItemFile() {
 		List<Item> itemsList =new ArrayList<>();
 		File file = new File("data/Items.csv");
@@ -75,7 +70,6 @@ public class DataConverter {
 		scan.close();
 		return itemsList;
 	}
-	
 	public static void itemsFileToJson(List<Item> itemsList, String filePath){
 		File outputFileItems = new File("data/Items.json");
 		PrintWriter itemOutput = null;
@@ -84,12 +78,15 @@ public class DataConverter {
 			GsonBuilder builder = new GsonBuilder();
 			builder.setPrettyPrinting();
 			Gson gson = builder.create();
+//		itemOutput.print("hello");
 			itemOutput.print(gson.toJson(itemsList));
 			itemOutput.close();
 			} catch (FileNotFoundException e ) {
 				e.printStackTrace();
 			}
 	}
+	
+//Stores
 	public static List<Store> loadStoreFile() {
 		File storesInput = new File("data/Stores.csv");
 		List<Store> storesList = new ArrayList<>();
@@ -121,12 +118,9 @@ public class DataConverter {
 				}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-
-		}
-		
+		}	
 		return storesList;
 	}
-	
 	public static void storeFileToJson(List<Store> storesList, String filePath){
 		File outputFileStores = new File("data/Stores.json");
 		PrintWriter storeOutput = null;
@@ -142,8 +136,7 @@ public class DataConverter {
 			}
 	}
 	
-	
-	
+//Persons	
 	public static List<Person> loadPersonFile(){
 		File f = new File("data/Persons.csv");
 		//File outputPersonFile = new File("data/personsTestCase1.json");
@@ -152,7 +145,6 @@ public class DataConverter {
 		List<Person> personsList = new ArrayList<>();
 
 		//List<String>xmlList = new ArrayList<>();
-
 		try {
 			s = new Scanner(f);
 			int numOfPersons = Integer.parseInt(s.nextLine());
@@ -175,7 +167,6 @@ public class DataConverter {
 				while (i < token.length) {
 					emailList.add(token[i]);
 					i++;
-
 				}
 
 				Address address = new Address(street, city, state, zip, country);
@@ -189,8 +180,6 @@ public class DataConverter {
 				personsList.add(p);
 				address.toString();
 				System.out.println(p);
-
-
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -198,8 +187,6 @@ public class DataConverter {
 		s.close();
 		return personsList;
 	}
-	
-	
 	public static void personFileToJson(List<Person> personsList, String filePath){
 		File outputFile = new File(filePath);
 		PrintWriter personOutput = null;
@@ -208,7 +195,7 @@ public class DataConverter {
 		GsonBuilder builder = new GsonBuilder();
 		builder.setPrettyPrinting();
 		Gson gson = builder.create();
-		System.out.println(gson.toJson(personsList));
+//		System.out.println(gson.toJson(personsList));
 		personOutput.print(gson.toJson(personsList));
 		personOutput.close();
 		} catch (FileNotFoundException e ) {
@@ -219,18 +206,16 @@ public class DataConverter {
 	public static void main(String[] args) {
 		
 		List<Person> personsList = loadPersonFile();
+		personFileToJson(personsList, "data/Persons.json");
 		
-		personFileToJson( personsList, "data/Persons.json");
 		System.out.println("");
 
 		List<Store> storesList = loadStoreFile();
-		
 		storeFileToJson(storesList, "data/Stores.json");
 		
 		System.out.println("");
 		
 		List<Item> itemsList = loadItemFile();
-		
 		itemsFileToJson(itemsList, "data/Items.json");
 		
 		

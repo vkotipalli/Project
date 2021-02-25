@@ -18,7 +18,7 @@ public class Product extends Item {
 	}
 
 	public String toString() {
-		return getCode() + "," + getType() + "" + getName() + "," + basePrice;
+		return getCode() + "," + getType() + "," + getName() + "," + basePrice;
 	}
 
 }
