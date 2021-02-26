@@ -35,8 +35,8 @@ public class DataConverter {
 
 		try {
 			s = new Scanner(f);
+			// variable stores number of items , could use for future assignments
 			int numOfPersons = Integer.parseInt(s.nextLine());
-			System.out.println(numOfPersons);
 			while (s.hasNextLine()) {
 				List<String> emailList = new ArrayList<>();
 				String line = s.nextLine();
@@ -65,9 +65,7 @@ public class DataConverter {
 				p.setFirstName(firstName);
 				p.setCurrentAddress(address);
 				p.setEmail(emailList);
-				System.out.println(p);
 				personsList.add(p);
-				address.toString();
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -112,7 +110,6 @@ public class DataConverter {
 		try {
 			s = new Scanner(storesInput);
 			int numOfStores = Integer.parseInt(s.nextLine());
-			System.out.println(numOfStores);
 			while (s.hasNextLine()) {
 				String line = s.nextLine();
 				String token[] = line.split(",");
@@ -130,9 +127,7 @@ public class DataConverter {
 				gameStore.setStoreCode(storeCode);
 				gameStore.setManagerCode(managerCode);
 				gameStore.setStoreAddress(storeAddress);
-				System.out.println(gameStore);
 				storesList.add(gameStore);
-				gameStore.toString();
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -175,9 +170,7 @@ public class DataConverter {
 		Scanner scan = null;
 		try {
 			scan = new Scanner(file);
-			// variable stores number of items , could use for future assignments
 			int numOfItems = Integer.parseInt(scan.nextLine());
-			System.out.println(numOfItems);
 			while (scan.hasNextLine()) {
 				String line = scan.nextLine();
 				String token[] = line.split(",");
@@ -196,7 +189,6 @@ public class DataConverter {
 					pr.setType(type);
 					pr.setName(name);
 					pr.setBasePrice(basePrice);
-					System.out.println(pr);
 					itemsList.add(pr);
 				} else if (type.equals("SV")) {
 					double hourlyRate = Double.parseDouble(token[3]);
@@ -205,7 +197,6 @@ public class DataConverter {
 					sv.setType(type);
 					sv.setName(name);
 					sv.setHourlyRate(hourlyRate);
-					System.out.println(sv);
 					itemsList.add(sv);
 				} else if (type.equals("SB")) {
 					double annualFee = Double.parseDouble(token[3]);
@@ -214,7 +205,6 @@ public class DataConverter {
 					sb.setType(type);
 					sb.setName(name);
 					sb.setAnnualFee(annualFee);
-					System.out.println(sb);
 					itemsList.add(sb);
 				}
 			}
