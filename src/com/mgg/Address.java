@@ -65,7 +65,7 @@ public class Address {
 	}
 
 	public String toString() {
-		return street + " " + city + ", " + state + " " + zip + " " + country;
+		return street + "," + city + ", " + state + "," + zip + "," + country;
 	}
 
 }

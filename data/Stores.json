@@ -1,7 +1,7 @@
 [
   {
     "storeCode": "HJWPT13Z3V",
-    "managerCode": "LTV9CIAW5D",
+    "manager": "LTV9CIAW5D",
     "storeAddress": {
       "street": "973 Spring Avenue",
       "city": "Phila",
@@ -12,7 +12,7 @@
   },
   {
     "storeCode": "BSNGQH84ZW",
-    "managerCode": "ME15GH9ZMT",
+    "manager": "ME15GH9ZMT",
     "storeAddress": {
       "street": "2434 Mount Tabor",
       "city": "Winchester",
@@ -23,7 +23,7 @@
   },
   {
     "storeCode": "Y33N4W1E8G",
-    "managerCode": "MA9XIJJKUJ",
+    "manager": "MA9XIJJKUJ",
     "storeAddress": {
       "street": "1956 Ashford Drive",
       "city": "Alexandria",
@@ -34,7 +34,7 @@
   },
   {
     "storeCode": "YYW8GS50PL",
-    "managerCode": "FI9D90U74Q",
+    "manager": "FI9D90U74Q",
     "storeAddress": {
       "street": "2189 Rowes Lane",
       "city": "Paducah",
@@ -45,7 +45,7 @@
   },
   {
     "storeCode": "BXOLMSCUQV",
-    "managerCode": "6GREEGBN4B",
+    "manager": "6GREEGBN4B",
     "storeAddress": {
       "street": "4288 Parrish Avenue",
       "city": "San Antonio",
@@ -56,7 +56,7 @@
   },
   {
     "storeCode": "9KOICUR4S1",
-    "managerCode": "KRKK1KU2HS",
+    "manager": "KRKK1KU2HS",
     "storeAddress": {
       "street": "406 Essex Court",
       "city": "South Burlington",
@@ -67,7 +67,7 @@
   },
   {
     "storeCode": "H04SOSFZ5J",
-    "managerCode": "VFSI3F7QES",
+    "manager": "VFSI3F7QES",
     "storeAddress": {
       "street": "893 Front Street",
       "city": "Southfield",
@@ -78,7 +78,7 @@
   },
   {
     "storeCode": "F9ZAUR57XO",
-    "managerCode": "R8SI4XNK96",
+    "manager": "R8SI4XNK96",
     "storeAddress": {
       "street": "2148 Middleville Road",
       "city": "Pasadena",
@@ -89,7 +89,7 @@
   },
   {
     "storeCode": "ZG1F5MHIOG",
-    "managerCode": "RARDF2PKEP",
+    "manager": "RARDF2PKEP",
     "storeAddress": {
       "street": "4294 Old House Drive",
       "city": "Summerfield",
@@ -100,7 +100,7 @@
   },
   {
     "storeCode": "100HYR52FL",
-    "managerCode": "ECZZIQC09F",
+    "manager": "ECZZIQC09F",
     "storeAddress": {
       "street": "4021 Gnatty Creek Road",
       "city": "Westbury",

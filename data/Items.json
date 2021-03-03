@@ -1,6 +1,6 @@
 [
   {
-    "basePrice": 44.792,
+    "basePrice": 55.99,
     "code": "fc63ef",
     "name": "Cyberpunk 2077",
     "type": "PU"
@@ -18,7 +18,7 @@
     "type": "PN"
   },
   {
-    "basePrice": 439.992,
+    "basePrice": 549.99,
     "code": "1719c4",
     "name": "Nintendo Switch (Animal Crossing Edition)",
     "type": "PU"
@@ -36,7 +36,7 @@
     "type": "PG"
   },
   {
-    "basePrice": 8.792,
+    "basePrice": 10.99,
     "code": "76c395",
     "name": "Stardew Valley",
     "type": "PU"
