@@ -64,7 +64,7 @@ public abstract class Item {
 		Scanner scan = null;
 		try {
 			scan = new Scanner(file);
-//			int numOfItems = Integer.parseInt(scan.nextLine());
+		int numOfItems = Integer.parseInt(scan.nextLine());
 			while (scan.hasNextLine()) {
 				String line = scan.nextLine();
 				String token[] = line.split(",");

@@ -102,7 +102,7 @@ public class Person {
 		try {
 			s = new Scanner(f);
 			// variable stores number of items , could use for future assignments
-//			int numOfPersons = Integer.parseInt(s.nextLine());
+			int numOfPersons = Integer.parseInt(s.nextLine());
 			while (s.hasNextLine()) {
 				List<String> emailList = new ArrayList<>();
 				String line = s.nextLine();

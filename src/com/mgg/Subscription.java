@@ -1,6 +1,6 @@
 package com.mgg;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * @author Kotipalli, Vasavi
@@ -12,8 +12,8 @@ import java.util.Date;
 public class Subscription extends Item {
 
 	private double annualFee;
-	private Date beginDate; 
-	private Date endDate; 
+	private LocalDate beginDate; 
+	private LocalDate endDate; 
 
 	public Subscription(String code, String type, String name, double annualFee) {
 		super(code, name, type);
@@ -27,16 +27,24 @@ public class Subscription extends Item {
 	public void setAnnualFee(double annualFee) {
 		this.annualFee = annualFee;
 	}
-	public Date getbeginDate() {
+	public LocalDate getbeginDate() {
 		return beginDate;
 	}
 	
-	public Date getEndDate() {
+	public LocalDate getEndDate() {
 		return endDate;
 	}
 
 	public String toString() {
 		return getCode() + "," + getType() + "," + getName() + "," + annualFee;
+	}
+	
+	public void addBeingDate(LocalDate beginDate) {
+		this.beginDate = beginDate;
+	}
+	
+	public void addEndDate(LocalDate endDate) {
+		this.endDate = endDate;
 	}
 
 }

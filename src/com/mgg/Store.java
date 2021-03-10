@@ -69,7 +69,7 @@ public class Store {
 		Scanner s = null;
 		try {
 			s = new Scanner(storesInput);
-//			int numOfStores = Integer.parseInt(s.nextLine());
+			int numOfStores = Integer.parseInt(s.nextLine());
 			while (s.hasNextLine()) {
 				String line = s.nextLine();
 				String token[] = line.split(",");
