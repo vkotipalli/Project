@@ -118,5 +118,15 @@ public class Store {
 			e.printStackTrace();
 		}
 	}
+	
+	//Gets a store and its attributes given a specific store code. Returns null if no store is found
+	public static Store getStore(String storeCode, List<Store> storeList) {
+		for(int i = 0; i<storeList.size(); i++) {
+			if(storeList.get(i).getStoreCode().equals(storeCode)) {
+				return storeList.get(i);
+			}
+		}
+		return null;
+	}
 
 }

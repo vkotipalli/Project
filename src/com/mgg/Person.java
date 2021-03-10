@@ -163,5 +163,15 @@ public class Person {
 			e.printStackTrace();
 		}
 	}
+	
+	//Function to get a Person based on a given person code. Returns null if person is not found.
+	public static Person getPerson(String personCode, List<Person> personList) {
+		for(int i = 0; i<personList.size(); i++) {
+			if(personList.get(i).getPersonCode().equals(personCode)) {
+				return personList.get(i);
+			}
+		}
+		return null;
+	}
 
 }

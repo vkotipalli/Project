@@ -131,5 +131,16 @@ public abstract class Item {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		
+	}
+	
+	//Gets a item and its attributes given a specific item code. Returns null if no list is found.
+	public static Item getItem(String itemCode, List<Item> itemList) {
+		for(int i = 0; i<itemList.size(); i++) {
+			if(itemList.get(i).getCode().equals(itemCode)) {
+				return itemList.get(i);
+			}
+		}
+		return null;
 	}
 }
