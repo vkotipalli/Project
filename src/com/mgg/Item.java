@@ -79,26 +79,26 @@ public abstract class Item {
 						basePrice = Double.parseDouble(token[3]);
 					}
 					Product pr = new Product(code, type, name, basePrice);
-//					pr.setCode(code);
-//					pr.setType(type);
-//					pr.setName(name);
-//					pr.setBasePrice(basePrice);
+					pr.setCode(code);
+					pr.setType(type);
+					pr.setName(name);
+					pr.setBasePrice(basePrice);
 					itemsList.add(pr);
 				} else if (type.equals("SV")) {
 					double hourlyRate = Double.parseDouble(token[3]);
 					Service sv = new Service(code, type, name, hourlyRate);
-//					sv.setCode(code);
-//					sv.setType(type);
-//					sv.setName(name);
-//					sv.setHourlyRate(hourlyRate);
+					sv.setCode(code);
+					sv.setType(type);
+					sv.setName(name);
+					sv.setHourlyRate(hourlyRate);
 					itemsList.add(sv);
 				} else if (type.equals("SB")) {
 					double annualFee = Double.parseDouble(token[3]);
 					Subscription sb = new Subscription(code, type, name, annualFee);
-//					sb.setCode(code);
-//					sb.setType(type);
-//					sb.setName(name);
-//					sb.setAnnualFee(annualFee);
+					sb.setCode(code);
+					sb.setType(type);
+					sb.setName(name);
+					sb.setAnnualFee(annualFee);
 					itemsList.add(sb);
 				}
 			}
@@ -131,5 +131,16 @@ public abstract class Item {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		
+	}
+	
+	//Gets a item and its attributes given a specific item code. Returns null if no list is found.
+	public static Item getItem(String itemCode, List<Item> itemList) {
+		for(int i = 0; i<itemList.size(); i++) {
+			if(itemList.get(i).getCode().equals(itemCode)) {
+				return itemList.get(i);
+			}
+		}
+		return null;
 	}
 }

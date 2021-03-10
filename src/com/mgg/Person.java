@@ -102,7 +102,7 @@ public class Person {
 		try {
 			s = new Scanner(f);
 			// variable stores number of items , could use for future assignments
-			int numOfPersons = Integer.parseInt(s.nextLine());
+//			int numOfPersons = Integer.parseInt(s.nextLine());
 			while (s.hasNextLine()) {
 				List<String> emailList = new ArrayList<>();
 				String line = s.nextLine();
@@ -126,12 +126,12 @@ public class Person {
 				Address address = new Address(street, city, state, zip, country);
 				Person p = new Person(personCode, type, lastName, firstName, address, emailList);
 //				System.out.println(p);
-//				p.setPersonCode(personCode);
-//				p.setType(type);
-//				p.setLastName(lastName);
-//				p.setFirstName(firstName);
-//				p.setCurrentAddress(address);
-//				p.setEmail(emailList);
+				p.setPersonCode(personCode);
+				p.setType(type);
+				p.setLastName(lastName);
+				p.setFirstName(firstName);
+				p.setCurrentAddress(address);
+				p.setEmail(emailList);
 				personsList.add(p);
 			}
 		} catch (FileNotFoundException e) {
@@ -162,6 +162,16 @@ public class Person {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	//Function to get a Person based on a given person code. Returns null if person is not found.
+	public static Person getPerson(String personCode, List<Person> personList) {
+		for(int i = 0; i<personList.size(); i++) {
+			if(personList.get(i).getPersonCode().equals(personCode)) {
+				return personList.get(i);
+			}
+		}
+		return null;
 	}
 
 }

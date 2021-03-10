@@ -85,9 +85,9 @@ public class Store {
 //				Person manager = new Person(managerCode,);
 				Store gameStore = new Store(storeCode, managerCode, storeAddress);
 //				System.out.println(gameStore);
-//				gameStore.setStoreCode(storeCode);
-//				gameStore.setManager(managerCode);
-//				gameStore.setStoreAddress(storeAddress);
+				gameStore.setStoreCode(storeCode);
+				gameStore.setManager(managerCode);
+				gameStore.setStoreAddress(storeAddress);
 				storesList.add(gameStore);
 			}
 		} catch (FileNotFoundException e) {
@@ -117,6 +117,16 @@ public class Store {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	//Gets a store and its attributes given a specific store code. Returns null if no store is found
+	public static Store getStore(String storeCode, List<Store> storeList) {
+		for(int i = 0; i<storeList.size(); i++) {
+			if(storeList.get(i).getStoreCode().equals(storeCode)) {
+				return storeList.get(i);
+			}
+		}
+		return null;
 	}
 
 }
