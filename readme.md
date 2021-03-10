@@ -1,4 +1,4 @@
-# Reinventing the Modern Greek Games
+# Reinventing the Modern Geek Games
 ## Computer Science II Project
 
 Authors: Kotipalli, Vasavi & Maloney, Madison    

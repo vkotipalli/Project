@@ -1,6 +1,7 @@
 package com.mgg;
 
 public class Sale {
+	private String code;
 	private Person customer;
 	private Store store;
 	private Item item;
