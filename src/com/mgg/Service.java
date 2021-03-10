@@ -9,6 +9,8 @@ package com.mgg;
  */
 public class Service extends Item {
 	private double hourlyRate;
+	private String employeeCode;
+	private int numberOfHours;
 
 	public Service(String code, String name, String type, double hourlyRate) {
 		super(code, name, type);
@@ -21,6 +23,13 @@ public class Service extends Item {
 
 	public void setHourlyRate(double hourlyRate) {
 		this.hourlyRate = hourlyRate;
+	}
+	
+	public String getEmployeeCode() {
+		return employeeCode;
+	}
+	public int getNumberOfHours() {
+		return numberOfHours;
 	}
 
 	public String toString() {

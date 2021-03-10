@@ -85,9 +85,9 @@ public class Store {
 //				Person manager = new Person(managerCode,);
 				Store gameStore = new Store(storeCode, managerCode, storeAddress);
 //				System.out.println(gameStore);
-				gameStore.setStoreCode(storeCode);
-				gameStore.setManager(managerCode);
-				gameStore.setStoreAddress(storeAddress);
+//				gameStore.setStoreCode(storeCode);
+//				gameStore.setManager(managerCode);
+//				gameStore.setStoreAddress(storeAddress);
 				storesList.add(gameStore);
 			}
 		} catch (FileNotFoundException e) {

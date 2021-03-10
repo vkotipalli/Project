@@ -19,10 +19,14 @@ public class DataConverter {
 
 		List<Person> personsList = Person.loadPersonFile();
 		Person.personFileToJson(personsList, "data/Persons.json");
-
+		
+		System.out.println("");
+		
 		List<Store> storesList = Store.loadStoreFile();
 		Store.storeFileToJson(storesList, "data/Stores.json");
-
+		
+		System.out.println("");
+		
 		List<Item> itemsList = Item.loadItemFile();
 		Item.itemsFileToJson(itemsList, "data/Items.json");
 	}
