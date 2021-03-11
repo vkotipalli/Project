@@ -39,12 +39,13 @@ public class Subscription extends Item {
 		return getCode() + "," + getType() + "," + getName() + "," + annualFee;
 	}
 	
-	public void addBeingDate(LocalDate beginDate) {
+	public void addBeginDate(LocalDate beginDate) {
 		this.beginDate = beginDate;
 	}
 	
 	public void addEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
+	
 
 }

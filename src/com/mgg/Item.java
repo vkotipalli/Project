@@ -153,26 +153,27 @@ public abstract class Item {
 		
 		for(int i=0; i<itemList.size(); i++) {
 				if(itemList.get(i).getType().equals("PN")){
-					taxMoney = Product.getBasePrice() * 0.0725;
-					basePrice = Product.getBasePrice() + taxMoney;
+					taxMoney = ((Product) itemList.get(i)).getBasePrice() * 0.0725;
+					basePrice = ((Product) itemList.get(i)).getBasePrice() + taxMoney;
 					priceList.add(basePrice);
 				} else if(itemList.get(i).getType().equals("PU")) {
-					basePrice = Product.getBasePrice() * 0.80;
+					basePrice = ((Product) itemList.get(i)).getBasePrice() * 0.80;
 					taxMoney = basePrice * 0.0725;
 					basePrice = basePrice + taxMoney;
 					priceList.add(basePrice);
-//				}else if(itemList.get(i).getType().equals("PG")) {
-//						TODO: figure out the price for this. Similar to above
-//					}
-				
+				}else if(itemList.get(i).getType().equals("PG")) {
+					//TODO: figure out the price for this. Similar to above
+					taxMoney = ((Product) itemList.get(i)).getQuantity() * 0.0725;
+					basePrice = ((Product) itemList.get(i)).getQuantity() + taxMoney;
+					priceList.add(basePrice);
 			} else if(itemList.get(i).getType().equals("SV")) {
-				basePrice = Service.getHourlyRate() * Service.getNumberOfHours();
+				basePrice = ((Service)itemList.get(i)).getHourlyRate() * ((Service)itemList.get(i)).getNumberOfHours();
 				taxMoney = basePrice * 0.0285;
 				basePrice = basePrice + taxMoney;
 				priceList.add(basePrice);
 				
 			} else if(itemList.get(i).getType().equals("SB")) {
-				basePrice = ((Subscription.getEndDate() - Subscription.getBeginDate()) / 365) * Subscription.getAnnualFee();
+//				basePrice = ((Subscription)itemList.get(i)).parse.(getEndDate()) - ((Subscription)itemList.get(i)).getBeginDate() / 365) * ((Subscription)itemList.get(i)).getAnnualFee();
 				taxMoney = 0.0;
 				priceList.add(basePrice);
 			}

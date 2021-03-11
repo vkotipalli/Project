@@ -57,25 +57,26 @@ public class Sale {
 		List<Sale> saleList = new ArrayList<>();
 		try {
 			s = new Scanner(f);
+			int numOfSales = Integer.parseInt(s.nextLine());
 			while(s.hasNextLine()) {
 				String line = s.nextLine();
 				String token[] = line.split(",");
 				String salesCode = token[0];
 				Store store = Store.getStore(token[1],Store.loadStoreFile());
 				Person customer = Person.getPerson(token[2], Person.loadPersonFile());
-				Person salesperson = Person.getPerson(token[2], Person.loadPersonFile());
-				Item itemCode = Item.getItem(token[4], Item.loadItemFile());
+				Person salesperson = Person.getPerson(token[3], Person.loadPersonFile());
+//				Item itemCode = Item.getItem(token[4], Item.loadItemFile());
 				List<Item>itemList = new ArrayList<>();
 				for(int i =4; i<token.length; i++) {
 					Item item = Item.getItem(token[i], Item.loadItemFile());
-					if(item.getCode().equals(token[i])) { 
+					if(item != null && item.getCode().equals(token[i])) { 
 						if(item.getType().equals("SB")) {
 							String beginDate = token[i+1];
 							String endDate = token[i+2];
 							LocalDate begin = LocalDate.parse(beginDate);
 							LocalDate end = LocalDate.parse(endDate);
 							Subscription sub = (Subscription)item;
-							sub.addBeingDate(begin);
+							sub.addBeginDate(begin);
 							sub.addEndDate(end);
 							itemList.add(sub);
 						}else if(item.getType().equals("SV")) {
@@ -94,15 +95,23 @@ public class Sale {
 					}
 				}
 				Sale sale = new Sale(salesCode,customer,salesperson,store,itemList);
+				
 				saleList.add(sale);
 			}
 		}catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		s.close();
+		
 		return saleList;
 	}
 	
+	@Override
+	public String toString() {
+		return "Sale [code=" + code + ", customer=" + customer + ", store=" + store + ", salesperson=" + salesperson
+				+ ", item=" + item + "]";
+	}
+
 	public static List<Double> getTotalPrice(List<Double> discountPrice, List<Double> getPrice) {
 		double totalPrice = 0;
 		int i =0;

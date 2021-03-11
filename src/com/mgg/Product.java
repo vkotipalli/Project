@@ -10,11 +10,12 @@ package com.mgg;
 public class Product extends Item {
 
 	private double basePrice;
-	private int quantity;
+	private double quantity;
 
 	public Product(String code, String type, String name, double basePrice) {
 		super(code, type, name);
 		this.basePrice = basePrice;
+		
 	}
 
 	public double getBasePrice() {
@@ -25,7 +26,7 @@ public class Product extends Item {
 		this.basePrice = basePrice;
 	}
 	
-	public int getQuantity() {
+	public double getQuantity() {
 		return quantity;
 	}
 
