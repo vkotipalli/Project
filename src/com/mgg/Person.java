@@ -173,5 +173,29 @@ public class Person {
 		}
 		return null;
 	}
+	
+	//TODO: Check this return type. Should this be a list of doubles (prices).
+	public static List<Double> getDiscount(List<Person> personList, List<Double> getPrice) {
+		double discountPrice = 0;
+		List<Double> discountList = new ArrayList<>();
+		for(int i = 0; i<personList.size(); i++) {
+			if(personList.get(i).getType().equals("G")) {
+				discountPrice = getPrice.get(i) * 0.05;
+				discountList.add(discountPrice);
+				
+			} else if (personList.get(i).getType().equals("P")){
+				discountPrice = getPrice.get(i) * 0.10;
+				discountList.add(discountPrice);
+			} else if(personList.get(i).getType().equals("E")) {
+				discountPrice = getPrice.get(i) * 0.15;
+			} else {
+				discountList.add(discountPrice);
+			}
+	
+		}
+		
+		return discountList;
+	}
+	
 
 }

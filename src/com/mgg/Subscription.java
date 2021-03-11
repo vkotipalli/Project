@@ -27,7 +27,7 @@ public class Subscription extends Item {
 	public void setAnnualFee(double annualFee) {
 		this.annualFee = annualFee;
 	}
-	public LocalDate getbeginDate() {
+	public LocalDate getBeginDate() {
 		return beginDate;
 	}
 	

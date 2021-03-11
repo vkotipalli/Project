@@ -102,4 +102,18 @@ public class Sale {
 		s.close();
 		return saleList;
 	}
+	
+	public static List<Double> getTotalPrice(List<Double> discountPrice, List<Double> getPrice) {
+		double totalPrice = 0;
+		int i =0;
+		List<Double> totalPriceList = new ArrayList<>();
+		while(!discountPrice.isEmpty() && !getPrice.isEmpty()) {
+			totalPrice = getPrice.get(i) - discountPrice.get(i);
+			totalPriceList.add(totalPrice);
+			i++;
+		}
+		
+		return totalPriceList;
+		
+	}
 }

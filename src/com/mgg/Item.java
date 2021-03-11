@@ -143,4 +143,41 @@ public abstract class Item {
 		}
 		return null;
 	}
+	
+	//TODO: Check this return type. Should this be a list of prices? Can this be polymorphic?
+	//TODO: Should The intake of List be changed to Sale list instead?
+	public List<Double> getPrice(List<Item> itemList) {
+		double basePrice = 0;
+		double taxMoney = 0;
+		List<Double> priceList = new ArrayList<>();
+		
+		for(int i=0; i<itemList.size(); i++) {
+				if(itemList.get(i).getType().equals("PN")){
+					taxMoney = Product.getBasePrice() * 0.0725;
+					basePrice = Product.getBasePrice() + taxMoney;
+					priceList.add(basePrice);
+				} else if(itemList.get(i).getType().equals("PU")) {
+					basePrice = Product.getBasePrice() * 0.80;
+					taxMoney = basePrice * 0.0725;
+					basePrice = basePrice + taxMoney;
+					priceList.add(basePrice);
+//				}else if(itemList.get(i).getType().equals("PG")) {
+//						TODO: figure out the price for this. Similar to above
+//					}
+				
+			} else if(itemList.get(i).getType().equals("SV")) {
+				basePrice = Service.getHourlyRate() * Service.getNumberOfHours();
+				taxMoney = basePrice * 0.0285;
+				basePrice = basePrice + taxMoney;
+				priceList.add(basePrice);
+				
+			} else if(itemList.get(i).getType().equals("SB")) {
+				basePrice = ((Subscription.getEndDate() - Subscription.getBeginDate()) / 365) * Subscription.getAnnualFee();
+				taxMoney = 0.0;
+				priceList.add(basePrice);
+			}
+		}
+		
+		return priceList;
+	}
 }
