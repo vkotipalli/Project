@@ -1,54 +1,63 @@
 [
   {
     "basePrice": 55.99,
+    "quantity": 0,
     "code": "fc63ef",
     "name": "Cyberpunk 2077",
     "type": "PU"
   },
   {
     "basePrice": 59.99,
+    "quantity": 0,
     "code": "84594c",
     "name": "Grand Theft Auto V",
     "type": "PN"
   },
   {
     "basePrice": 499.99,
+    "quantity": 0,
     "code": "68cdc8",
     "name": "Xbox Series X",
     "type": "PN"
   },
   {
     "basePrice": 549.99,
+    "quantity": 0,
     "code": "1719c4",
     "name": "Nintendo Switch (Animal Crossing Edition)",
     "type": "PU"
   },
   {
     "basePrice": 0.0,
+    "quantity": 0,
     "code": "90a51d",
     "name": "Nintendo eShop Credit",
     "type": "PG"
   },
   {
     "basePrice": 0.0,
+    "quantity": 0,
     "code": "e4ed68",
     "name": "League of Legends Riot Points",
     "type": "PG"
   },
   {
     "basePrice": 10.99,
+    "quantity": 0,
     "code": "76c395",
     "name": "Stardew Valley",
     "type": "PU"
   },
   {
     "hourlyRate": 19.99,
+    "numberOfHours": 0,
     "code": "8b095e",
     "name": "Computer Repair",
     "type": "SV"
   },
   {
     "hourlyRate": 39.99,
+    "numberOfHours": 0,
     "code": "3c43d0",
     "name": "Game Room Design",
     "type": "SV"

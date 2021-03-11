@@ -33,7 +33,9 @@ public class Product extends Item {
 		return getCode() + "," + getType() + "," + getName() + "," + basePrice;
 	}
 	
-	
+	public void addQuantity(int quantity) {
+		this.quantity = quantity;
+	}
 	
 
 }

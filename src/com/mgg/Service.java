@@ -1,5 +1,6 @@
 package com.mgg;
 
+
 /**
  * @author Kotipalli, Vasavi
  * @author Maloney, Madison 
@@ -9,7 +10,7 @@ package com.mgg;
  */
 public class Service extends Item {
 	private double hourlyRate;
-	private String employeeCode;
+	private Person employeeCode;
 	private int numberOfHours;
 
 	public Service(String code, String name, String type, double hourlyRate) {
@@ -25,7 +26,7 @@ public class Service extends Item {
 		this.hourlyRate = hourlyRate;
 	}
 	
-	public String getEmployeeCode() {
+	public Person getEmployeeCode() {
 		return employeeCode;
 	}
 	public int getNumberOfHours() {
@@ -35,5 +36,14 @@ public class Service extends Item {
 	public String toString() {
 		return getCode() + "," + getType() + "," + getName() + "," + hourlyRate;
 	}
+	public void addEmployeeCode(Person employeeCode) {
+		this.employeeCode = employeeCode;
+	}
+	
+	public void addNumberOfHours(int numberOfHours) {
+		this.numberOfHours = numberOfHours;
+	}
+	
+	
 
 }

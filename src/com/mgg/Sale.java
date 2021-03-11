@@ -44,6 +44,12 @@ public class Sale {
 	public void setItem(List<Item> item) {
 		this.item = item;
 	}
+	public Person getSalesperson() {
+		return salesperson;
+	}
+	public void setSalesperson(Person salesperson) {
+		this.salesperson = salesperson;
+	}
 
 	public static List<Sale> loadSaleFile() {
 		File f = new File("data/Sales.csv");
@@ -63,7 +69,7 @@ public class Sale {
 				for(int i =4; i<token.length; i++) {
 					Item item = Item.getItem(token[i], Item.loadItemFile());
 					if(item.getCode().equals(token[i])) { 
-						if(item.getType().equals("SV")) {
+						if(item.getType().equals("SB")) {
 							String beginDate = token[i+1];
 							String endDate = token[i+2];
 							LocalDate begin = LocalDate.parse(beginDate);
@@ -72,16 +78,24 @@ public class Sale {
 							sub.addBeingDate(begin);
 							sub.addEndDate(end);
 							itemList.add(sub);
-							
-							//Do if statements for Services and Products.
+						}else if(item.getType().equals("SV")) {
+							Person employeeCode = Person.getPerson(token[i+1], Person.loadPersonFile());
+							int numberOfHours = Integer.parseInt(token[i+2]);
+							Service ser = (Service)item;
+							ser.addEmployeeCode(employeeCode);
+							ser.addNumberOfHours(numberOfHours);
+							itemList.add(ser);
+						}else if(item.getType().equals("PU")||item.getType().equals("PG")||item.getType().equals("PN")) {
+							int quantity = Integer.parseInt(token[i+1]);
+							Product pro = (Product)item;
+							pro.addQuantity(quantity);
+							itemList.add(pro);
 						}
 					}
 				}
-				Sale sale = new Sale( salesCode, customer, salesperson,  store, itemList);
+				Sale sale = new Sale(salesCode,customer,salesperson,store,itemList);
 				saleList.add(sale);
-				
 			}
-			
 		}catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
