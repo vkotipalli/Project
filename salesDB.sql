@@ -7,8 +7,6 @@ use mmaloney;
 ## Questions to ask: 
 # is this foreign key correct when referencing the person table "foreign key (employeeId) references Person(personId)" Does naming matter?
 
-# is this required when createing tables: "engine=InnoDB,collate=latin1_general_cs;"
-
 # is an itemId required for each Service, Subscription, Product using it as a foreign key as well when creating those tables. 
 
 # should beginDate and endDate be referenced as a varchar? 
@@ -41,7 +39,9 @@ create table Address (
 
 create table Email (
 	emailId int not null primary key auto_increment, 
-    email varchar(255)
+    email varchar(255), 
+    personCode varchar(255)
+    #join email and person where person codes in both tables are equal
 )engine=InnoDB,collate=latin1_general_cs;
 
 create table Person (
@@ -51,18 +51,17 @@ create table Person (
     lastName varchar(255), 
     firstName varchar(255), 
     addressId int,
-    emailId int,
     foreign key (addressId) references Address(addressId), 
     foreign key (emailId) references Email(emailId)
 )engine=InnoDB,collate=latin1_general_cs;
 
-create table PersonEmail (
-	personEmailId int not null primary key auto_increment, 
-    emailId int not null, 
-    personId int not null,
-    foreign key (emailId) references Email (emailId),
-    foreign key (personId) references Person (personId)
-)engine=InnoDB,collate=latin1_general_cs;
+-- create table PersonEmail (
+-- 	personEmailId int not null primary key auto_increment, 
+--     emailId int not null, 
+--     personId int not null,
+--     foreign key (emailId) references Email (emailId),
+--     foreign key (personId) references Person (personId)
+-- )engine=InnoDB,collate=latin1_general_cs;
 
 
 create table Store (
@@ -74,44 +73,50 @@ create table Store (
     foreign key (addressId) references Address(addressId)
 )engine=InnoDB,collate=latin1_general_cs;
 
-
+## Combine annualFee, ServiceFee, and basePrice
 create table Item (
 	itemId int not null primary key auto_increment, 
-    itemCode varchar(255), 
-    itemName varchar(255), 
+    itemCode varchar(255) not null, 
+    itemName varchar(255) not null, 
     ##1-1 with items can have specific type PU, PN, PG, SV, SU
-    itemType varchar(255)
-)engine=InnoDB,collate=latin1_general_cs;
-
-
-create table Service (
-	serviceId int not null primary key auto_increment, 
-    hourlyRate double,
+    itemType varchar(255) not null, 
+    cost double,
     numHours int, 
     employeeId int, 
-    itemId int, 
-    foreign key (employeeId) references Person(personId), 
-    foreign key (itemId) references Item(itemId)
-)engine=InnoDB,collate=latin1_general_cs;
-
-
-create table Subscription (
-	subscriptionId int not null primary key auto_increment, 
-    annualFee double, 
     beginDate varchar(255), 
     endDate varchar(255),
-	itemId int, 
-    foreign key (itemId) references Item(itemId)
+    quantity int
 )engine=InnoDB,collate=latin1_general_cs;
 
-create table Product (
-	productId int not null primary key auto_increment, 
-    basePrice double, 
-    quantity int, 
-    itemId int, 
-    foreign key (itemId) references Item(itemId)
-)engine=InnoDB,collate=latin1_general_cs;
 
+-- create table Service (
+-- 	serviceId int not null primary key auto_increment, 
+--     hourlyRate double,
+--     numHours int, 
+--     employeeId int, 
+--     itemId int, 
+--     foreign key (employeeId) references Person(personId), 
+--     foreign key (itemId) references Item(itemId)
+-- )engine=InnoDB,collate=latin1_general_cs;
+-- 
+-- 
+-- create table Subscription (
+-- 	subscriptionId int not null primary key auto_increment, 
+--     annualFee double, 
+--     beginDate varchar(255), 
+--     endDate varchar(255),
+-- 	itemId int, 
+--     foreign key (itemId) references Item(itemId)
+-- )engine=InnoDB,collate=latin1_general_cs;
+-- 
+-- create table Product (
+-- 	productId int not null primary key auto_increment, 
+--     basePrice double, 
+--     quantity int, 
+--     itemId int, 
+--     foreign key (itemId) references Item(itemId)
+-- )engine=InnoDB,collate=latin1_general_cs;
+-- 
 create table Sale (
 	saleId int not null primary key auto_increment, 
     saleCode varchar(255), 
@@ -148,7 +153,7 @@ insert into Address(addressId, street, city, state, country, zip) values (10, '9
 
 #Inserting Email Test Data
 #Email may not allow multiple emails
-insert into Email(emailId, email) values (1, 'mmaloney2@unl.edu');
+insert into Email(emailId, email, personCode) values (1, 'mmaloney2@unl.edu', 'PGHPA5859I');
 insert into Email(emailId, email) values (2, 'vkotipalli086@gmail.com');
 insert into Email(emailId, email) values (3, 'vasavi.kotipalli@yahoo.com');
 insert into Email(emailId, email) values (4, NULL);
@@ -166,7 +171,7 @@ insert into Email(emailId, email) values (14, 'tomBrady@gmail.com');
 
 #Inserting Person Test Data
 INSERT INTO Person(personId,personCode,type,lastName,firstName,addressId,emailId) VALUES (1, 'PGHPA5859I','G','Maloney','Madison', 1, 1);
-INSERT INTO Person(personId,personCode,type,lastName,firstName,addressId,emailId) VALUES (2, '72OFN7R0RL','P','Kotipalli','Vasavi',2, 2);
+INSERT INTO Person(personId,personCode,type,lastName,firstName,addressId,emailId) VALUES (2, '72OFN7R0RL','P','Kotipalli','Vasavi',2, 2, 3);
 INSERT INTO Person(personId,personCode,type,lastName,firstName,addressId,emailId) VALUES (3, 'R0E2QECOTP','C','Maloney','Mallory', 3, 3);
 INSERT INTO Person(personId,personCode,type,lastName,firstName,addressId,emailId) VALUES (4, '4CQ9USQH10','E','Scherf','Jordan', 4, 4);
 INSERT INTO Person(personId,personCode,type,lastName,firstName,addressId,emailId) VALUES (5, 'EVCDH4PET3','P','Smith','Sam', 5, 5);
