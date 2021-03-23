@@ -9,22 +9,26 @@
 select Person.personCode, Person.lastName, Person.firstName from Person;
 -- 
 -- 2. A query to retrieve the major fields for every person including their address (but excluding emails)
-
+select p.personCode, p.type, p.lastName, p.firstName, a.street, a.city, a.state, a.country, a.zip from Person p 
+left join Address a on a.addressId=p.addressId;
 -- 
 -- 3. A query to get the email addresses of a specific person
-
+select e.email, p.lastName, p.firstName from Email e left join Person p on e.personCode = p.personCode where p.personCode = 'E3SBKH0OK6';
 -- 
 -- 4. A query to change the email address of a specific email record
-
+#New email updated:
+update Email set email = 'mm300@hawaii.edu' where emailId = 4;
+ #Existing email changed: 
 -- 
 -- 5. A query (or series of queries) to remove a specific person record
 
 -- 
 -- 6. A query to get all the items on a specific sales record
-
+select s.saleCode, s.customerId, s.storeId, s.salesPersonId, i.itemId from Sale s left join SaleItem i on s.saleId = i.saleId;
 -- 
 -- 7. A query to get all the items purchased by a specific person
-
+select s.saleCode, s.customerId, i.itemId, p.firstName, p.lastName from Sale s 
+left join SaleItem i on s.saleId = i.saleId left join Person p on p.personId=s.customerId where personId = 1;
 -- 
 -- 8. A query to find the total number of sales made at each store
 

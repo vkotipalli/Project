@@ -16,9 +16,9 @@ use mmaloney;
 ##FOR ITEMSALE ONLY! Is this the right way to go about inserting data into itemSale? Especially with sales that have multiple items. 
 
 drop table if exists Address;
-drop table if exists Email; 
 drop table if exists Person;
-drop table if exists PersonEmail; 
+drop table if exists Email; 
+-- drop table if exists PersonEmail; 
 drop table if exists Store; 
 drop table if exists Item; 
 drop table if exists Service; 
@@ -37,23 +37,26 @@ create table Address (
     zip varchar(255)
 )engine=InnoDB,collate=latin1_general_cs;
 
-create table Email (
-	emailId int not null primary key auto_increment, 
-    email varchar(255), 
-    personCode varchar(255)
-    #join email and person where person codes in both tables are equal
-)engine=InnoDB,collate=latin1_general_cs;
-
 create table Person (
 	personId int not null primary key auto_increment,
-    personCode varchar(255),
+    personCode varchar(255) not null,
     type varchar(255),
     lastName varchar(255), 
     firstName varchar(255), 
     addressId int,
-    foreign key (addressId) references Address(addressId), 
-    foreign key (emailId) references Email(emailId)
+    foreign key (addressId) references Address(addressId)
 )engine=InnoDB,collate=latin1_general_cs;
+
+create table Email (
+	emailId int not null primary key auto_increment, 
+    email varchar(255), 
+    personCode varchar(255) not null
+    #Does personCode need a foreign key?
+    #foreign key (personCode) references Person(personCode)
+    #join email and person where person codes in both tables are equal
+)engine=InnoDB,collate=latin1_general_cs;
+
+
 
 -- create table PersonEmail (
 -- 	personEmailId int not null primary key auto_increment, 
@@ -137,7 +140,7 @@ create table SaleItem (
     foreign key (itemId) references Item(itemId)
 )engine=InnoDB,collate=latin1_general_cs;
 
-
+select * from Person;
 
 #Inserting Person Address Test Data
 insert into Address(addressId, street, city, state, country, zip) values (1, '3464 Evening Sun Dr.','Las Vegas','NV',89117,'US');
@@ -145,7 +148,7 @@ insert into Address(addressId, street, city, state, country, zip) values (2, '26
 insert into Address(addressId, street, city, state, country, zip) values (3, '2575 Dole St 326','Honolulu','HI',96822,'US');
 insert into Address(addressId, street, city, state, country, zip) values (4, '6621 Lowden Ln','Las Vegas','NV',89107,'US');
 insert into Address(addressId, street, city, state, country, zip) values (5, '871 CobbleStone Dr.','Grandville','MI',49418,'US');
-insert into Address(addressId, street, city, state, country, zip) values(6, '8187 Summerhouse Av','Ronkonkoma','NY',11779,'US');
+insert into Address(addressId, street, city, state, country, zip) values (6, '8187 Summerhouse Av','Ronkonkoma','NY',11779,'US');
 insert into Address(addressId, street, city, state, country, zip) values (7, '8408 Theatre Dr.','Gettysburg','PA',17325,'US');
 insert into Address(addressId, street, city, state, country, zip) values (8, '210 Military St.','Tucson','AZ',85718,'US');
 insert into Address(addressId, street, city, state, country, zip) values (9, '710 Center Dr.','Flushing','NY',11354,'US');
@@ -154,51 +157,51 @@ insert into Address(addressId, street, city, state, country, zip) values (10, '9
 #Inserting Email Test Data
 #Email may not allow multiple emails
 insert into Email(emailId, email, personCode) values (1, 'mmaloney2@unl.edu', 'PGHPA5859I');
-insert into Email(emailId, email) values (2, 'vkotipalli086@gmail.com');
-insert into Email(emailId, email) values (3, 'vasavi.kotipalli@yahoo.com');
-insert into Email(emailId, email) values (4, NULL);
-insert into Email(emailId, email) values (5, NULL);
-insert into Email(emailId, email) values (6, NULL);
-insert into Email(emailId, email) values (7, 'Niheala.P@yahoo.com');
-insert into Email(emailId, email) values (8, 'nponnatha@gmail.com');
-insert into Email(emailId, email) values (9, NULL); 
-insert into Email(emailId, email) values (10, 'tboinpally275@gamil.com');
-insert into Email(emailId, email) values (11, 'bbuilder123@yahoo.com');
-insert into Email(emailId, email) values (12, 'bob.builder@gmail.com');
-insert into Email(emailId, email) values (13, 'bobb@hotmail.com');
-insert into Email(emailId, email) values (14, 'tomBrady@gmail.com');
+insert into Email(emailId, email, personCode) values (2, 'vkotipalli086@gmail.com', '72OFN7R0RL');
+insert into Email(emailId, email, personCode) values (3, 'vasavi.kotipalli@yahoo.com', '72OFN7R0RL');
+insert into Email(emailId, email, personCode) values (4, NULL, 'R0E2QECOTP');
+insert into Email(emailId, email, personCode) values (5, NULL, '4CQ9USQH10');
+insert into Email(emailId, email, personCode) values (6, NULL, 'EVCDH4PET3');
+insert into Email(emailId, email, personCode) values (7, 'Niheala.P@yahoo.com', '8XUXEI4T0W');
+insert into Email(emailId, email, personCode) values (8, 'nponnatha@gmail.com', '8XUXEI4T0W');
+insert into Email(emailId, email, personCode) values (9, NULL, 'UWUA6YGS9X'); 
+insert into Email(emailId, email, personCode) values (10, 'tboinpally275@gamil.com', 'CZDOL8TJ6I');
+insert into Email(emailId, email, personCode) values (11, 'bbuilder123@yahoo.com', 'E3SBKH0OK6');
+insert into Email(emailId, email, personCode) values (12, 'bob.builder@gmail.com', 'E3SBKH0OK6');
+insert into Email(emailId, email, personCode) values (13, 'bobb@hotmail.com', 'E3SBKH0OK6');
+insert into Email(emailId, email, personCode) values (14, 'tomBrady@gmail.com', 'XC9P4020OQ');
 
 
 #Inserting Person Test Data
-INSERT INTO Person(personId,personCode,type,lastName,firstName,addressId,emailId) VALUES (1, 'PGHPA5859I','G','Maloney','Madison', 1, 1);
-INSERT INTO Person(personId,personCode,type,lastName,firstName,addressId,emailId) VALUES (2, '72OFN7R0RL','P','Kotipalli','Vasavi',2, 2, 3);
-INSERT INTO Person(personId,personCode,type,lastName,firstName,addressId,emailId) VALUES (3, 'R0E2QECOTP','C','Maloney','Mallory', 3, 3);
-INSERT INTO Person(personId,personCode,type,lastName,firstName,addressId,emailId) VALUES (4, '4CQ9USQH10','E','Scherf','Jordan', 4, 4);
-INSERT INTO Person(personId,personCode,type,lastName,firstName,addressId,emailId) VALUES (5, 'EVCDH4PET3','P','Smith','Sam', 5, 5);
-INSERT INTO Person(personId,personCode,type,lastName,firstName,addressId,emailId) VALUES (6, '8XUXEI4T0W','E','Ponnatha','Niheala', 6, 6);
-INSERT INTO Person(personId,personCode,type,lastName,firstName,addressId,emailId) VALUES (7, 'UWUA6YGS9X','E','Chada','Shreya', 7, 7);
-INSERT INTO Person(personId,personCode,type,lastName,firstName,addressId,emailId) VALUES (8, 'CZDOL8TJ6I','G','Boinpally','Teju', 8, 8);
-INSERT INTO Person(personId,personCode,type,lastName,firstName,addressId,emailId) VALUES (9, 'E3SBKH0OK6','E','Builder','Bob', 9, 9);
-INSERT INTO Person(personId,personCode,type,lastName,firstName,addressId,emailId) VALUES (10, 'XC9P4020OQ','G','Brady','Tom', 10, 10);
+INSERT INTO Person(personId,personCode,type,lastName,firstName,addressId) VALUES (1, 'PGHPA5859I','G','Maloney','Madison', 1);
+INSERT INTO Person(personId,personCode,type,lastName,firstName,addressId) VALUES (2, '72OFN7R0RL','P','Kotipalli','Vasavi',2);
+INSERT INTO Person(personId,personCode,type,lastName,firstName,addressId) VALUES (3, 'R0E2QECOTP','C','Maloney','Mallory', 3);
+INSERT INTO Person(personId,personCode,type,lastName,firstName,addressId) VALUES (4, '4CQ9USQH10','E','Scherf','Jordan', 4);
+INSERT INTO Person(personId,personCode,type,lastName,firstName,addressId) VALUES (5, 'EVCDH4PET3','P','Smith','Sam', 5);
+INSERT INTO Person(personId,personCode,type,lastName,firstName,addressId) VALUES (6, '8XUXEI4T0W','E','Ponnatha','Niheala', 6);
+INSERT INTO Person(personId,personCode,type,lastName,firstName,addressId) VALUES (7, 'UWUA6YGS9X','E','Chada','Shreya', 7);
+INSERT INTO Person(personId,personCode,type,lastName,firstName,addressId) VALUES (8, 'CZDOL8TJ6I','G','Boinpally','Teju', 8);
+INSERT INTO Person(personId,personCode,type,lastName,firstName,addressId) VALUES (9, 'E3SBKH0OK6','E','Builder','Bob', 9);
+INSERT INTO Person(personId,personCode,type,lastName,firstName,addressId) VALUES (10, 'XC9P4020OQ','G','Brady','Tom', 10);
 
 
 #Inserting PersonEmail Test Data 
 #May have to alter to allow multiple emails to the same personId.
 
-insert into PersonEmail(personEmailId, emailId, personId) values (1, 1, 1);
-insert into PersonEmail(personEmailId, emailId, personId) values (2, 2, 2);
-insert into PersonEmail(personEmailId, emailId, personId) values (3, 3, 2);
-insert into PersonEmail(personEmailId, emailId, personId) values (4, 4, 3);
-insert into PersonEmail(personEmailId, emailId, personId) values (5, 5, 4);
-insert into PersonEmail(personEmailId, emailId, personId) values (6, 6, 5);
-insert into PersonEmail(personEmailId, emailId, personId) values (7, 7, 6);
-insert into PersonEmail(personEmailId, emailId, personId) values (8, 8, 6);
-insert into PersonEmail(personEmailId, emailId, personId) values (9, 9, 7);
-insert into PersonEmail(personEmailId, emailId, personId) values (10, 10, 8);
-insert into PersonEmail(personEmailId, emailId, personId) values (11, 11, 9);
-insert into PersonEmail(personEmailId, emailId, personId) values (12, 12, 9);
-insert into PersonEmail(personEmailId, emailId, personId) values (13, 13, 9);
-insert into PersonEmail(personEmailId, emailId, personId) values (14, 14, 10);
+-- insert into PersonEmail(personEmailId, emailId, personId) values (1, 1, 1);
+-- insert into PersonEmail(personEmailId, emailId, personId) values (2, 2, 2);
+-- insert into PersonEmail(personEmailId, emailId, personId) values (3, 3, 2);
+-- insert into PersonEmail(personEmailId, emailId, personId) values (4, 4, 3);
+-- insert into PersonEmail(personEmailId, emailId, personId) values (5, 5, 4);
+-- insert into PersonEmail(personEmailId, emailId, personId) values (6, 6, 5);
+-- insert into PersonEmail(personEmailId, emailId, personId) values (7, 7, 6);
+-- insert into PersonEmail(personEmailId, emailId, personId) values (8, 8, 6);
+-- insert into PersonEmail(personEmailId, emailId, personId) values (9, 9, 7);
+-- insert into PersonEmail(personEmailId, emailId, personId) values (10, 10, 8);
+-- insert into PersonEmail(personEmailId, emailId, personId) values (11, 11, 9);
+-- insert into PersonEmail(personEmailId, emailId, personId) values (12, 12, 9);
+-- insert into PersonEmail(personEmailId, emailId, personId) values (13, 13, 9);
+-- insert into PersonEmail(personEmailId, emailId, personId) values (14, 14, 10);
 
 
 #Inserting Store Address Test Data 
@@ -229,37 +232,41 @@ INSERT INTO Store(storeId, storeCode, managerId, addressId) VALUES (10, '100HYR5
 
 
 #Inserting Item Test Data
-insert into Item(itemId, itemCode, itemName, itemType) values (1, 'fc63ef', 'Cyberpunk 2077', 'PU');
-insert into Item(itemId, itemCode, itemName, itemType) values (2, '84594c', 'Grand Theft Auto V', 'PN');
-insert into Item(itemId, itemCode, itemName, itemType) values (3, '68cdc8', 'Xbox Series X', 'PN');
-insert into Item(itemId, itemCode, itemName, itemType) values (4, '1719c4', 'Nintendo Switch (Animal Crossing Edition)', 'PU');
-insert into Item(itemId, itemCode, itemName, itemType) values (5, '90a51d', 'Nintendo eShop Credit', 'PG');
-insert into Item(itemId, itemCode, itemName, itemType) values (6, 'e4ed68', 'League of Legends Riot Points', 'PG');
-insert into Item(itemId, itemCode, itemName, itemType) values (7, '76c395', 'Stardew Valley', 'PU');
-insert into Item(itemId, itemCode, itemName, itemType) values (8, '8b095e', 'Computer Repair', 'SV');
-insert into Item(itemId, itemCode, itemName, itemType) values (9, '3c43d0', 'Game Room Design', 'SV');
-insert into Item(itemId, itemCode, itemName, itemType) values (10, '516454', 'Nintendo Switch Online', 'SB');
-insert into Item(itemId, itemCode, itemName, itemType) values (11, '7982fe', 'Xbox Magazine', 'SB');
-insert into Item(itemId, itemCode, itemName, itemType) values (12, 'd09a87', 'Netflix', 'SB');
-insert into Item(itemId, itemCode, itemName, itemType) values (13, '774196', 'Apple Arcade', 'SB');
+insert into Item(itemId, itemCode, itemName, itemType, cost, numHours, employeeId, beginDate, endDate, quantity) values (1, 'fc63ef', 'Cyberpunk 2077', 'PU', 55.99, NULL, NULL, NULL, NULL, 1);
+insert into Item(itemId, itemCode, itemName, itemType, cost, numHours, employeeId, beginDate, endDate, quantity) values (2, '84594c', 'Grand Theft Auto V', 'PN', 59.99, NULL, NULL, NULL, NULL, 2);
+insert into Item(itemId, itemCode, itemName, itemType, cost, numHours, employeeId, beginDate, endDate, quantity) values (3, '68cdc8', 'Xbox Series X', 'PN', 499.99, NULL, NULL, NULL, NULL, 0);
+insert into Item(itemId, itemCode, itemName, itemType, cost, numHours, employeeId, beginDate, endDate, quantity) values (4, '1719c4', 'Nintendo Switch (Animal Crossing Edition)', 'PU', 549.99, NULL, NULL, NULL, NULL, 0);
+insert into Item(itemId, itemCode, itemName, itemType, cost, numHours, employeeId, beginDate, endDate, quantity) values (5, '90a51d', 'Nintendo eShop Credit', 'PG', NULL, NULL, NULL, NULL, NULL, NULL);
+insert into Item(itemId, itemCode, itemName, itemType, cost, numHours, employeeId, beginDate, endDate, quantity) values (6, 'e4ed68', 'League of Legends Riot Points', 'PG', NULL, NULL, NULL, NULL, NULL, NULL);
+insert into Item(itemId, itemCode, itemName, itemType, cost, numHours, employeeId, beginDate, endDate, quantity) values (7, '76c395', 'Stardew Valley', 'PU', 10.99, NULL, NULL, NULL, NULL, 3);
+#insert into Item(itemId, itemCode, itemName, itemType, cost, numHours, employeeId, beginDate, endDate, quantity) values (7, '76c395', 'Stardew Valley', 'PU', 10.99, NULL, NULL, NULL, NULL, 3);
+## STARDEW VALLEY HAS 2
+insert into Item(itemId, itemCode, itemName, itemType, cost, numHours, employeeId, beginDate, endDate, quantity) values (8, '8b095e', 'Computer Repair', 'SV', 19.99, 6, 9, NULL, NULL, NULL);
+insert into Item(itemId, itemCode, itemName, itemType, cost, numHours, employeeId, beginDate, endDate, quantity) values (9, '3c43d0', 'Game Room Design', 'SV', 39.99, 4, 7, NULL, NULL, NULL);
+## NINTENDO SWITCH ONLINE HAS 2
+insert into Item(itemId, itemCode, itemName, itemType, cost, numHours, employeeId, beginDate, endDate, quantity) values (10, '516454', 'Nintendo Switch Online', 'SB', 19.99, NULL, NULL, '2020-06-15', '2021-02-08', NULL);
+#insert into Item(itemId, itemCode, itemName, itemType, cost, numHours, employeeId, beginDate, endDate, quantity) values (10, '516454', 'Nintendo Switch Online', 'SB', 19.99, NULL, NULL, '2020-06-15', '2021-02-08', NULL);
+insert into Item(itemId, itemCode, itemName, itemType, cost, numHours, employeeId, beginDate, endDate, quantity) values (11, '7982fe', 'Xbox Magazine', 'SB', NULL, NULL, NULL, NULL, NULL, NULL);
+insert into Item(itemId, itemCode, itemName, itemType, cost, numHours, employeeId, beginDate, endDate, quantity) values (12, 'd09a87', 'Netflix', 'SB', 101.99, NULL, NULL, '2016-03-23', '2019-11-02', NULL);
+insert into Item(itemId, itemCode, itemName, itemType, cost, numHours, employeeId, beginDate, endDate, quantity) values (13, '774196', 'Apple Arcade', 'SB', 69.99, NULL, NULL, '2018-10-06', '2020-09-29', NULL);
 
-#Inserting Service Test Data
-insert into Service(serviceId, hourlyRate, numHours, employeeId, itemId) values (1, 39.99, 4, 7, 9);
-insert into Service(serviceId, hourlyRate, numHours, employeeId, itemId) values (2, 19.99, 6, 9, 8);
-
-
-#Inserting Subscription Test Data
-insert into Subscription(subscriptionId, annualFee, beginDate, endDate, itemId) values (1, 19.99, '2020-06-15', '2021-02-08', 10);
-insert into Subscription(subscriptionId, annualFee, beginDate, endDate, itemId) values (2, 101.99, '2016-03-23', '2019-11-02', 12);
-insert into Subscription(subscriptionId, annualFee, beginDate, endDate, itemId) values (3, 69.99, '2018-10-06', '2020-09-29', 13);
-insert into Subscription(subscriptionId, annualFee, beginDate, endDate, itemId) values (4, 19.99, '2019-04-26', '2019-12-21', 10);
-
-
-#Inserting Product Test Data
-insert into Product(productId, basePrice, quantity, itemId) values (1, 10.99, 3, 7);
-insert into Product(productId, basePrice, quantity, itemId) values (2, 10.99, 3, 7);
-insert into Product(productId, basePrice, quantity, itemId) values (3, 59.99, 1, 2);
-insert into Product(productId, basePrice, quantity, itemId) values (4, 55.99, 2, 1);
+-- #Inserting Service Test Data
+-- insert into Service(serviceId, hourlyRate, numHours, employeeId, itemId) values (1, 39.99, 4, 7, 9);
+-- insert into Service(serviceId, hourlyRate, numHours, employeeId, itemId) values (2, 19.99, 6, 9, 8);
+-- 
+-- 
+-- #Inserting Subscription Test Data
+-- insert into Subscription(subscriptionId, annualFee, beginDate, endDate, itemId) values (1, 19.99, '2020-06-15', '2021-02-08', 10);
+-- insert into Subscription(subscriptionId, annualFee, beginDate, endDate, itemId) values (2, 101.99, '2016-03-23', '2019-11-02', 12);
+-- insert into Subscription(subscriptionId, annualFee, beginDate, endDate, itemId) values (3, 69.99, '2018-10-06', '2020-09-29', 13);
+-- insert into Subscription(subscriptionId, annualFee, beginDate, endDate, itemId) values (4, 19.99, '2019-04-26', '2019-12-21', 10);
+-- 
+-- 
+-- #Inserting Product Test Data
+-- insert into Product(productId, basePrice, quantity, itemId) values (1, 10.99, 3, 7);
+-- insert into Product(productId, basePrice, quantity, itemId) values (2, 10.99, 3, 7);
+-- insert into Product(productId, basePrice, quantity, itemId) values (3, 59.99, 1, 2);
+-- insert into Product(productId, basePrice, quantity, itemId) values (4, 55.99, 2, 1);
 
 #Inserting Sale Test Data
 insert into Sale(saleId, saleCode, customerId, storeId, salespersonId) values (1, 'N7HJZM4AA6', 1, 1, 4);
@@ -279,10 +286,7 @@ insert into SaleItem (saleItemId, saleId, itemId) values (6, 3, 2);
 insert into SaleItem (saleItemId, saleId, itemId) values (7, 4, 13);
 insert into SaleItem (saleItemId, saleId, itemId) values (8, 5, 8);
 insert into SaleItem (saleItemId, saleId, itemId) values (9, 6, 1);
-insert into SaleItem (saleItemID, saleId, itemId) values (10, 6, 10);
+insert into SaleItem (saleItemId, saleId, itemId) values (10, 6, 10);
 
-
- select * from Person;
- select * from PersonEmail;
 
 
