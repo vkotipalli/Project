@@ -6,7 +6,7 @@
 -- 
 -- 
 -- 1. A query to retrieve the main attributes of each person (their code, and last/first name)
-
+select Person.personCode, Person.lastName, Person.firstName from Person;
 -- 
 -- 2. A query to retrieve the major fields for every person including their address (but excluding emails)
 
