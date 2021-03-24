@@ -21,6 +21,9 @@ update Email set email = 'mm300@hawaii.edu' where emailId = 4;
  #Existing email changed: 
 -- 
 -- 5. A query (or series of queries) to remove a specific person record
+delete from Person where personId = 11;
+delete from Email where emailId = 15;
+delete from Address where addressId = 21;
 
 -- 
 -- 6. A query to get all the items on a specific sales record
@@ -31,25 +34,39 @@ select s.saleCode, s.customerId, i.itemId, p.firstName, p.lastName from Sale s
 left join SaleItem i on s.saleId = i.saleId left join Person p on p.personId=s.customerId where personId = 1;
 -- 
 -- 8. A query to find the total number of sales made at each store
-
+select s.storeId, st.storeCode, count(s.saleId) as numSalesByStore from Sale s left join Store st on st.storeId=s.storeId group by s.storeId;
 -- 
 -- 9. A query to find the total number of sales made by each employee
-
+select s.salespersonId, p.personCode, count(s.saleId) as numSalesByEmployee from Sale s left join Person p on s.salespersonId=p.personId group by s.salespersonId;
 -- 
 -- 10. A query to find the total charge of all services in each sale (hint: you can take an aggregate of a mathematical expression)
-
+select si.saleId, si.itemId, i.itemCode, s.saleCode, avg(i.cost * i.numHours) as totalCharge from SaleItem si 
+left join Item i on si.itemId=i.itemid 
+left join Sale s on s.saleId=si.saleId
+where i.itemType like "SV%"
+group by i.itemCode;
 -- 
 -- 11. A query to detect invalid data in sales as follows. In a single sale, a particular product should only appear once (since any 
 -- number of units can be consolidated to a single record). Write a query to find any sale that includes multiple instances of the same product.
-
+	select s.saleId, s.saleCode, si.itemId, i.itemName, i.itemCode from Sale s
+	inner join SaleItem si on s.saleId = si.saleId
+    inner join Item i on si.itemId = i.itemId
+    group by s.saleId, i.itemId
+    having count(s.saleId) > 1;   
 -- 
 -- 12. Write a query to detect a potential instance of fraud where an employee makes a sale to themselves (the same person is the sales person as well as the customer).
-
+	select s.salespersonId as salesperson, p.lastName as lastname, p.firstName as firstname, p.personCode as salespersonCode from Sale s
+	inner join Person p on p.personId = s.salespersonId where salespersonId = customerId;
 -- 
 -- 13. Write a query to detect possible fraud where an employee is using their employee discount to make a lot of gift card purchases. 
 -- This would include only sales made by an employee to themselves and an amount of over $250 or more (totaled over all sales, not just 
 -- one so they can’t “hide” the fraud by making many small purchases).
-
+   select p.firstName, p.lastName, sum(i.cost) as purchaseTotal from Item i
+   inner join SaleItem si on si.itemId=i.itemId
+   inner join Sale s on s.saleId=si.saleId
+   inner join Person p on p.personId=s.customerId
+   where s.salespersonId = s.customerId
+   group by s.salespersonId having sum(i.cost) >= 250;
 -- 
 -- 
 -- 

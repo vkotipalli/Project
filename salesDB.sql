@@ -33,8 +33,8 @@ create table Address (
     street varchar(255), 
     city varchar(255), 
     state varchar(255), 
-    country varchar(255), 
-    zip varchar(255)
+    zip varchar(255),
+    country varchar(255)
 )engine=InnoDB,collate=latin1_general_cs;
 
 create table Person (
@@ -55,16 +55,6 @@ create table Email (
     #foreign key (personCode) references Person(personCode)
     #join email and person where person codes in both tables are equal
 )engine=InnoDB,collate=latin1_general_cs;
-
-
-
--- create table PersonEmail (
--- 	personEmailId int not null primary key auto_increment, 
---     emailId int not null, 
---     personId int not null,
---     foreign key (emailId) references Email (emailId),
---     foreign key (personId) references Person (personId)
--- )engine=InnoDB,collate=latin1_general_cs;
 
 
 create table Store (
@@ -91,35 +81,6 @@ create table Item (
     quantity int
 )engine=InnoDB,collate=latin1_general_cs;
 
-
--- create table Service (
--- 	serviceId int not null primary key auto_increment, 
---     hourlyRate double,
---     numHours int, 
---     employeeId int, 
---     itemId int, 
---     foreign key (employeeId) references Person(personId), 
---     foreign key (itemId) references Item(itemId)
--- )engine=InnoDB,collate=latin1_general_cs;
--- 
--- 
--- create table Subscription (
--- 	subscriptionId int not null primary key auto_increment, 
---     annualFee double, 
---     beginDate varchar(255), 
---     endDate varchar(255),
--- 	itemId int, 
---     foreign key (itemId) references Item(itemId)
--- )engine=InnoDB,collate=latin1_general_cs;
--- 
--- create table Product (
--- 	productId int not null primary key auto_increment, 
---     basePrice double, 
---     quantity int, 
---     itemId int, 
---     foreign key (itemId) references Item(itemId)
--- )engine=InnoDB,collate=latin1_general_cs;
--- 
 create table Sale (
 	saleId int not null primary key auto_increment, 
     saleCode varchar(255), 
@@ -140,19 +101,20 @@ create table SaleItem (
     foreign key (itemId) references Item(itemId)
 )engine=InnoDB,collate=latin1_general_cs;
 
-select * from Person;
 
 #Inserting Person Address Test Data
-insert into Address(addressId, street, city, state, country, zip) values (1, '3464 Evening Sun Dr.','Las Vegas','NV',89117,'US');
-insert into Address(addressId, street, city, state, country, zip) values (2, '2625 N 169th St','Omaha','NE',68116,'US');
-insert into Address(addressId, street, city, state, country, zip) values (3, '2575 Dole St 326','Honolulu','HI',96822,'US');
-insert into Address(addressId, street, city, state, country, zip) values (4, '6621 Lowden Ln','Las Vegas','NV',89107,'US');
-insert into Address(addressId, street, city, state, country, zip) values (5, '871 CobbleStone Dr.','Grandville','MI',49418,'US');
-insert into Address(addressId, street, city, state, country, zip) values (6, '8187 Summerhouse Av','Ronkonkoma','NY',11779,'US');
-insert into Address(addressId, street, city, state, country, zip) values (7, '8408 Theatre Dr.','Gettysburg','PA',17325,'US');
-insert into Address(addressId, street, city, state, country, zip) values (8, '210 Military St.','Tucson','AZ',85718,'US');
-insert into Address(addressId, street, city, state, country, zip) values (9, '710 Center Dr.','Flushing','NY',11354,'US');
-insert into Address(addressId, street, city, state, country, zip) values (10, '99 Rainbow Ln','Louisa','KY',41230,'US');
+insert into Address(addressId, street, city, state, zip, country) values (1, '3464 Evening Sun Dr.','Las Vegas','NV',89117,'US');
+insert into Address(addressId, street, city, state, zip, country) values (2, '2625 N 169th St','Omaha','NE',68116,'US');
+insert into Address(addressId, street, city, state, zip, country) values (3, '2575 Dole St 326','Honolulu','HI',96822,'US');
+insert into Address(addressId, street, city, state, zip, country) values (4, '6621 Lowden Ln','Las Vegas','NV',89107,'US');
+insert into Address(addressId, street, city, state, zip, country) values (5, '871 CobbleStone Dr.','Grandville','MI',49418,'US');
+insert into Address(addressId, street, city, state, zip, country) values (6, '8187 Summerhouse Av','Ronkonkoma','NY',11779,'US');
+insert into Address(addressId, street, city, state, zip, country) values (7, '8408 Theatre Dr.','Gettysburg','PA',17325,'US');
+insert into Address(addressId, street, city, state, zip, country) values (8, '210 Military St.','Tucson','AZ',85718,'US');
+insert into Address(addressId, street, city, state, zip, country) values (9, '710 Center Dr.','Flushing','NY',11354,'US');
+insert into Address(addressId, street, city, state, zip, country) values (10, '99 Rainbow Ln','Louisa','KY',41230,'US');
+insert into Address(addressId, street, city, state, zip, country) values (21, '25354 Prado De La Felicidad', 'Calabasas', 'CA', 91302, 'US');
+
 
 #Inserting Email Test Data
 #Email may not allow multiple emails
@@ -170,39 +132,21 @@ insert into Email(emailId, email, personCode) values (11, 'bbuilder123@yahoo.com
 insert into Email(emailId, email, personCode) values (12, 'bob.builder@gmail.com', 'E3SBKH0OK6');
 insert into Email(emailId, email, personCode) values (13, 'bobb@hotmail.com', 'E3SBKH0OK6');
 insert into Email(emailId, email, personCode) values (14, 'tomBrady@gmail.com', 'XC9P4020OQ');
+insert into Email(emailId, email, personCode) values (15, 'crystalstraight123@gmail.com', 'AZDOL1KJ0L');
 
 
 #Inserting Person Test Data
-INSERT INTO Person(personId,personCode,type,lastName,firstName,addressId) VALUES (1, 'PGHPA5859I','G','Maloney','Madison', 1);
-INSERT INTO Person(personId,personCode,type,lastName,firstName,addressId) VALUES (2, '72OFN7R0RL','P','Kotipalli','Vasavi',2);
-INSERT INTO Person(personId,personCode,type,lastName,firstName,addressId) VALUES (3, 'R0E2QECOTP','C','Maloney','Mallory', 3);
-INSERT INTO Person(personId,personCode,type,lastName,firstName,addressId) VALUES (4, '4CQ9USQH10','E','Scherf','Jordan', 4);
-INSERT INTO Person(personId,personCode,type,lastName,firstName,addressId) VALUES (5, 'EVCDH4PET3','P','Smith','Sam', 5);
-INSERT INTO Person(personId,personCode,type,lastName,firstName,addressId) VALUES (6, '8XUXEI4T0W','E','Ponnatha','Niheala', 6);
-INSERT INTO Person(personId,personCode,type,lastName,firstName,addressId) VALUES (7, 'UWUA6YGS9X','E','Chada','Shreya', 7);
-INSERT INTO Person(personId,personCode,type,lastName,firstName,addressId) VALUES (8, 'CZDOL8TJ6I','G','Boinpally','Teju', 8);
-INSERT INTO Person(personId,personCode,type,lastName,firstName,addressId) VALUES (9, 'E3SBKH0OK6','E','Builder','Bob', 9);
-INSERT INTO Person(personId,personCode,type,lastName,firstName,addressId) VALUES (10, 'XC9P4020OQ','G','Brady','Tom', 10);
-
-
-#Inserting PersonEmail Test Data 
-#May have to alter to allow multiple emails to the same personId.
-
--- insert into PersonEmail(personEmailId, emailId, personId) values (1, 1, 1);
--- insert into PersonEmail(personEmailId, emailId, personId) values (2, 2, 2);
--- insert into PersonEmail(personEmailId, emailId, personId) values (3, 3, 2);
--- insert into PersonEmail(personEmailId, emailId, personId) values (4, 4, 3);
--- insert into PersonEmail(personEmailId, emailId, personId) values (5, 5, 4);
--- insert into PersonEmail(personEmailId, emailId, personId) values (6, 6, 5);
--- insert into PersonEmail(personEmailId, emailId, personId) values (7, 7, 6);
--- insert into PersonEmail(personEmailId, emailId, personId) values (8, 8, 6);
--- insert into PersonEmail(personEmailId, emailId, personId) values (9, 9, 7);
--- insert into PersonEmail(personEmailId, emailId, personId) values (10, 10, 8);
--- insert into PersonEmail(personEmailId, emailId, personId) values (11, 11, 9);
--- insert into PersonEmail(personEmailId, emailId, personId) values (12, 12, 9);
--- insert into PersonEmail(personEmailId, emailId, personId) values (13, 13, 9);
--- insert into PersonEmail(personEmailId, emailId, personId) values (14, 14, 10);
-
+insert into Person(personId, personCode, type, lastName, firstName, addressId) values (1, 'PGHPA5859I','G','Maloney','Madison', 1);
+insert into Person(personId, personCode, type, lastName, firstName, addressId) values (2, '72OFN7R0RL','P','Kotipalli','Vasavi',2);
+insert into Person(personId, personCode, type, lastName, firstName, addressId) values (3, 'R0E2QECOTP','C','Maloney','Mallory', 3);
+insert into Person(personId, personCode, type, lastName, firstName, addressId) values (4, '4CQ9USQH10','E','Scherf','Jordan', 4);
+insert into Person(personId, personCode, type, lastName, firstName, addressId) values (5, 'EVCDH4PET3','P','Smith','Sam', 5);
+insert into Person(personId, personCode, type, lastName, firstName, addressId) values (6, '8XUXEI4T0W','E','Ponnatha','Niheala', 6);
+insert into Person(personId, personCode, type, lastName, firstName, addressId) values (7, 'UWUA6YGS9X','E','Chada','Shreya', 7);
+insert into Person(personId, personCode, type, lastName, firstName, addressId) values (8, 'CZDOL8TJ6I','G','Boinpally','Teju', 8);
+insert into Person(personId, personCode, type, lastName, firstName, addressId) values (9, 'E3SBKH0OK6','E','Builder','Bob', 9);
+insert into Person(personId, personCode, type, lastName, firstName, addressId) values (10, 'XC9P4020OQ','G','Brady','Tom', 10);
+insert into Person(personId, personCode, type, lastName, firstName, addressId) values (11, 'AZDOL1KJ0L', 'C', 'Straight', 'Crystal', 21);
 
 #Inserting Store Address Test Data 
 insert into Address(addressId, street, city, state, country, zip) values (11, '973 Spring Avenue','Phila','PA',19103,'US');
@@ -250,23 +194,9 @@ insert into Item(itemId, itemCode, itemName, itemType, cost, numHours, employeeI
 insert into Item(itemId, itemCode, itemName, itemType, cost, numHours, employeeId, beginDate, endDate, quantity) values (12, 'd09a87', 'Netflix', 'SB', 101.99, NULL, NULL, '2016-03-23', '2019-11-02', NULL);
 insert into Item(itemId, itemCode, itemName, itemType, cost, numHours, employeeId, beginDate, endDate, quantity) values (13, '774196', 'Apple Arcade', 'SB', 69.99, NULL, NULL, '2018-10-06', '2020-09-29', NULL);
 
--- #Inserting Service Test Data
--- insert into Service(serviceId, hourlyRate, numHours, employeeId, itemId) values (1, 39.99, 4, 7, 9);
--- insert into Service(serviceId, hourlyRate, numHours, employeeId, itemId) values (2, 19.99, 6, 9, 8);
--- 
--- 
--- #Inserting Subscription Test Data
--- insert into Subscription(subscriptionId, annualFee, beginDate, endDate, itemId) values (1, 19.99, '2020-06-15', '2021-02-08', 10);
--- insert into Subscription(subscriptionId, annualFee, beginDate, endDate, itemId) values (2, 101.99, '2016-03-23', '2019-11-02', 12);
--- insert into Subscription(subscriptionId, annualFee, beginDate, endDate, itemId) values (3, 69.99, '2018-10-06', '2020-09-29', 13);
--- insert into Subscription(subscriptionId, annualFee, beginDate, endDate, itemId) values (4, 19.99, '2019-04-26', '2019-12-21', 10);
--- 
--- 
--- #Inserting Product Test Data
--- insert into Product(productId, basePrice, quantity, itemId) values (1, 10.99, 3, 7);
--- insert into Product(productId, basePrice, quantity, itemId) values (2, 10.99, 3, 7);
--- insert into Product(productId, basePrice, quantity, itemId) values (3, 59.99, 1, 2);
--- insert into Product(productId, basePrice, quantity, itemId) values (4, 55.99, 2, 1);
+#update statements for query #13
+update Item set cost = 100 where itemId=5;
+update Item set cost = 400 where itemId=6;
 
 #Inserting Sale Test Data
 insert into Sale(saleId, saleCode, customerId, storeId, salespersonId) values (1, 'N7HJZM4AA6', 1, 1, 4);
@@ -275,6 +205,14 @@ insert into Sale(saleId, saleCode, customerId, storeId, salespersonId) values (3
 insert into Sale(saleId, saleCode, customerId, storeId, salespersonId) values (4, 'LLQFRHT4HW', 10, 4, 7);
 insert into Sale(saleId, saleCode, customerId, storeId, salespersonId) values (5, 'NUDVU2C0CB', 3, 7, 9);
 insert into Sale(saleId, saleCode, customerId, storeId, salespersonId) values (6, 'OPX58M9BZ8', 2, 9, 4);
+##added sale test data to have a store have multiple sales #8
+insert into Sale(saleId, saleCode, customerId, storeId, salespersonId) values (7, 'PPX58M9BZ9', 2, 9, 4);
+## Added sale instance for query #12
+insert into Sale(saleId, saleCode, customerId, storeId, salespersonId) values (8, 'PPG58W9GA8', 7, 9, 7);
+#Inserting sale statements for query #13
+insert into Sale(saleId, saleCode, customerId, storeId, salespersonId) values (9, 'LWDVU7JWLF', 7, 9, 7);
+insert into Sale(saleId, saleCode, customerId, storeId, salespersonId) values (10, 'NKSZM2UA65', 6, 9, 6);
+
 
 #Inserting SaleItem Test Data
 insert into SaleItem (saleItemId, saleId, itemId) values (1, 1, 10); 
@@ -287,6 +225,16 @@ insert into SaleItem (saleItemId, saleId, itemId) values (7, 4, 13);
 insert into SaleItem (saleItemId, saleId, itemId) values (8, 5, 8);
 insert into SaleItem (saleItemId, saleId, itemId) values (9, 6, 1);
 insert into SaleItem (saleItemId, saleId, itemId) values (10, 6, 10);
+#added saleitem test data to have a store have multiple sales #8
+insert into SaleItem (saleItemId, saleId, itemId) values (11, 7, 8);
+#added saleitem test data to comply with #11
+insert into SaleItem (saleItemId, saleId, itemId) values (12, 3, 7);
+#added saleitem test data statements for query #13
+delete from SaleItem where saleItemId = 15;
+insert into SaleItem (saleItemId, saleId, itemId) values (13, 9, 5);
+insert into SaleItem (saleItemId, saleId, itemId) values (14, 9, 6);
+insert into SaleItem (saleItemId, saleId, itemId) values (15, 10, 6);
+
 
 
 
