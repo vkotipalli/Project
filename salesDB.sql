@@ -5,11 +5,6 @@
 use mmaloney;
 
 ## Questions to ask: 
-# is this foreign key correct when referencing the person table "foreign key (employeeId) references Person(personId)" Does naming matter?
-
-# is an itemId required for each Service, Subscription, Product using it as a foreign key as well when creating those tables. 
-
-# should beginDate and endDate be referenced as a varchar? 
 
 # What are examples of things that can be null and not null?
 
@@ -18,7 +13,6 @@ use mmaloney;
 drop table if exists Address;
 drop table if exists Person;
 drop table if exists Email; 
--- drop table if exists PersonEmail; 
 drop table if exists Store; 
 drop table if exists Item; 
 drop table if exists Service; 
@@ -27,7 +21,8 @@ drop table if exists Product;
 drop table if exists Sale; 
 drop table if exists SaleItem;
 
-
+#This table represents the given attributes of an Address. 
+#This is used with both Person and Store addresses respectfully.
 create table Address (
 	addressId int not null primary key auto_increment, 
     street varchar(255), 
@@ -37,6 +32,7 @@ create table Address (
     country varchar(255)
 )engine=InnoDB,collate=latin1_general_cs;
 
+#This table represents the given attributes of a Person.
 create table Person (
 	personId int not null primary key auto_increment,
     personCode varchar(255) not null,
@@ -47,6 +43,7 @@ create table Person (
     foreign key (addressId) references Address(addressId)
 )engine=InnoDB,collate=latin1_general_cs;
 
+#This table represents the given attributes of an Email.
 create table Email (
 	emailId int not null primary key auto_increment, 
     email varchar(255), 
@@ -56,7 +53,7 @@ create table Email (
     #join email and person where person codes in both tables are equal
 )engine=InnoDB,collate=latin1_general_cs;
 
-
+#This table represents the given attributes of a Store.
 create table Store (
 	storeId int not null primary key auto_increment, 
     storeCode varchar(255), 
@@ -66,12 +63,11 @@ create table Store (
     foreign key (addressId) references Address(addressId)
 )engine=InnoDB,collate=latin1_general_cs;
 
-## Combine annualFee, ServiceFee, and basePrice
+#This table represents the given attributes of an Item no matter the specific type.
 create table Item (
 	itemId int not null primary key auto_increment, 
     itemCode varchar(255) not null, 
     itemName varchar(255) not null, 
-    ##1-1 with items can have specific type PU, PN, PG, SV, SU
     itemType varchar(255) not null, 
     cost double,
     numHours int, 
@@ -81,6 +77,7 @@ create table Item (
     quantity int
 )engine=InnoDB,collate=latin1_general_cs;
 
+#This table represents the given attributes of a Sale.
 create table Sale (
 	saleId int not null primary key auto_increment, 
     saleCode varchar(255), 
@@ -92,7 +89,7 @@ create table Sale (
     foreign Key (salespersonId) references Person(personId)
 )engine=InnoDB,collate=latin1_general_cs;
 
-
+#This table is a join table joining the shared attributes of Sale and Item.
 create table SaleItem (
 	saleItemId int not null primary key auto_increment, 
     saleId int not null, 
@@ -117,7 +114,6 @@ insert into Address(addressId, street, city, state, zip, country) values (21, '2
 
 
 #Inserting Email Test Data
-#Email may not allow multiple emails
 insert into Email(emailId, email, personCode) values (1, 'mmaloney2@unl.edu', 'PGHPA5859I');
 insert into Email(emailId, email, personCode) values (2, 'vkotipalli086@gmail.com', '72OFN7R0RL');
 insert into Email(emailId, email, personCode) values (3, 'vasavi.kotipalli@yahoo.com', '72OFN7R0RL');
