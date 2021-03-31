@@ -4,8 +4,7 @@ import java.util.List;
 
 /**
  * @author Kotipalli, Vasavi
- * @author Maloney, Madison 
- * Date: 2/25/21
+ * @author Maloney, Madison Date: 2/25/21
  * 
  *         An abstract class that represents the Item object that's specified
  *         for the project
@@ -15,7 +14,7 @@ public abstract class Item {
 	private String name;
 	private String type;
 
-	public Item(String code, String name, String type) {
+	public Item(String code, String type, String name) {
 		this.code = code;
 		this.name = name;
 		this.type = type;
@@ -44,21 +43,23 @@ public abstract class Item {
 	public void setType(String type) {
 		this.type = type;
 	}
-	
+
 	public abstract double getPrice();
-	
+
 	public abstract double getTax();
 
 	/**
-	 * This method returns a specific instance of an item (and its attributes) given a specific item code. If the given item code does
-	 * not match the item codes within the item list null is returned.
+	 * This method returns a specific instance of an item (and its attributes) given
+	 * a specific item code. If the given item code does not match the item codes
+	 * within the item list null is returned.
+	 * 
 	 * @param itemCode
 	 * @param itemList
 	 * @return specific item instance or null
 	 */
 	public static Item getItem(String itemCode, List<Item> itemList) {
-		for(int i = 0; i<itemList.size(); i++) {
-			if(itemList.get(i).getCode().equals(itemCode)) {
+		for (int i = 0; i < itemList.size(); i++) {
+			if (itemList.get(i).getCode().equals(itemCode)) {
 				return itemList.get(i);
 			}
 		}

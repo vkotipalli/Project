@@ -178,18 +178,16 @@ public class DataLoadingFile {
 				String code = token[0];
 				String type = token[1];
 				String name = token[2];
-				if (type.equals("PN") || type.equals("PU") || type.equals("PG")) {
-					double basePrice;
-					if (token.length == 3) {
-						basePrice = 0.00;
-					} else {
-						basePrice = Double.parseDouble(token[3]);
-					}
-					Product pr = new Product(code, type, name, basePrice);
-					pr.setCode(code);
-					pr.setType(type);
-					pr.setName(name);
-					pr.setBasePrice(basePrice);
+				if (type.equals("PN")){
+					double basePrice = Double.parseDouble(token[3]);
+					ProductNew pr = new ProductNew(code, type, name, basePrice);
+					itemsList.add(pr);
+				}else if (type.equals("PU")) {
+					double basePrice = Double.parseDouble(token[3]);
+					ProductUsed pr = new ProductUsed(code, type, name, basePrice);
+					itemsList.add(pr);
+				}else if (type.equals("PG")) {
+					ProductGiftCard pr = new ProductGiftCard(code, type, name, 0.0);
 					itemsList.add(pr);
 				} else if (type.equals("SV")) {
 					double hourlyRate = Double.parseDouble(token[3]);
@@ -262,9 +260,10 @@ public class DataLoadingFile {
 				Store store = Store.getStore(token[1], loadStoreFile());
 				Person customer = Person.getPerson(token[2], loadPersonFile());
 				Person salesperson = Person.getPerson(token[3], loadPersonFile());
+				List<Item>itemfile = loadItemFile();
 				List<Item> itemList = new ArrayList<>();
 				for (int i = 4; i < token.length; i++) {
-					Item item = Item.getItem(token[i], loadItemFile());
+					Item item = Item.getItem(token[i], itemfile);
 					if (item != null && item.getCode().equals(token[i])) {
 						if (item.getType().equals("SB")) {
 							String beginDate = token[i + 1];
@@ -282,14 +281,25 @@ public class DataLoadingFile {
 							ser.addEmployeeCode(employeeCode);
 							ser.addNumberOfHours(numberOfHours);
 							itemList.add(ser);
-						} else if (item.getType().equals("PU") || item.getType().equals("PG")
-								|| item.getType().equals("PN")) {
+						} else if (item.getType().equals("PU")) {
 							double quantity = Double.parseDouble(token[i + 1]);
-							Product pro = (Product) item;
+							ProductUsed pro = (ProductUsed) item;
+							pro.addQuantity(quantity);
+							itemList.add(pro);
+						}else if (item.getType().equals("PG")) {
+							double quantity = Double.parseDouble(token[i + 1]);
+							ProductGiftCard pro = (ProductGiftCard) item;
+							pro.addQuantity(quantity);
+							itemList.add(pro);
+						}else if (item.getType().equals("PN")) {
+							double quantity = Double.parseDouble(token[i + 1]);
+							ProductNew pro = (ProductNew) item;
 							pro.addQuantity(quantity);
 							itemList.add(pro);
 						}
+						
 					}
+				
 				}
 				Sale sale = new Sale(salesCode, customer, salesperson, store, itemList);
 

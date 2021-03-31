@@ -7,7 +7,7 @@ package com.mgg;
  *         A Product class that extends to the Item class and represents the
  *         Products
  */
-public class Product extends Item {
+public abstract class Product extends Item {
 
 	private double basePrice;
 	private double quantity;
@@ -34,37 +34,10 @@ public class Product extends Item {
 		this.quantity = quantity;
 	}
 
-	/**
-	 * This method returns base price of a product depending on product type.
-	 */
-	public double getPrice() {
-		if (getType().equals("PU")) {
-			return Math.round(100 * 0.8 * getQuantity() * basePrice) / 100.0;
-		} else if (getType().equals("PN")) {
-			return getQuantity() * basePrice;
-		} else if (getType().equals("PG")) {
-			return getQuantity();
-		}
-		return 0.0;
-	}
+	public abstract double getPrice();
 
-	/**
-	 * This method returns the tax value given a product item base price.
-	 */
 	public double getTax() {
 		return getPrice() * 0.0725;
-	}
-
-	public String toString() {
-		if (getType().equals("PU")) {
-			return getName() + "\n\t" + "(Used Item #" + getCode() + " @$" + basePrice + "/ea)\t\t\t\t$" + getPrice()
-					+ "\n";
-		} else if (getType().equals("PN")) {
-			return getName() + "\n\t" + "(New Item #" + getCode() + " @$" + basePrice + "/ea)\t\t\t\t$" + getPrice()
-					+ "\n";
-		} else {
-			return getName() + "\n\t" + "(Gift Card #" + getCode() + " ) \t\t\t\t\t@$" + getPrice() + "\n";
-		}
 	}
 
 }
