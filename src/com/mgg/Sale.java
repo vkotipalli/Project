@@ -1,11 +1,13 @@
 package com.mgg;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.time.LocalDate;
+/**
+ * @author Kotipalli, Vasavi
+ * @author Maloney, Madison Date: 3/03/21
+ * 
+ *         Purpose of Program: A Sale class that represents the given attributes of the Sale object.
+ */
+
 import java.util.List;
-import java.util.Scanner;
 
 public class Sale {
 	private String code;
@@ -14,7 +16,6 @@ public class Sale {
 	private Person salesperson;
 	private List<Item> item;
 
-		
 	public Sale(String code, Person customer, Person salesperson, Store store, List<Item> item) {
 		this.code = code;
 		this.customer = customer;
@@ -22,107 +23,90 @@ public class Sale {
 		this.store = store;
 		this.item = item;
 	}
-	
+
 	public String getcode() {
 		return code;
 	}
+
 	public Person getCustomer() {
 		return customer;
 	}
+
 	public void setCustomer(Person customer) {
 		this.customer = customer;
 	}
+
 	public Store getStore() {
 		return store;
 	}
+
 	public void setStore(Store store) {
 		this.store = store;
 	}
+
 	public List<Item> getItem() {
 		return item;
 	}
+
 	public void setItem(List<Item> item) {
 		this.item = item;
 	}
+
 	public Person getSalesperson() {
 		return salesperson;
 	}
+
 	public void setSalesperson(Person salesperson) {
 		this.salesperson = salesperson;
 	}
 
-	public static List<Sale> loadSaleFile() {
-		File f = new File("data/Sales.csv");
-		Scanner s = null;
-		List<Sale> saleList = new ArrayList<>();
-		try {
-			s = new Scanner(f);
-			int numOfSales = Integer.parseInt(s.nextLine());
-			while(s.hasNextLine()) {
-				String line = s.nextLine();
-				String token[] = line.split(",");
-				String salesCode = token[0];
-				Store store = Store.getStore(token[1],Store.loadStoreFile());
-				Person customer = Person.getPerson(token[2], Person.loadPersonFile());
-				Person salesperson = Person.getPerson(token[3], Person.loadPersonFile());
-//				Item itemCode = Item.getItem(token[4], Item.loadItemFile());
-				List<Item>itemList = new ArrayList<>();
-				for(int i =4; i<token.length; i++) {
-					Item item = Item.getItem(token[i], Item.loadItemFile());
-					if(item != null && item.getCode().equals(token[i])) { 
-						if(item.getType().equals("SB")) {
-							String beginDate = token[i+1];
-							String endDate = token[i+2];
-							LocalDate begin = LocalDate.parse(beginDate);
-							LocalDate end = LocalDate.parse(endDate);
-							Subscription sub = (Subscription)item;
-							sub.addBeginDate(begin);
-							sub.addEndDate(end);
-							itemList.add(sub);
-						}else if(item.getType().equals("SV")) {
-							Person employeeCode = Person.getPerson(token[i+1], Person.loadPersonFile());
-							int numberOfHours = Integer.parseInt(token[i+2]);
-							Service ser = (Service)item;
-							ser.addEmployeeCode(employeeCode);
-							ser.addNumberOfHours(numberOfHours);
-							itemList.add(ser);
-						}else if(item.getType().equals("PU")||item.getType().equals("PG")||item.getType().equals("PN")) {
-							int quantity = Integer.parseInt(token[i+1]);
-							Product pro = (Product)item;
-							pro.addQuantity(quantity);
-							itemList.add(pro);
-						}
-					}
-				}
-				Sale sale = new Sale(salesCode,customer,salesperson,store,itemList);
-				
-				saleList.add(sale);
-			}
-		}catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		s.close();
-		
-		return saleList;
-	}
-	
-	@Override
 	public String toString() {
-		return "Sale [code=" + code + ", customer=" + customer + ", store=" + store + ", salesperson=" + salesperson
-				+ ", item=" + item + "]";
+		return "Sales: #" + code + "\n" + "Store: #" + store.getStoreCode() + "\n" + "Customer:\n\t"
+				+ customer.getLastName() + ", " + customer.getFirstName() + " (" + customer.getEmail() + ")" + "\n\t"
+				+ customer.getCurrentAddress() + "\n" + "\nSales Person:\n\t" + salesperson.getLastName() + ", "
+				+ salesperson.getFirstName() + " (" + salesperson.getEmail() + ")" + "\n\t"
+				+ salesperson.getCurrentAddress() + "\n" + "\nItem\t\t\t\t\t\t\t\tTotal\n"
+				+ "=-=-=-=-=-=-=-=-=-=-=-=-=-=\t\t\t\t\t=-=-=-=\n" + item.toString() + "\n"
+				+ "\t\t\t\t\t\t\t\t--------";
 	}
 
-	public static List<Double> getTotalPrice(List<Double> discountPrice, List<Double> getPrice) {
-		double totalPrice = 0;
-		int i =0;
-		List<Double> totalPriceList = new ArrayList<>();
-		while(!discountPrice.isEmpty() && !getPrice.isEmpty()) {
-			totalPrice = getPrice.get(i) - discountPrice.get(i);
-			totalPriceList.add(totalPrice);
-			i++;
+	/**
+	 * This method calculates the subtotal of a specific sale that was made. A
+	 * subtotal is all base prices taken into account before taxes and fees are
+	 * applied.
+	 * 
+	 * @return subtotal
+	 */
+	public double getSubTotal() {
+		double subtotal = 0.0;
+		for (int i = 0; i < item.size(); i++) {
+			subtotal += item.get(i).getPrice();
 		}
-		
-		return totalPriceList;
-		
+		return subtotal;
 	}
+
+	/**
+	 * This method calculates the total tax of a given sale. This includes the taxes
+	 * for all items no matter product, service, or subscription.
+	 * 
+	 * @return tax
+	 */
+	public double getTotalTax() {
+		double tax = 0.0;
+		for (int i = 0; i < item.size(); i++) {
+			tax += item.get(i).getTax();
+		}
+		return tax;
+	}
+
+	/**
+	 * This method calculates the discount price depending on person type. This will
+	 * be subtracted off the amount.
+	 * 
+	 * @return discountPrice
+	 */
+	public double getDiscountPrice() {
+		return (getSubTotal() + getTotalTax()) * customer.getDiscount();
+	}
+
 }

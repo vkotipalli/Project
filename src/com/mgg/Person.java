@@ -1,18 +1,11 @@
 package com.mgg;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 /**
  * @author Kotipalli, Vasavi
- * @author Maloney, Madison 
- * Date: 2/25/21
+ * @author Maloney, Madison Date: 2/25/21
  * 
  *         A class that represents the Person object that's specified for the
  *         project
@@ -25,6 +18,7 @@ public class Person {
 	private String firstName;
 	private Address currentAddress;
 	private List<String> email;
+	private int saleCount;
 
 	public Person(String personCode, String type, String lastName, String firstName, Address currentAddress,
 			List<String> email) {
@@ -34,6 +28,24 @@ public class Person {
 		this.firstName = firstName;
 		this.currentAddress = currentAddress;
 		this.email = email;
+	}
+
+	public Person(String personCode, String lastName, String firstName, Address currentAddress, List<String> email) {
+		this.personCode = personCode;
+		this.lastName = lastName;
+		this.firstName = firstName;
+		this.currentAddress = currentAddress;
+		this.email = email;
+	}
+
+	public Person(String personCode, String lastName, String firstName, Address currentAddress, List<String> email,
+			int saleCount) {
+		this.personCode = personCode;
+		this.lastName = lastName;
+		this.firstName = firstName;
+		this.currentAddress = currentAddress;
+		this.email = email;
+		this.saleCount = saleCount;
 	}
 
 	public String getPersonCode() {
@@ -84,118 +96,130 @@ public class Person {
 		this.email = email;
 	}
 
+	public int getSaleCount() {
+		return saleCount;
+	}
+
+	public void setSaleCount(int saleCount) {
+		this.saleCount = saleCount;
+	}
+
 	public String toString() {
 		return personCode + "," + type + "," + lastName + "," + firstName + "," + currentAddress + "," + email;
 	}
 
 	/**
-	 * Takes in the information from the "Persons.csv" file, reads the file line by
-	 * line, tokenizes it, ands it to a list.
+	 * This method gets a specific instance on a Person (and its attributes) based
+	 * on a given person code. It returns null if the person code given is not found
+	 * within the person list.
 	 * 
-	 * @return
+	 * @param personCode
+	 * @param personList
+	 * @return specific person instance or null
 	 */
-	public static List<Person> loadPersonFile() {
-		File f = new File("data/Persons.csv");
-		Scanner s = null;
-		List<Person> personsList = new ArrayList<>();
-
-		try {
-			s = new Scanner(f);
-			// variable stores number of items , could use for future assignments
-			int numOfPersons = Integer.parseInt(s.nextLine());
-			while (s.hasNextLine()) {
-				List<String> emailList = new ArrayList<>();
-				String line = s.nextLine();
-				String token[] = line.split(",");
-				String personCode = token[0];
-				String type = token[1];
-				String lastName = token[2];
-				String firstName = token[3];
-				String street = token[4];
-				String city = token[5];
-				String state = token[6];
-				String zip = token[7];
-				String country = token[8];
-
-				int i = 9;
-				while (i < token.length) {
-					emailList.add(token[i]);
-					i++;
-				}
-
-				Address address = new Address(street, city, state, zip, country);
-				Person p = new Person(personCode, type, lastName, firstName, address, emailList);
-//				System.out.println(p);
-				p.setPersonCode(personCode);
-				p.setType(type);
-				p.setLastName(lastName);
-				p.setFirstName(firstName);
-				p.setCurrentAddress(address);
-				p.setEmail(emailList);
-				personsList.add(p);
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		s.close();
-		return personsList;
-	}
-
-	/**
-	 * Takes in the list from loadPersonFile() and the file path to where the json
-	 * is going to output to. After the conversion is done, the information will
-	 * printed on to the Person.json file.
-	 * 
-	 * @param itemsList
-	 * @param filePath
-	 */
-	public static void personFileToJson(List<Person> personsList, String filePath) {
-		File outputFile = new File(filePath);
-		PrintWriter personOutput = null;
-		try {
-			personOutput = new PrintWriter(outputFile);
-			GsonBuilder builder = new GsonBuilder();
-			builder.setPrettyPrinting();
-			Gson gson = builder.create();
-			personOutput.print(gson.toJson(personsList));
-			personOutput.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	//Function to get a Person based on a given person code. Returns null if person is not found.
 	public static Person getPerson(String personCode, List<Person> personList) {
-		for(int i = 0; i<personList.size(); i++) {
-			if(personList.get(i).getPersonCode().equals(personCode)) {
+
+		for (int i = 0; i < personList.size(); i++) {
+			if (personList.get(i).getPersonCode().equals(personCode)) {
 				return personList.get(i);
 			}
 		}
 		return null;
 	}
-	
-	//TODO: Check this return type. Should this be a list of doubles (prices).
-	public static List<Double> getDiscount(List<Person> personList, List<Double> getPrice) {
-		double discountPrice = 0;
-		List<Double> discountList = new ArrayList<>();
-		for(int i = 0; i<personList.size(); i++) {
-			if(personList.get(i).getType().equals("G")) {
-				discountPrice = getPrice.get(i) * 0.05;
-				discountList.add(discountPrice);
-				
-			} else if (personList.get(i).getType().equals("P")){
-				discountPrice = getPrice.get(i) * 0.10;
-				discountList.add(discountPrice);
-			} else if(personList.get(i).getType().equals("E")) {
-				discountPrice = getPrice.get(i) * 0.15;
-			} else {
-				discountList.add(discountPrice);
+
+	/**
+	 * This method creates a list of customers given the information from person and
+	 * sale.
+	 * 
+	 * @return
+	 */
+
+	public static List<Person> getCustomer() {
+		List<Person> person = DataLoadingFile.loadPersonFile();
+		List<Sale> sale = DataLoadingFile.loadSaleFile();
+		List<Person> customer = new ArrayList<>();
+		String personcode = "";
+		String lastName = "";
+		String firstName = "";
+		Address address = new Address("", "", "", "", "");
+		List<String> email = new ArrayList<>();
+		for (int i = 0; i < sale.size(); i++) {
+			for (int j = 0; j < person.size(); j++) {
+				if (sale.get(i).getCustomer().getPersonCode().equals(person.get(j).getPersonCode())) {
+					personcode = person.get(j).getPersonCode();
+					lastName = person.get(j).getLastName();
+					firstName = person.get(j).getFirstName();
+					address = person.get(j).getCurrentAddress();
+					email = person.get(j).getEmail();
+
+					Person p = new Person(personcode, lastName, firstName, address, email);
+					customer.add(p);
+				}
 			}
-	
 		}
-		
-		return discountList;
+		return customer;
 	}
-	
+
+	/**
+	 * This method returns a list of the sales persons and makes sure there are no
+	 * duplicates.
+	 * 
+	 * @return
+	 */
+
+	public static List<Person> getSalesPerson() {
+		List<Person> person = DataLoadingFile.loadPersonFile();
+		List<Sale> sale = DataLoadingFile.loadSaleFile();
+		List<Person> saleperson = new ArrayList<>();
+		String personcode = "";
+		String lastName = "";
+		String firstName = "";
+		Address address = new Address("", "", "", "", "");
+		int saleCount = 1;
+		List<String> email = new ArrayList<>();
+
+		for (int i = 0; i < sale.size(); i++) {
+			for (int j = 0; j < person.size(); j++) {
+				if (sale.get(i).getSalesperson().getPersonCode().equals(person.get(j).getPersonCode())) {
+					personcode = person.get(j).getPersonCode();
+					lastName = person.get(j).getLastName();
+					firstName = person.get(j).getFirstName();
+					address = person.get(j).getCurrentAddress();
+					email = person.get(j).getEmail();
+
+					for (int k = 0; k < saleperson.size(); k++) {
+						if (saleperson.get(k).getPersonCode().equals(person.get(j).getPersonCode())) {
+							saleCount = saleperson.get(k).getSaleCount() + 1;
+							saleperson.remove(k);
+						} else {
+							saleCount = 1;
+						}
+					}
+
+					Person p = new Person(personcode, lastName, firstName, address, email, saleCount);
+					saleperson.add(p);
+				}
+			}
+		}
+		return saleperson;
+	}
+
+	/**
+	 * This method gets the discount percentage based on a specific person type. It
+	 * only returns the pure percentage, no calculations are made.
+	 * 
+	 * @return discount percentage
+	 */
+	public double getDiscount() {
+		if (getType().equals("G")) {
+			return 0.05;
+		} else if (getType().equals("P")) {
+			return 0.10;
+		} else if (getType().equals("E")) {
+			return 0.15;
+		} else {
+			return 0.0;
+		}
+	}
 
 }

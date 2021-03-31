@@ -1,13 +1,6 @@
 package com.mgg;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 /**
  * @author Kotipalli, Vasavi
@@ -51,90 +44,18 @@ public abstract class Item {
 	public void setType(String type) {
 		this.type = type;
 	}
-
-	/**
-	 * Takes in the information from the "Items.csv" file, reads the file line by
-	 * line, tokenizes it, ands it to a list.
-	 * 
-	 * @return
-	 */
-	public static List<Item> loadItemFile() {
-		List<Item> itemsList = new ArrayList<>();
-		File file = new File("data/Items.csv");
-		Scanner scan = null;
-		try {
-			scan = new Scanner(file);
-		int numOfItems = Integer.parseInt(scan.nextLine());
-			while (scan.hasNextLine()) {
-				String line = scan.nextLine();
-				String token[] = line.split(",");
-				String code = token[0];
-				String type = token[1];
-				String name = token[2];
-				if (type.equals("PN") || type.equals("PU") || type.equals("PG")) {
-					double basePrice;
-					if (token.length == 3) {
-						basePrice = 0.00;
-					} else {
-						basePrice = Double.parseDouble(token[3]);
-					}
-					Product pr = new Product(code, type, name, basePrice);
-					pr.setCode(code);
-					pr.setType(type);
-					pr.setName(name);
-					pr.setBasePrice(basePrice);
-					itemsList.add(pr);
-				} else if (type.equals("SV")) {
-					double hourlyRate = Double.parseDouble(token[3]);
-					Service sv = new Service(code, type, name, hourlyRate);
-					sv.setCode(code);
-					sv.setType(type);
-					sv.setName(name);
-					sv.setHourlyRate(hourlyRate);
-					itemsList.add(sv);
-				} else if (type.equals("SB")) {
-					double annualFee = Double.parseDouble(token[3]);
-					Subscription sb = new Subscription(code, type, name, annualFee);
-					sb.setCode(code);
-					sb.setType(type);
-					sb.setName(name);
-					sb.setAnnualFee(annualFee);
-					itemsList.add(sb);
-				}
-			}
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		scan.close();
-		return itemsList;
-	}
-
-	/**
-	 * Takes in the list from loadItemFile() and the file path to where the json is
-	 * going to output to. After the conversion is done, the information will
-	 * printed on to the Items.json file.
-	 * 
-	 * @param itemsList
-	 * @param filePath
-	 */
-	public static void itemsFileToJson(List<Item> itemsList, String filePath) {
-		File outputFileItems = new File("data/Items.json");
-		PrintWriter itemOutput = null;
-		try {
-			itemOutput = new PrintWriter(outputFileItems);
-			GsonBuilder builder = new GsonBuilder();
-			builder.setPrettyPrinting();
-			Gson gson = builder.create();
-			itemOutput.print(gson.toJson(itemsList));
-			itemOutput.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		
-	}
 	
-	//Gets a item and its attributes given a specific item code. Returns null if no list is found.
+	public abstract double getPrice();
+	
+	public abstract double getTax();
+
+	/**
+	 * This method returns a specific instance of an item (and its attributes) given a specific item code. If the given item code does
+	 * not match the item codes within the item list null is returned.
+	 * @param itemCode
+	 * @param itemList
+	 * @return specific item instance or null
+	 */
 	public static Item getItem(String itemCode, List<Item> itemList) {
 		for(int i = 0; i<itemList.size(); i++) {
 			if(itemList.get(i).getCode().equals(itemCode)) {
@@ -143,42 +64,5 @@ public abstract class Item {
 		}
 		return null;
 	}
-	
-	//TODO: Check this return type. Should this be a list of prices? Can this be polymorphic?
-	//TODO: Should The intake of List be changed to Sale list instead?
-	public List<Double> getPrice(List<Item> itemList) {
-		double basePrice = 0;
-		double taxMoney = 0;
-		List<Double> priceList = new ArrayList<>();
-		
-		for(int i=0; i<itemList.size(); i++) {
-				if(itemList.get(i).getType().equals("PN")){
-					taxMoney = ((Product) itemList.get(i)).getBasePrice() * 0.0725;
-					basePrice = ((Product) itemList.get(i)).getBasePrice() + taxMoney;
-					priceList.add(basePrice);
-				} else if(itemList.get(i).getType().equals("PU")) {
-					basePrice = ((Product) itemList.get(i)).getBasePrice() * 0.80;
-					taxMoney = basePrice * 0.0725;
-					basePrice = basePrice + taxMoney;
-					priceList.add(basePrice);
-				}else if(itemList.get(i).getType().equals("PG")) {
-					//TODO: figure out the price for this. Similar to above
-					taxMoney = ((Product) itemList.get(i)).getQuantity() * 0.0725;
-					basePrice = ((Product) itemList.get(i)).getQuantity() + taxMoney;
-					priceList.add(basePrice);
-			} else if(itemList.get(i).getType().equals("SV")) {
-				basePrice = ((Service)itemList.get(i)).getHourlyRate() * ((Service)itemList.get(i)).getNumberOfHours();
-				taxMoney = basePrice * 0.0285;
-				basePrice = basePrice + taxMoney;
-				priceList.add(basePrice);
-				
-			} else if(itemList.get(i).getType().equals("SB")) {
-//				basePrice = ((Subscription)itemList.get(i)).parse.(getEndDate()) - ((Subscription)itemList.get(i)).getBeginDate() / 365) * ((Subscription)itemList.get(i)).getAnnualFee();
-				taxMoney = 0.0;
-				priceList.add(basePrice);
-			}
-		}
-		
-		return priceList;
-	}
+
 }
