@@ -108,5 +108,5 @@ public class Sale {
 	public double getDiscountPrice() {
 		return (getSubTotal() + getTotalTax()) * customer.getDiscount();
 	}
-
+	
 }

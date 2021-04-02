@@ -134,32 +134,32 @@ public class Person {
 	 * @return
 	 */
 
-	public static List<Person> getCustomer() {
-		List<Person> person = DataLoadingFile.loadPersonFile();
-		List<Sale> sale = DataLoadingFile.loadSaleFile();
-		List<Person> customer = new ArrayList<>();
-		String personcode = "";
-		String lastName = "";
-		String firstName = "";
-		Address address = new Address("", "", "", "", "");
-		List<String> email = new ArrayList<>();
-		for (int i = 0; i < sale.size(); i++) {
-			for (int j = 0; j < person.size(); j++) {
-				if (sale.get(i).getCustomer().getPersonCode().equals(person.get(j).getPersonCode())) {
-					personcode = person.get(j).getPersonCode();
-					lastName = person.get(j).getLastName();
-					firstName = person.get(j).getFirstName();
-					address = person.get(j).getCurrentAddress();
-					email = person.get(j).getEmail();
-
-					Person p = new Person(personcode, lastName, firstName, address, email);
-					customer.add(p);
-				}
-			}
-		}
-		return customer;
-	}
-
+//	public static List<Person> getCustomer() {
+//		List<Person> person = DataLoadingFile.loadPersonFile();
+//		List<Sale> sale = DataLoadingFile.loadSaleFile();
+//		List<Person> customer = new ArrayList<>();
+//		String personcode = "";
+//		String lastName = "";
+//		String firstName = "";
+//		Address address = new Address("", "", "", "", "");
+//		List<String> email = new ArrayList<>();
+//		for (int i = 0; i < sale.size(); i++) {
+//			for (int j = 0; j < person.size(); j++) {
+//				if (sale.get(i).getCustomer().getPersonCode().equals(person.get(j).getPersonCode())) {
+//					personcode = person.get(j).getPersonCode();
+//					lastName = person.get(j).getLastName();
+//					firstName = person.get(j).getFirstName();
+//					address = person.get(j).getCurrentAddress();
+//					email = person.get(j).getEmail();
+//
+//					Person p = new Person(personcode, lastName, firstName, address, email);
+//					customer.add(p);
+//				}
+//			}
+//		}
+//		return customer;
+//	}
+//
 	/**
 	 * This method returns a list of the sales persons and makes sure there are no
 	 * duplicates.
