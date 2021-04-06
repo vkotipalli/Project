@@ -82,7 +82,7 @@ public class Sale {
 		for (int i = 0; i < item.size(); i++) {
 			subtotal += item.get(i).getPrice();
 		}
-		return subtotal;
+		return Math.round(subtotal*100.0)/100.0;
 	}
 
 	/**
@@ -96,7 +96,7 @@ public class Sale {
 		for (int i = 0; i < item.size(); i++) {
 			tax += item.get(i).getTax();
 		}
-		return tax;
+		return Math.round(tax*100.0)/100.0;
 	}
 
 	/**
@@ -106,7 +106,15 @@ public class Sale {
 	 * @return discountPrice
 	 */
 	public double getDiscountPrice() {
-		return (getSubTotal() + getTotalTax()) * customer.getDiscount();
+		double discountPrice = 0.0;
+		discountPrice = (getSubTotal() + getTotalTax()) * customer.getDiscount();
+		return Math.round(discountPrice*100.0)/100.0;
+	}
+	
+	public double getTotalAmount() {
+		double totalPrice = 0.0;
+		totalPrice = getSubTotal() + getTotalTax() - getDiscountPrice();
+		return Math.round(totalPrice*100.0)/100.0;
 	}
 	
 }

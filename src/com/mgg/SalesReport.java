@@ -28,12 +28,11 @@ public class SalesReport {
 		return count;
 	}
 
-	public static double totalOfSalespersonSales(String salespersonCode, List<Sale> salesList) {
+	public static double priceOfSalesPerSalesperson(String salespersonCode, List<Sale> salesList) {
 		double totalPrice = 0.0;
 		for (int i = 0; i < salesList.size(); i++) {
 			if (salesList.get(i).getSalesperson().getPersonCode().equals(salespersonCode)) {
-				totalPrice = totalPrice + (salesList.get(i).getSubTotal() + salesList.get(i).getTotalTax()
-						- salesList.get(i).getDiscountPrice());
+				totalPrice = totalPrice + salesList.get(i).getTotalAmount();
 			}
 		}
 		return Math.round(totalPrice * 100.0) / 100.0;
@@ -55,12 +54,12 @@ public class SalesReport {
 			System.out.print("    \t\t" + count);
 			total += count;
 
-			double price = totalOfSalespersonSales(saleperson.get(i).getPersonCode(), salesList);
-			System.out.println("    \t\t" + price);
+			double price = priceOfSalesPerSalesperson(saleperson.get(i).getPersonCode(), salesList);
+			System.out.println("    \t\t$" + price);
 			grandTotal += price;
 		}
 		System.out.println("---------------------------------------------------------");
-		System.out.println("\t\t\t\t" + total + "\t\t" + Math.round(grandTotal * 100.0) / 100.0);
+		System.out.println("\t\t\t\t" + total + "\t\t$" + Math.round(grandTotal * 100.0) / 100.0);
 	}
 
 	public static int countSalesPerStore(String storeCode, List<Sale> salesList) {
@@ -77,8 +76,7 @@ public class SalesReport {
 		double totalPrice = 0.0;
 		for (int i = 0; i < salesList.size(); i++) {
 			if (salesList.get(i).getStore().getStoreCode().equals(storeCode)) {
-				totalPrice = totalPrice + (salesList.get(i).getSubTotal() + salesList.get(i).getTotalTax()
-						- salesList.get(i).getDiscountPrice());
+				totalPrice = totalPrice + salesList.get(i).getTotalAmount();
 			}
 		}
 		return (Math.round(totalPrice * 100.0)) / 100.0;
@@ -101,11 +99,11 @@ public class SalesReport {
 			total += count;
 
 			double price = priceOfSalesPerStore(storeList.get(i).getStoreCode(), salesList);
-			System.out.println("     \t" + price);
+			System.out.println("     \t$" + price);
 			grandTotal += price;
 		}
 		System.out.println("---------------------------------------------------------");
-		System.out.println("\t\t\t\t\t" + total + "\t" + Math.round(grandTotal * 100.0) / 100.0);
+		System.out.println("\t\t\t\t\t" + total + "\t$" + Math.round(grandTotal * 100.0) / 100.0);
 	}
 
 	public static void IndividualSales(List<Sale> salesList) {
@@ -113,13 +111,12 @@ public class SalesReport {
 			double subtotal = salesList.get(i).getSubTotal();
 			double totalTax = salesList.get(i).getTotalTax();
 			double discount = salesList.get(i).getDiscountPrice();
-			double totalAmount = subtotal + totalTax - discount;
+			double totalAmount = salesList.get(i).getTotalAmount();
 			System.out.println(salesList.get(i).toString());
 			System.out.printf("Subtotal: $ %59.2f\n", subtotal);
 			System.out.printf("Tax: $%64.2f\n", totalTax);
 			System.out.printf("Discount: $%59.2f\n", discount);
-			System.out.printf("Total: $%62.2f\n", totalAmount);
-			System.out.println("\n");
+			System.out.printf("Total: $%62.2f\n\n", totalAmount);
 		}
 	}
 
