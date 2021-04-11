@@ -8,8 +8,13 @@ package com.mgg;
  *         for the project
  */
 public class ProductNew extends Product {
+
 	public ProductNew(String code, String type, String name, double basePrice) {
 		super(code, type, name, basePrice);
+	}
+
+	public ProductNew(String code, String type, String name, double basePrice, double quantity) {
+		super(code, type, name, basePrice, quantity);
 	}
 
 	public double getPrice() {

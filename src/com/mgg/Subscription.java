@@ -20,6 +20,13 @@ public class Subscription extends Item {
 		super(code, name, type);
 		this.annualFee = annualFee;
 	}
+	
+	public Subscription(String code, String name, String type, double annualFee, LocalDate beginDate, LocalDate endDate) {
+		super(code, name, type);
+		this.annualFee = annualFee;
+		this.beginDate = beginDate;
+		this.endDate = endDate;
+	}
 
 	public double getAnnualFee() {
 		return annualFee;

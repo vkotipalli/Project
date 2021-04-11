@@ -12,7 +12,8 @@ import com.google.gson.GsonBuilder;
 
 /**
  * @author Kotipalli, Vasavi
- * @author Maloney, Madison Date: 3/03/21
+ * @author Maloney, Madison 
+ * Date: 3/03/21
  * 
  *         Purpose of Program: This is a data loading file. For each person,
  *         store, item, and sale class when taking in their respective .csv file

@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * @author Kotipalli, Vasavi
- * @author Maloney, Madison Date: 3/03/21
+ * @author Maloney, Madison Date: 4/09/21
  * 
  *         Purpose of Program: This is a sales report file. It computes the
  *         subtotal, tax, discount price, and grand total amount given a list of
@@ -13,10 +13,19 @@ import java.util.List;
  *         summary report this checks the number of sales a salesperson has made
  *         and the grand total amount. For the store sales summary report this
  *         checks the number of sales a store has made, its manager, and the
- *         grand total amount.
+ *         grand total amount. These helper methods below can be used no matter
+ *         the data loading format.
  */
 
 public class SalesReport {
+
+	/**
+	 * This method returns the total number of sales made by a salesperson.
+	 * 
+	 * @param salespersonCode
+	 * @param salesList
+	 * @return
+	 */
 
 	public static int countSalesPerSalesperson(String salespersonCode, List<Sale> salesList) {
 		int count = 0;
@@ -28,6 +37,14 @@ public class SalesReport {
 		return count;
 	}
 
+	/**
+	 * The method calculates the total price of the sales made by a salesperson.
+	 * 
+	 * @param salespersonCode
+	 * @param salesList
+	 * @return
+	 */
+
 	public static double priceOfSalesPerSalesperson(String salespersonCode, List<Sale> salesList) {
 		double totalPrice = 0.0;
 		for (int i = 0; i < salesList.size(); i++) {
@@ -38,9 +55,20 @@ public class SalesReport {
 		return Math.round(totalPrice * 100.0) / 100.0;
 	}
 
-	public static void SalespersonReport(List<Person> saleperson, List<Sale> salesList) {
-		System.out.println("+-------------------------------------------------------+\n|Saleperson Report "
-				+ "Summary\t\t\t\t|\n+-------------------------------------------------------+");
+	/**
+	 * This method generates the salesperson sales summary report. Its runs the
+	 * methods countSalesPerSalesperson() and priceOfSalesPerSalesperson() through a
+	 * for loop to get the information of each salesperson individually. At the end
+	 * the grand total and the total number of sales is also calculated.
+	 * 
+	 * @param saleperson
+	 * @param salesList
+	 */
+
+	public static void SalespersonSalesReport(List<Person> saleperson, List<Sale> salesList) {
+		System.out.println("+-------------------------------------------------------+\n"
+				+ "|Saleperson Sales Report Summary\t\t\t\t|"
+				+ "\n+-------------------------------------------------------+");
 
 		System.out.printf("%-28s %-15s %s\n", "Salesperson", "# Sales", "Grand Total");
 
@@ -62,6 +90,14 @@ public class SalesReport {
 		System.out.println("\t\t\t\t" + total + "\t\t$" + Math.round(grandTotal * 100.0) / 100.0);
 	}
 
+	/**
+	 * This method returns the total number of sales made by a store.
+	 * 
+	 * @param storeCode
+	 * @param salesList
+	 * @return
+	 */
+
 	public static int countSalesPerStore(String storeCode, List<Sale> salesList) {
 		int count = 0;
 		for (int i = 0; i < salesList.size(); i++) {
@@ -71,6 +107,14 @@ public class SalesReport {
 		}
 		return count;
 	}
+
+	/**
+	 * The method calculates the total price of the sales made in a store.
+	 * 
+	 * @param storeCode
+	 * @param salesList
+	 * @return
+	 */
 
 	public static double priceOfSalesPerStore(String storeCode, List<Sale> salesList) {
 		double totalPrice = 0.0;
@@ -82,9 +126,20 @@ public class SalesReport {
 		return (Math.round(totalPrice * 100.0)) / 100.0;
 	}
 
+	/**
+	 * This method generates the store sales summary report. Its runs the methods
+	 * countSalesPerStore() and priceOfSalesPerStore() through a for loop to get the
+	 * information of each store individually. At the end the grand total and the
+	 * total number of sales is also calculated.
+	 * 
+	 * @param storeList
+	 * @param salesList
+	 */
+
 	public static void StoreSalesReport(List<Store> storeList, List<Sale> salesList) {
-		System.out.println("\n+-------------------------------------------------------+\n|Store Sales Summary"
-				+ " Report    \t\t\t\t|\n+-------------------------------------------------------+");
+		System.out.println(
+				"\n+-------------------------------------------------------+\n|" + "Store Sales Summary Report  "
+						+ "  \t\t\t\t|\n+-------------------------------------------------------+");
 		System.out.printf("%-15s %-20s %-10s %s\n", "Store", "Manager", "Sales", "Grand Total");
 
 		int total = 0;
@@ -106,6 +161,12 @@ public class SalesReport {
 		System.out.println("\t\t\t\t\t" + total + "\t$" + Math.round(grandTotal * 100.0) / 100.0);
 	}
 
+	/**
+	 * This method generates a sales report for each individual sale.
+	 * 
+	 * @param salesList
+	 */
+
 	public static void IndividualSales(List<Sale> salesList) {
 		for (int i = 0; i < salesList.size(); i++) {
 			double subtotal = salesList.get(i).getSubTotal();
@@ -121,13 +182,25 @@ public class SalesReport {
 	}
 
 	public static void main(String[] args) {
+
+		// The original sales report using the .csv files.
 		List<Sale> salesList = DataLoadingFile.loadSaleFile();
 		List<Person> saleperson = Person.getSalesPerson();
 		List<Store> storeList = DataLoadingFile.loadStoreFile();
 
-		SalespersonReport(saleperson, salesList);
+		SalespersonSalesReport(saleperson, salesList);
 		StoreSalesReport(storeList, salesList);
 		IndividualSales(salesList);
 
+		// Sales report using data from our MySQL database.
+		List<Person> databasePeople = DatabaseRecords.getPeople();
+		List<Person> databaseSalespeople = DatabaseRecords.getSalespeople();
+		List<Item> databaseItems = DatabaseRecords.getItems(databasePeople);
+		List<Store> databaseStores = DatabaseRecords.getStores(databasePeople);
+		List<Sale> databaseSales = DatabaseRecords.getSales(databaseStores, databasePeople, databaseItems);
+
+		SalespersonSalesReport(databaseSalespeople, databaseSales);
+		StoreSalesReport(databaseStores, databaseSales);
+		IndividualSales(databaseSales);
 	}
 }

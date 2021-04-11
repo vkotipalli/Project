@@ -46,7 +46,7 @@ public class Store {
 	}
 
 	public String toString() {
-		return storeCode + "," + manager.getPersonCode() + "," + storeAddress;
+		return storeCode + "," + manager.getPersonCode() + "," + storeAddress +"\n";
 	}
 
 	/**

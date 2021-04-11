@@ -18,6 +18,12 @@ public abstract class Product extends Item {
 
 	}
 
+	public Product(String code, String type, String name, double basePrice, double quantity) {
+		super(code, type, name);
+		this.basePrice = basePrice;
+		this.quantity = quantity;
+	}
+
 	public double getBasePrice() {
 		return basePrice;
 	}

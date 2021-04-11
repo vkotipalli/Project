@@ -8,11 +8,11 @@ public class ProductGiftCard extends Product {
 
 	@Override
 	public double getPrice() {
-		return getQuantity();
+		return getBasePrice();
 	}
 
 	@Override
 	public String toString() {
-		return getName() + "\n\t" + "(Gift Card #" + getCode() + " ) \t\t\t\t\t@$" + getPrice() + "\n";
+		return getName() + "\n\t" + "(Gift Card #" + getCode() + " ) \t\t\t\t\t$" + getPrice() + "\n";
 	}
 }

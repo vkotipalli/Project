@@ -67,7 +67,7 @@ public class Sale {
 				+ salesperson.getFirstName() + " (" + salesperson.getEmail() + ")" + "\n\t"
 				+ salesperson.getCurrentAddress() + "\n" + "\nItem\t\t\t\t\t\t\t\tTotal\n"
 				+ "=-=-=-=-=-=-=-=-=-=-=-=-=-=\t\t\t\t\t=-=-=-=\n" + item.toString() + "\n"
-				+ "\t\t\t\t\t\t\t\t--------";
+				+ "\t\t\t\t\t\t\t\t--------\n";
 	}
 
 	/**
@@ -80,7 +80,7 @@ public class Sale {
 	public double getSubTotal() {
 		double subtotal = 0.0;
 		for (int i = 0; i < item.size(); i++) {
-			subtotal += item.get(i).getPrice();
+			subtotal = subtotal + item.get(i).getPrice();
 		}
 		return Math.round(subtotal*100.0)/100.0;
 	}
@@ -94,7 +94,7 @@ public class Sale {
 	public double getTotalTax() {
 		double tax = 0.0;
 		for (int i = 0; i < item.size(); i++) {
-			tax += item.get(i).getTax();
+			tax = tax + item.get(i).getTax();
 		}
 		return Math.round(tax*100.0)/100.0;
 	}

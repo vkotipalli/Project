@@ -16,7 +16,12 @@ public class Service extends Item {
 		super(code, name, type);
 		this.hourlyRate = hourlyRate;
 	}
-
+	public Service(String code, String name, String type,Person employeeCode, double hourlyRate, double numberOfHours) {
+		super(code, name, type);
+		this.hourlyRate = hourlyRate;
+		this.employeeCode = employeeCode;
+		this.numberOfHours = numberOfHours;
+	}
 	public double getHourlyRate() {
 		return hourlyRate;
 	}
@@ -45,8 +50,9 @@ public class Service extends Item {
 	 * This method computes the base price of a service.
 	 */
 	public double getPrice() {
-		return hourlyRate * getNumberOfHours();
+		return Math.round((getHourlyRate() * getNumberOfHours())*100.0)/100.0;
 	}
+	
 
 	/**
 	 * This method computes the tax of a service given the base price.
@@ -57,8 +63,10 @@ public class Service extends Item {
 
 	public String toString() {
 		return getName() + "\n\t" + "(Service #" + getCode() + " by " + getEmployeeCode().getLastName() + ", "
-				+ getEmployeeCode().getFirstName() + " " + getNumberOfHours() + "hrs@$" + hourlyRate + "/hr)\t$"
+				+ getEmployeeCode().getFirstName() + " " + getNumberOfHours() + "hrs@$" + getHourlyRate() + "/hr)\t$"
 				+ getPrice() + "\n";
 	}
+	
+
 
 }
