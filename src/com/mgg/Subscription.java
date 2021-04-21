@@ -59,7 +59,7 @@ public class Subscription extends Item {
 	 * @return duration
 	 */
 	public long durationDays() {
-		return ChronoUnit.DAYS.between(beginDate, endDate);
+		return (ChronoUnit.DAYS.between(beginDate, endDate) + 1);
 	}
 
 	/**

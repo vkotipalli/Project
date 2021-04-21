@@ -62,6 +62,9 @@ public class DatabaseRecords {
 					return personCode;
 				}
 			}
+			rs.close();
+			ps.close();
+			conn.close();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -103,6 +106,9 @@ public class DatabaseRecords {
 					return stroreCode;
 				}
 			}
+			rs.close();
+			ps.close();
+			conn.close();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -116,7 +122,7 @@ public class DatabaseRecords {
 	 * @param _personsId
 	 * @return
 	 */
-	public static List<String> getEmails(int _personsId) {
+	public static List<String> loadDatabaseEmails(int _personsId) {
 		String USERNAME = DatabaseInfo.USERNAME;
 		String PASSWORD = DatabaseInfo.PASSWORD;
 		String URL = DatabaseInfo.URL;
@@ -159,7 +165,7 @@ public class DatabaseRecords {
 	 * @return List<Person> salesperson
 	 */
 
-	public static List<Person> getSalespeople() {
+	public static List<Person> loadDatabaseSalespeople() {
 		String USERNAME = DatabaseInfo.USERNAME;
 		String PASSWORD = DatabaseInfo.PASSWORD;
 		String URL = DatabaseInfo.URL;
@@ -195,7 +201,7 @@ public class DatabaseRecords {
 				String country = rs.getString("a.country");
 
 				if (type.equals("E")) {
-					List<String> email = getEmails(personId);
+					List<String> email = loadDatabaseEmails(personId);
 					Address address = new Address(street, city, state, zip, country);
 					Person newPerson = new Person(personCode, type, lastName, firstName, address, email);
 					salespersons.add(newPerson);
@@ -217,7 +223,7 @@ public class DatabaseRecords {
 	 * @return List<Person> persons
 	 */
 
-	public static List<Person> getPeople() {
+	public static List<Person> loadDatabasePeople() {
 		String USERNAME = DatabaseInfo.USERNAME;
 		String PASSWORD = DatabaseInfo.PASSWORD;
 		String URL = DatabaseInfo.URL;
@@ -251,7 +257,7 @@ public class DatabaseRecords {
 				String state = rs.getString("a.state");
 				String zip = rs.getString("a.zip");
 				String country = rs.getString("a.country");
-				List<String> email = getEmails(personId);
+				List<String> email = loadDatabaseEmails(personId);
 				Address address = new Address(street, city, state, zip, country);
 				Person newPerson = new Person(personCode, type, lastName, firstName, address, email);
 				persons.add(newPerson);
@@ -275,7 +281,7 @@ public class DatabaseRecords {
 	 * @return
 	 */
 
-	public static List<Store> getStores(List<Person> persons) {
+	public static List<Store> loadDatabaseStores(List<Person> persons) {
 		String USERNAME = DatabaseInfo.USERNAME;
 		String PASSWORD = DatabaseInfo.PASSWORD;
 		String URL = DatabaseInfo.URL;
@@ -334,7 +340,7 @@ public class DatabaseRecords {
 	 * @return
 	 */
 
-	public static List<Item> getItems(List<Person> persons) {
+	public static List<Item> loadDatabaseItems(List<Person> persons) {
 		String USERNAME = DatabaseInfo.USERNAME;
 		String PASSWORD = DatabaseInfo.PASSWORD;
 		String URL = DatabaseInfo.URL;
@@ -348,7 +354,9 @@ public class DatabaseRecords {
 
 		List<Item> items = new ArrayList<>();
 
-		String query = "select itemId, itemCode, itemType, itemName, employeeId, numHours, beginDate, endDate, cost, quantity from Item;";
+		String query = "select i.itemId, i.itemCode, i.itemType, i.itemName, i.cost, si.employeeId, si.numHours, si.beginDate,"
+				+ " si.endDate, si.quantity from Item i"
+				+ " join SaleItem si on si.itemId = i.itemId;";
 
 		try {
 			PreparedStatement ps = null;
@@ -357,34 +365,34 @@ public class DatabaseRecords {
 			ps = conn.prepareStatement(query);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				int itemId = rs.getInt("itemId");
-				String itemCode = rs.getString("itemCode");
-				String type = rs.getString("itemType");
-				String name = rs.getString("itemName");
-				double price = rs.getDouble("cost");
+				int itemId = rs.getInt("i.itemId");
+				String itemCode = rs.getString("i.itemCode");
+				String type = rs.getString("i.itemType");
+				String name = rs.getString("i.itemName");
+				double price = rs.getDouble("i.cost");
 
 				_itemId.add(itemId);
 				if (type.equals("PN")) {
-					double quantity = rs.getDouble("quantity");
+					double quantity = rs.getDouble("si.quantity");
 					ProductNew np = new ProductNew(itemCode, type, name, price, quantity);
 					items.add(np);
 				} else if (type.equals("PG")) {
 					ProductGiftCard gc = new ProductGiftCard(itemCode, type, name, price); // price???
 					items.add(gc);
 				} else if (type.equals("PU")) {
-					double quantity = rs.getDouble("quantity");
+					double quantity = rs.getDouble("si.quantity");
 					ProductUsed up = new ProductUsed(itemCode, type, name, price, quantity);
 					items.add(up);
 				} else if (type.equals("SB")) {
-					String beginDateString = rs.getString("beginDate");
-					String endDateString = rs.getString("endDate");
+					String beginDateString = rs.getString("si.beginDate");
+					String endDateString = rs.getString("si.endDate");
 					LocalDate beginDate = LocalDate.parse(beginDateString);
 					LocalDate endDate = LocalDate.parse(endDateString);
 					Subscription sb = new Subscription(itemCode, type, name, price, beginDate, endDate);
 					items.add(sb);
 				} else if (type.equals("SV")) {
-					int employeeId = rs.getInt("employeeId");
-					double numHours = rs.getDouble("numHours");
+					int employeeId = rs.getInt("si.employeeId");
+					double numHours = rs.getDouble("si.numHours");
 					String employeeCode = findPersonCodeById(employeeId);
 					Person serviceEmployee = Person.getPerson(employeeCode, persons);
 					Service sv = new Service(itemCode, type, name, serviceEmployee, price, numHours);
@@ -409,7 +417,7 @@ public class DatabaseRecords {
 	 * @return List<Item> saleItemsList
 	 */
 
-	public static List<Item> getSaleItems(int _saleId, List<Item> items) {
+	public static List<Item> loadDatabaseSaleItems(int _saleId, List<Item> items) {
 		String USERNAME = DatabaseInfo.USERNAME;
 		String PASSWORD = DatabaseInfo.PASSWORD;
 		String URL = DatabaseInfo.URL;
@@ -457,7 +465,7 @@ public class DatabaseRecords {
 	 * @return List<Sale> sales
 	 */
 
-	public static List<Sale> getSales(List<Store> stores, List<Person> persons, List<Item> items) {
+	public static List<Sale> loadDatabaseSales(List<Store> stores, List<Person> persons, List<Item> items) {
 
 		String USERNAME = DatabaseInfo.USERNAME;
 		String PASSWORD = DatabaseInfo.PASSWORD;
@@ -496,7 +504,7 @@ public class DatabaseRecords {
 
 				_saleId.add(saleId);
 
-				List<Item> itemSale = getSaleItems(saleId, items);
+				List<Item> itemSale = loadDatabaseSaleItems(saleId, items);
 				Sale sale = new Sale(saleCode, customer, salesperson, store, itemSale);
 				sales.add(sale);
 			}

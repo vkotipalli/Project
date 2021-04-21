@@ -184,20 +184,20 @@ public class SalesReport {
 	public static void main(String[] args) {
 
 		// The original sales report using the .csv files.
-		List<Sale> salesList = DataLoadingFile.loadSaleFile();
-		List<Person> saleperson = Person.getSalesPerson();
-		List<Store> storeList = DataLoadingFile.loadStoreFile();
-
-		SalespersonSalesReport(saleperson, salesList);
-		StoreSalesReport(storeList, salesList);
-		IndividualSales(salesList);
+//		List<Sale> salesList = DataLoadingFile.loadSaleFile();
+//		List<Person> saleperson = DataLoadingFile.getSalesPerson();
+//		List<Store> storeList = DataLoadingFile.loadStoreFile();
+//
+//		SalespersonSalesReport(saleperson, salesList);
+//		StoreSalesReport(storeList, salesList);
+//		IndividualSales(salesList);
 
 		// Sales report using data from our MySQL database.
-		List<Person> databasePeople = DatabaseRecords.getPeople();
-		List<Person> databaseSalespeople = DatabaseRecords.getSalespeople();
-		List<Item> databaseItems = DatabaseRecords.getItems(databasePeople);
-		List<Store> databaseStores = DatabaseRecords.getStores(databasePeople);
-		List<Sale> databaseSales = DatabaseRecords.getSales(databaseStores, databasePeople, databaseItems);
+		List<Person> databasePeople = DatabaseRecords.loadDatabasePeople();
+		List<Person> databaseSalespeople = DatabaseRecords.loadDatabaseSalespeople();
+		List<Item> databaseItems = DatabaseRecords.loadDatabaseItems(databasePeople);
+		List<Store> databaseStores = DatabaseRecords.loadDatabaseStores(databasePeople);
+		List<Sale> databaseSales = DatabaseRecords.loadDatabaseSales(databaseStores, databasePeople, databaseItems);
 
 		SalespersonSalesReport(databaseSalespeople, databaseSales);
 		StoreSalesReport(databaseStores, databaseSales);

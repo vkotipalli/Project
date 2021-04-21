@@ -18,7 +18,7 @@ public class ProductNew extends Product {
 	}
 
 	public double getPrice() {
-		return getQuantity() * getBasePrice();
+		return Math.round(getQuantity() * getBasePrice() * 100.0) / 100.0;
 	}
 
 	@Override
