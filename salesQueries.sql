@@ -84,7 +84,56 @@
    inner join Person p on p.personId=s.customerId
    where s.salespersonId = s.customerId
    group by s.salespersonId having sum(i.cost) >= 250;
--- 
--- 
--- 
--- 
+   
+select p.personId, p.personCode, p.firstname, p.type, a.street, a.city,a.state, a.zip, a.country, e.email from Person p 
+left join Email e on e.personId = p.personId inner join Address a on a.addressId = p.addressId;
+        
+select p.personId, p.personCode, p.firstName, p.lastName, p.type, a.street, a.city,a.state, a.zip, a.country from Person p 
+inner join Address a on a.addressId = p.addressId;
+        
+select itemId, itemCode, itemType, itemName, cost from Item;
+
+select p.personCode, e.email from Person p  inner join Email e on e.personId = p.personId;
+   
+select itemId, itemCode, itemType, itemName, employeeId, numHours, beginDate, endDate, cost, quantity from Item;
+
+
+
+select s.saleId, s.saleCode, i.itemId, i.itemCode, st.storeId, i.quantity, i.beginDate,
+i.endDate, i.numHours, i.employeeId, i.cost, s.customerId, s.salespersonId from Item i
+inner join SaleItem si on si.itemId=i.itemId
+inner join Sale s on s.saleId=si.saleId
+inner join Store st on st.storeId = s.storeId;
+
+select s.saleId, i.itemId, i.quantity, i.beginDate, i.endDate, i.numberOfHours, 
+SaleItem.servicePerson, i.price, s.saleCode, Sale.storeId, Sale.customerId, Sale.salePersonId from SaleItem
+ inner join Sale on Sale.saleId = SaleItem.saleId;
+ 
+ select si.saleId, si.itemId, i.itemCode from SaleItem si 
+ join Item i on si.itemId = i.itemId;
+
+select s.saleId, s.saleCode, st.storeId, s.customerId, s.salesPersonId from Sale s join Store st on st.storeId = s.storeId;
+
+select s.saleId, s.saleCode, st.storeCode, c.personCode, sl.personCode from Sale s 
+join Store st on st.storeId = s.storeId
+join Person c on c.personId = s.customerId 
+join Person sl on sl.personId = s.salespersonId;
+
+select s.storeId, s.storeCode, s.managerId, p.personId, p.personCode, p.type, p.lastName, p.firstName,  a.street, a.city, 
+a.state, a.zip, a.country from Store s 
+inner join Address a on a.addressId = s.addressId
+inner join Person p on p.personId = s.managerId;
+
+
+
+select itemId, itemCode, itemType, itemName, employeeId, numHours, beginDate, endDate, cost, quantity from Item;
+
+select p.type, p.personCode from Person p;
+
+select itemId, itemCode, itemType, itemName, employeeId, numHours, beginDate, endDate, cost, quantity from Item;
+
+
+
+
+
+

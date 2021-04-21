@@ -59,11 +59,6 @@ create table Item (
     itemName varchar(255) not null, 
     itemType varchar(255) not null, 
     cost double,
-    numHours int, 
-    employeeId int, 
-    beginDate varchar(255), 
-    endDate varchar(255),
-    quantity int,
     constraint uniqueItem unique (itemId,itemCode)
 )engine=InnoDB,collate=latin1_general_cs;
 
@@ -85,6 +80,11 @@ create table SaleItem (
 	saleItemId int not null primary key auto_increment, 
     saleId int not null, 
     itemId int not null, 
+	numHours double, 
+    employeeId int, 
+    beginDate varchar(255), 
+    endDate varchar(255),
+    quantity int,
     foreign key (saleId) references Sale(saleId),
     foreign key (itemId) references Item(itemId)
 )engine=InnoDB,collate=latin1_general_cs;
@@ -114,7 +114,7 @@ insert into Person(personId, personCode, type, lastName, firstName, addressId) v
 insert into Person(personId, personCode, type, lastName, firstName, addressId) values (8, 'CZDOL8TJ6I','G','Boinpally','Teju', 8);
 insert into Person(personId, personCode, type, lastName, firstName, addressId) values (9, 'E3SBKH0OK6','E','Builder','Bob', 9);
 insert into Person(personId, personCode, type, lastName, firstName, addressId) values (10, 'XC9P4020OQ','G','Brady','Tom', 10);
-insert into Person(personId, personCode, type, lastName, firstName, addressId) values (11, 'AZDOL1KJ0L', 'C', 'Straight', 'Crystal', 21);
+#insert into Person(personId, personCode, type, lastName, firstName, addressId) values (11, 'AZDOL1KJ0L', 'C', 'Straight', 'Crystal', 21);
 
 #Inserting Email Test Data
 insert into Email(emailId, email, personId) values (1, 'mmaloney2@unl.edu', 1);
@@ -131,7 +131,7 @@ insert into Email(emailId, email, personId) values (11, 'bbuilder123@yahoo.com',
 insert into Email(emailId, email, personId) values (12, 'bob.builder@gmail.com', 9);
 insert into Email(emailId, email, personId) values (13, 'bobb@hotmail.com', 9);
 insert into Email(emailId, email, personId) values (14, 'tomBrady@gmail.com', 10);
-insert into Email(emailId, email, personId) values (15, 'crystalstraight123@gmail.com', 11);
+#insert into Email(emailId, email, personId) values (15, 'crystalstraight123@gmail.com', 11);
 
 #Inserting Store-Address Test Data 
 insert into Address(addressId, street, city, state, country, zip) values (11, '973 Spring Avenue','Phila','PA',19103,'US');
@@ -158,23 +158,20 @@ insert into Store(storeId, storeCode, managerId, addressId) values (9, 'ZG1F5MHI
 insert into Store(storeId, storeCode, managerId, addressId) values (10, '100HYR52FL', 7, 20);
 
 #Inserting Item Test Data
-insert into Item(itemId, itemCode, itemName, itemType, cost, numHours, employeeId, beginDate, endDate, quantity) values (1, 'fc63ef', 'Cyberpunk 2077', 'PU', 55.99, NULL, NULL, NULL, NULL, 1);
-insert into Item(itemId, itemCode, itemName, itemType, cost, numHours, employeeId, beginDate, endDate, quantity) values (2, '84594c', 'Grand Theft Auto V', 'PN', 59.99, NULL, NULL, NULL, NULL, 2);
-insert into Item(itemId, itemCode, itemName, itemType, cost, numHours, employeeId, beginDate, endDate, quantity) values (3, '68cdc8', 'Xbox Series X', 'PN', 499.99, NULL, NULL, NULL, NULL, 0);
-insert into Item(itemId, itemCode, itemName, itemType, cost, numHours, employeeId, beginDate, endDate, quantity) values (4, '1719c4', 'Nintendo Switch (Animal Crossing Edition)', 'PU', 549.99, NULL, NULL, NULL, NULL, 0);
-insert into Item(itemId, itemCode, itemName, itemType, cost, numHours, employeeId, beginDate, endDate, quantity) values (5, '90a51d', 'Nintendo eShop Credit', 'PG', NULL, NULL, NULL, NULL, NULL, NULL);
-insert into Item(itemId, itemCode, itemName, itemType, cost, numHours, employeeId, beginDate, endDate, quantity) values (6, 'e4ed68', 'League of Legends Riot Points', 'PG', NULL, NULL, NULL, NULL, NULL, NULL);
-insert into Item(itemId, itemCode, itemName, itemType, cost, numHours, employeeId, beginDate, endDate, quantity) values (7, '76c395', 'Stardew Valley', 'PU', 10.99, NULL, NULL, NULL, NULL, 3);
-insert into Item(itemId, itemCode, itemName, itemType, cost, numHours, employeeId, beginDate, endDate, quantity) values (8, '8b095e', 'Computer Repair', 'SV', 19.99, 6, 9, NULL, NULL, NULL);
-insert into Item(itemId, itemCode, itemName, itemType, cost, numHours, employeeId, beginDate, endDate, quantity) values (9, '3c43d0', 'Game Room Design', 'SV', 39.99, 4, 7, NULL, NULL, NULL);
-insert into Item(itemId, itemCode, itemName, itemType, cost, numHours, employeeId, beginDate, endDate, quantity) values (10, '516454', 'Nintendo Switch Online', 'SB', 19.99, NULL, NULL, '2020-06-15', '2021-02-08', NULL);
-insert into Item(itemId, itemCode, itemName, itemType, cost, numHours, employeeId, beginDate, endDate, quantity) values (11, '7982fe', 'Xbox Magazine', 'SB', NULL, NULL, NULL, NULL, NULL, NULL);
-insert into Item(itemId, itemCode, itemName, itemType, cost, numHours, employeeId, beginDate, endDate, quantity) values (12, 'd09a87', 'Netflix', 'SB', 101.99, NULL, NULL, '2016-03-23', '2019-11-02', NULL);
-insert into Item(itemId, itemCode, itemName, itemType, cost, numHours, employeeId, beginDate, endDate, quantity) values (13, '774196', 'Apple Arcade', 'SB', 69.99, NULL, NULL, '2018-10-06', '2020-09-29', NULL);
+insert into Item(itemId, itemCode, itemName, itemType, cost) values (1, 'fc63ef', 'Cyberpunk 2077', 'PU', 55.99);
+insert into Item(itemId, itemCode, itemName, itemType, cost) values (2, '84594c', 'Grand Theft Auto V', 'PN', 59.99);
+insert into Item(itemId, itemCode, itemName, itemType, cost) values (3, '68cdc8', 'Xbox Series X', 'PN', 499.99);
+insert into Item(itemId, itemCode, itemName, itemType, cost) values (4, '1719c4', 'Nintendo Switch (Animal Crossing Edition)', 'PU', 549.99);
+insert into Item(itemId, itemCode, itemName, itemType, cost) values (5, '90a51d', 'Nintendo eShop Credit', 'PG', 0);
+insert into Item(itemId, itemCode, itemName, itemType, cost) values (6, 'e4ed68', 'League of Legends Riot Points', 'PG', 0);
+insert into Item(itemId, itemCode, itemName, itemType, cost) values (7, '76c395', 'Stardew Valley', 'PU', 10.99);
+insert into Item(itemId, itemCode, itemName, itemType, cost) values (8, '8b095e', 'Computer Repair', 'SV', 19.99);
+insert into Item(itemId, itemCode, itemName, itemType, cost) values (9, '3c43d0', 'Game Room Design', 'SV', 39.99);
+insert into Item(itemId, itemCode, itemName, itemType, cost) values (10, '516454', 'Nintendo Switch Online', 'SB', 19.99);
+insert into Item(itemId, itemCode, itemName, itemType, cost) values (11, '7982fe', 'Xbox Magazine', 'SB', 99.99);
+insert into Item(itemId, itemCode, itemName, itemType, cost) values (12, 'd09a87', 'Netflix', 'SB', 101.99);
+insert into Item(itemId, itemCode, itemName, itemType, cost) values (13, '774196', 'Apple Arcade', 'SB', 69.99);
 
-#update statements for query #13 (giftcards)
-update Item set cost = 100 where itemId=5;
-update Item set cost = 400 where itemId=6;
 
 #Inserting Sale Test Data
 insert into Sale(saleId, saleCode, customerId, storeId, salespersonId) values (1, 'N7HJZM4AA6', 1, 1, 4);
@@ -183,28 +180,41 @@ insert into Sale(saleId, saleCode, customerId, storeId, salespersonId) values (3
 insert into Sale(saleId, saleCode, customerId, storeId, salespersonId) values (4, 'LLQFRHT4HW', 10, 4, 7);
 insert into Sale(saleId, saleCode, customerId, storeId, salespersonId) values (5, 'NUDVU2C0CB', 3, 7, 9);
 insert into Sale(saleId, saleCode, customerId, storeId, salespersonId) values (6, 'OPX58M9BZ8', 2, 9, 4);
-insert into Sale(saleId, saleCode, customerId, storeId, salespersonId) values (7, 'PPX58M9BZ9', 2, 9, 4);
-insert into Sale(saleId, saleCode, customerId, storeId, salespersonId) values (8, 'PPG58W9GA8', 7, 9, 7);
-insert into Sale(saleId, saleCode, customerId, storeId, salespersonId) values (9, 'LWDVU7JWLF', 7, 9, 7);
-insert into Sale(saleId, saleCode, customerId, storeId, salespersonId) values (10, 'NKSZM2UA65', 6, 9, 6);
+#insert into Sale(saleId, saleCode, customerId, storeId, salespersonId) values (7, 'PPX58M9BZ9', 2, 9, 4);
+#insert into Sale(saleId, saleCode, customerId, storeId, salespersonId) values (8, 'PPG58W9GA8', 7, 9, 7);
+#insert into Sale(saleId, saleCode, customerId, storeId, salespersonId) values (9, 'LWDVU7JWLF', 7, 9, 7);
+#insert into Sale(saleId, saleCode, customerId, storeId, salespersonId) values (10, 'NKSZM2UA65', 6, 9, 6);
 
 #Inserting SaleItem Test Data
-insert into SaleItem (saleItemId, saleId, itemId) values (1, 1, 10); 
-insert into SaleItem (saleItemId, saleId, itemId) values (2, 1, 7);
-insert into SaleItem (saleItemId, saleId, itemId) values (3, 2, 9); 
-insert into SaleItem (saleItemId, saleId, itemId) values (4, 2, 12);
-insert into SaleItem (saleItemId, saleId, itemId) values (5, 3, 7);
-insert into SaleItem (saleItemId, saleId, itemId) values (6, 3, 2);
-insert into SaleItem (saleItemId, saleId, itemId) values (7, 4, 13);
-insert into SaleItem (saleItemId, saleId, itemId) values (8, 5, 8);
-insert into SaleItem (saleItemId, saleId, itemId) values (9, 6, 1);
-insert into SaleItem (saleItemId, saleId, itemId) values (10, 6, 10);
-insert into SaleItem (saleItemId, saleId, itemId) values (11, 7, 8);
-insert into SaleItem (saleItemId, saleId, itemId) values (12, 3, 7);
-insert into SaleItem (saleItemId, saleId, itemId) values (13, 9, 5);
-insert into SaleItem (saleItemId, saleId, itemId) values (14, 9, 6);
-insert into SaleItem (saleItemId, saleId, itemId) values (15, 10, 6);
+
+insert into SaleItem(saleItemId, saleId, itemId,numHours, employeeId, beginDate, endDate, quantity) values(1, 1, 10, NULL, NULL, '2020-06-15', '2021-02-08', NULL); 
+insert into SaleItem(saleItemId, saleId, itemId,numHours, employeeId, beginDate, endDate, quantity) values(2, 1, 7, NULL, NULL, NULL, NULL, 3);
+insert into SaleItem(saleItemId, saleId, itemId,numHours, employeeId, beginDate, endDate, quantity) values(3, 2, 9, 4, 7, NULL, NULL, NULL);
+insert into SaleItem(saleItemId, saleId, itemId,numHours, employeeId, beginDate, endDate, quantity) values(4, 2, 12, NULL, NULL, '2016-03-23', '2019-11-02', NULL);
+insert into SaleItem(saleItemId, saleId, itemId,numHours, employeeId, beginDate, endDate, quantity) values(5, 3, 7, NULL, NULL, NULL, NULL, 3);
+insert into SaleItem(saleItemId, saleId, itemId,numHours, employeeId, beginDate, endDate, quantity) values(6, 3, 2, NULL, NULL, NULL, NULL, 1);
+insert into SaleItem(saleItemId, saleId, itemId,numHours, employeeId, beginDate, endDate, quantity) values(7, 4, 13, NULL, NULL, '2018-10-06', '2020-09-29', NULL);
+insert into SaleItem(saleItemId, saleId, itemId,numHours, employeeId, beginDate, endDate, quantity) values(8, 5, 8, 6, 9, NULL, NULL, NULL);
+insert into SaleItem(saleItemId, saleId, itemId,numHours, employeeId, beginDate, endDate, quantity) values(9, 6, 1, NULL, NULL, NULL, NULL, 2);
+insert into SaleItem(saleItemId, saleId, itemId,numHours, employeeId, beginDate, endDate, quantity) values(10, 6, 10, NULL, NULL, '2019-04-26', '2019-12-21', NULL);
 
 
-
-
+#update statements for query #13 (giftcards)
+#update Item set cost = 100 where itemId=5;
+#update Item set cost = 400 where itemId=6;
+#insert into SaleItem (saleItemId, saleId, itemId) values (1, 1, 10); 
+#insert into SaleItem (saleItemId, saleId, itemId) values (2, 1, 7);
+#insert into SaleItem (saleItemId, saleId, itemId) values (3, 2, 9); 
+#insert into SaleItem (saleItemId, saleId, itemId) values (4, 2, 12);
+#insert into SaleItem (saleItemId, saleId, itemId) values (5, 3, 7);
+#insert into SaleItem (saleItemId, saleId, itemId) values (6, 3, 2);
+#insert into SaleItem (saleItemId, saleId, itemId) values (7, 4, 13);
+#insert into SaleItem (saleItemId, saleId, itemId) values (8, 5, 8);
+#insert into SaleItem (saleItemId, saleId, itemId) values (9, 6, 1);
+#insert into SaleItem (saleItemId, saleId, itemId) values (10, 6, 10);
+#insert into SaleItem (saleItemId, saleId, itemId) values (11, 7, 8);
+#insert into SaleItem (saleItemId, saleId, itemId) values (12, 3, 7);
+#insert into SaleItem (saleItemId, saleId, itemId) values (13, 9, 5);
+#insert into SaleItem (saleItemId, saleId, itemId) values (14, 9, 6);
+#insert into SaleItem (saleItemId, saleId, itemId) values (15, 10, 6);
+#insert into SaleItem (saleItemId, saleId, itemId) values (16, 8, 5);
