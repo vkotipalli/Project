@@ -5,6 +5,18 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+
+/**
+ * @author Kotipalli, Vasavi
+ * @author Maloney, Madison Date: 4/23/21
+ * 
+ *         Purpose of Program: This is a continuation of our database interaction. Below are 
+ *         predetermined methods to better provide functionality. Our application is being modified
+ *         to persist data to the database by implementing an API to interact with our database 
+ *         by using JDBC.
+ *         
+ */
 
 /**
  * Database interface class
@@ -16,7 +28,6 @@ public class SalesData {
 	 * inserted values
 	 */
 	public static void executeUpdate(String query, Connection conn) {
-
 		try {
 			PreparedStatement ps = null;
 
@@ -29,7 +40,8 @@ public class SalesData {
 	}
 
 	/**
-	 * gets the personId from the database using the personCode
+	 * This method gets a specific personId the database using the specific person's
+	 * personCode
 	 */
 	private static int getPersonId(String personCode, Connection conn) {
 		String query = "select personId from Person where personCode = ?;";
@@ -50,7 +62,7 @@ public class SalesData {
 	}
 
 	/**
-	 * gets the saleId from the saleCode
+	 * This method gets a specific saleId from a specific saleCode
 	 */
 	private static int getSaleId(String saleCode, Connection conn) {
 		int saleId = 0;
@@ -71,7 +83,7 @@ public class SalesData {
 	}
 
 	/**
-	 * gets the itemId from the itemCode
+	 * This method gets a specific itemId from a specific itemCode
 	 */
 	private static int getItemId(String itemCode, Connection conn) {
 		int itemId = 0;
@@ -92,7 +104,7 @@ public class SalesData {
 	}
 
 	/**
-	 * Removes all sales records from the database.
+	 * This method removes all sales records from the database.
 	 */
 	public static void removeAllSales() {
 		String USERNAME = DatabaseInfo.USERNAME;
@@ -105,9 +117,6 @@ public class SalesData {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-		/**
-		 * deletes all items sold in a sale
-		 */
 		String query = "set foreign_key_checks = 0;";
 		PreparedStatement ps = null;
 
@@ -119,10 +128,6 @@ public class SalesData {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-
-		/**
-		 * removes all the sales
-		 */
 		query = "truncate table Sale;";
 		try {
 
@@ -164,10 +169,7 @@ public class SalesData {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-		/**
-		 * deletes the saleItems in the sale
-		 */
-		String query = "select saleItemId from SaleItem\n"
+		String query = "select saleItemId from SaleItem "
 				+ "inner join Sale on SaleItem.saleId = Sale.saleId where Sale.saleCode = ?;";
 
 		try {
@@ -192,9 +194,6 @@ public class SalesData {
 			throw new RuntimeException(e);
 		}
 
-		/**
-		 * deletes the sale
-		 */
 		query = "delete from Sale where saleCode = ?;";
 		try {
 			PreparedStatement ps = conn.prepareStatement(query);
@@ -229,10 +228,6 @@ public class SalesData {
 		query = "truncate table Sale;";
 		executeUpdate(query, conn);
 		query = "truncate table Address;";
-		executeUpdate(query, conn);
-		query = "truncate table Country;";
-		executeUpdate(query, conn);
-		query = "truncate table State;";
 		executeUpdate(query, conn);
 		query = "truncate table Store;";
 		executeUpdate(query, conn);
@@ -279,59 +274,42 @@ public class SalesData {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-		/**
-		 * insert person into person table
-		 */
-		String query = "alter table Person auto_increment = 1000;";
+
+		int addressId;
+		String query = "insert into Address (street, city, state, zip, country) values (?, ?, ?, ?, ?)";
 		try {
-			PreparedStatement ps = conn.prepareStatement(query);
+			PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+
+			ps.setString(1, street);
+			ps.setString(2, city);
+			ps.setString(3, state);
+			ps.setString(4, zip);
+			ps.setString(5, country);
 			ps.executeUpdate();
+			ResultSet keys = ps.getGeneratedKeys();
+			keys.next();
+			addressId = keys.getInt(1);
 			ps.close();
+
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-		query = "insert into Person (personCode, type, firstName, lastName) values (?, ?, ?, ?);";
+
+		query = "insert into Person (personCode, type, lastName, firstName, addressId) values (?, ?, ?, ?, ?);";
 		try {
 			PreparedStatement ps = conn.prepareStatement(query);
 			ps.setString(1, personCode);
 			ps.setString(2, type);
-			ps.setString(3, firstName);
-			ps.setString(4, lastName);
-			ps.executeUpdate();
-			ps.close();
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-		/**
-		 * get the new person's personId in order to put it into the address table
-		 */
-		int personId = getPersonId(personCode, conn);
-		/**
-		 * insert person's address into address table
-		 */
-		query = "alter table Address auto_increment = 1000;";
-		try {
-			PreparedStatement ps = conn.prepareStatement(query);
-			ps.executeUpdate();
-			ps.close();
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-		query = "insert into Address (personId, street, city, state, zip, country) values (?, ?, ?, ?, ?, ?)";
-		try {
-			PreparedStatement ps = conn.prepareStatement(query);
-			ps.setInt(1, personId);
-			ps.setString(2, street);
-			ps.setString(3, city);
-			ps.setString(4, state);
-			ps.setString(5, zip);
-			ps.setString(6, country);
+			ps.setString(3, lastName);
+			ps.setString(4, firstName);
+			ps.setInt(5, addressId);
 			ps.executeUpdate();
 			ps.close();
 			conn.close();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
+
 	}
 
 	/**
@@ -353,9 +331,7 @@ public class SalesData {
 			throw new RuntimeException(e);
 		}
 		int personId = getPersonId(personCode, conn);
-		String query = "alter table Email auto_increment = 1000;";
-		executeUpdate(query, conn);
-		query = "insert into Email (email, personId) values (?, ?);";
+		String query = "insert into Email (email, personId) values (?, ?);";
 		try {
 			PreparedStatement ps = conn.prepareStatement(query);
 			ps.setString(1, email);
@@ -393,49 +369,34 @@ public class SalesData {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-		int storeId = 0;
-		int personId = getPersonId(managerCode, conn);
-		String query = "alter table Store auto_increment = 1000;";
-		executeUpdate(query, conn);
 
-		query = "insert into Store (storeCode, managerId) values (?, ?);";
+		int addressId;
+		String query = "insert into Address (street, city, state, zip, country) values (?, ?, ?, ?, ?)";
 		try {
-			PreparedStatement ps = conn.prepareStatement(query);
-			ps.setString(1, storeCode);
-			ps.setInt(2, personId);
+			PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			ps.setString(1, street);
+			ps.setString(2, city);
+			ps.setString(3, state);
+			ps.setString(4, zip);
+			ps.setString(5, country);
 			ps.executeUpdate();
+			ResultSet keys = ps.getGeneratedKeys();
+			keys.next();
+			addressId = keys.getInt(1);
 			ps.close();
+
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
 
-		query = "select storeId from Store where storeCode = ?;";
+		int managerId = getPersonId(managerCode, conn);
+
+		query = "insert into Store (storeCode, managerId, addressId) values (?, ?, ?);";
 		try {
 			PreparedStatement ps = conn.prepareStatement(query);
 			ps.setString(1, storeCode);
-			ResultSet rs = ps.executeQuery();
-			if (rs.next()) {
-				storeId = rs.getInt("storeId");
-			}
-			rs.close();
-			ps.close();
-
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-
-		query = "alter table Address auto_increment = 1000;";
-		executeUpdate(query, conn);
-
-		query = "insert into Address (storeId, street, city, state, zip, country) values (?, ?, ?, ?, ?, ?)";
-		try {
-			PreparedStatement ps = conn.prepareStatement(query);
-			ps.setInt(1, storeId);
-			ps.setString(2, street);
-			ps.setString(3, city);
-			ps.setString(4, state);
-			ps.setString(5, zip);
-			ps.setString(6, country);
+			ps.setInt(2, managerId);
+			ps.setInt(3, addressId);
 			ps.executeUpdate();
 			ps.close();
 			conn.close();
@@ -470,15 +431,18 @@ public class SalesData {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-		String query = "alter table Item auto_increment = 1000;";
-		executeUpdate(query, conn);
-		query = "insert into Item (itemCode, itemType, itemName, cost) values (?, ?, ?, ?);";
+
+		String query = "insert into Item (itemCode, itemName, itemType, cost) values (?, ?, ?, ?);";
 		try {
 			PreparedStatement ps = conn.prepareStatement(query);
 			ps.setString(1, itemCode);
-			ps.setString(2, type);
-			ps.setString(3, name);
-			ps.setDouble(4, basePrice);
+			ps.setString(2, name);
+			ps.setString(3, type);
+			if (basePrice == null) {
+				ps.setDouble(4, 0.0);
+			} else {
+				ps.setDouble(4, basePrice);
+			}
 			ps.executeUpdate();
 			ps.close();
 			conn.close();
@@ -507,9 +471,6 @@ public class SalesData {
 			throw new RuntimeException(e);
 		}
 		int storeId = 0;
-		/**
-		 * gets storeId
-		 */
 		String query = "select storeId from Store where storeCode = ?;";
 		try {
 			PreparedStatement ps = conn.prepareStatement(query);
@@ -524,23 +485,16 @@ public class SalesData {
 			throw new RuntimeException(e);
 		}
 
-		int salePersonId = getPersonId(salesPersonCode, conn);
-		/**
-		 * gets customerId
-		 */
 		int customerId = getPersonId(customerCode, conn);
-		/**
-		 * inserts new sale into Sale table
-		 */
-		query = "alter table Sale auto_increment = 1000;";
-		executeUpdate(query, conn);
-		query = "insert into Sale (saleCode, storeId, customerId, salepersonId) values (?, ?, ?, ?);";
+		int salespersonId = getPersonId(salesPersonCode, conn);
+
+		query = "insert into Sale (saleCode, customerId, storeId, salespersonId) values (?, ?, ?, ?);";
 		try {
 			PreparedStatement ps = conn.prepareStatement(query);
 			ps.setString(1, saleCode);
-			ps.setInt(2, storeId);
-			ps.setInt(3, customerId);
-			ps.setInt(4, salePersonId);
+			ps.setInt(2, customerId);
+			ps.setInt(3, storeId);
+			ps.setInt(4, salespersonId);
 			ps.executeUpdate();
 			ps.close();
 			conn.close();
@@ -569,20 +523,11 @@ public class SalesData {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-		/**
-		 * gets the saleId
-		 */
+
 		int saleId = getSaleId(saleCode, conn);
-		/**
-		 * gets the itemId
-		 */
 		int itemId = getItemId(itemCode, conn);
-		/**
-		 * inserts new saleItem into SaleItem table
-		 */
-		String query = "alter table SaleItem auto_increment = 1000;";
-		executeUpdate(query, conn);
-		query = "insert into SaleItem (saleId, itemId, quantity) values (?, ?, ?);";
+
+		String query = "insert into SaleItem (saleId, itemId, quantity) values (?, ?, ?);";
 		try {
 			PreparedStatement ps = conn.prepareStatement(query);
 			ps.setInt(1, saleId);
@@ -618,9 +563,7 @@ public class SalesData {
 		}
 		int saleId = getSaleId(saleCode, conn);
 		int itemId = getItemId(itemCode, conn);
-		String query = "alter table SaleItem auto_increment = 1000;";
-		executeUpdate(query, conn);
-		query = "insert into SaleItem (saleId, itemId, cost) values (?, ?, ?);";
+		String query = "insert into SaleItem (saleId, itemId, quantity) values (?, ?, ?);";
 		try {
 			PreparedStatement ps = conn.prepareStatement(query);
 			ps.setInt(1, saleId);
@@ -658,9 +601,7 @@ public class SalesData {
 		int saleId = getSaleId(saleCode, conn);
 		int itemId = getItemId(itemCode, conn);
 		int employeeId = getPersonId(employeeCode, conn);
-		String query = "alter table SaleItem auto_increment = 1000;";
-		executeUpdate(query, conn);
-		query = "insert into SaleItem (saleId, itemId, salespersonId, numHours) values (?, ?, ?, ?);";
+		String query = "insert into SaleItem (saleId, itemId, employeeId, numHours) values (?, ?, ?, ?);";
 		try {
 			PreparedStatement ps = conn.prepareStatement(query);
 			ps.setInt(1, saleId);
@@ -699,9 +640,7 @@ public class SalesData {
 		}
 		int saleId = getSaleId(saleCode, conn);
 		int itemId = getItemId(itemCode, conn);
-		String query = "alter table SaleItem auto_increment = 1000;";
-		executeUpdate(query, conn);
-		query = "insert into SaleItem (saleId, itemId, beginDate, endDate) values (?, ?, ?, ?);";
+		String query = "insert into SaleItem (saleId, itemId, beginDate, endDate) values ( ?, ?, ?, ?);";
 		try {
 			PreparedStatement ps = conn.prepareStatement(query);
 			ps.setInt(1, saleId);

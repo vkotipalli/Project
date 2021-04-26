@@ -354,7 +354,7 @@ public class DatabaseRecords {
 
 		List<Item> items = new ArrayList<>();
 
-		String query = "select i.itemId, i.itemCode, i.itemType, i.itemName, i.cost, si.employeeId, si.numHours, si.beginDate,"
+		String query = "select i.itemId, i.itemCode, i.itemType, i.itemName, i.cost, si.quantity, si.employeeId, si.numHours, si.beginDate,"
 				+ " si.endDate, si.quantity from Item i"
 				+ " join SaleItem si on si.itemId = i.itemId;";
 
@@ -370,6 +370,7 @@ public class DatabaseRecords {
 				String type = rs.getString("i.itemType");
 				String name = rs.getString("i.itemName");
 				double price = rs.getDouble("i.cost");
+				double gcquantity = rs.getDouble("si.quantity");
 
 				_itemId.add(itemId);
 				if (type.equals("PN")) {
@@ -377,7 +378,8 @@ public class DatabaseRecords {
 					ProductNew np = new ProductNew(itemCode, type, name, price, quantity);
 					items.add(np);
 				} else if (type.equals("PG")) {
-					ProductGiftCard gc = new ProductGiftCard(itemCode, type, name, price); // price???
+					ProductGiftCard gc = new ProductGiftCard(itemCode, type, name, gcquantity); // price???
+					System.out.println(price);
 					items.add(gc);
 				} else if (type.equals("PU")) {
 					double quantity = rs.getDouble("si.quantity");
@@ -516,5 +518,6 @@ public class DatabaseRecords {
 		}
 		return sales;
 	}
+
 
 }

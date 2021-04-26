@@ -8,7 +8,7 @@ public class ProductGiftCard extends Product {
 
 	@Override
 	public double getPrice() {
-		return getBasePrice();
+		return Math.round(getBasePrice() * 100.0) / 100.0;
 	}
 
 	@Override
