@@ -110,6 +110,8 @@ public class Person {
 	public void setSaleCount(int saleCount) {
 		this.saleCount = saleCount;
 	}
+	
+	
 
 	public String toString() {
 		return personCode + "," + type + "," + lastName + "," + firstName + "," + currentAddress + "," + email+"\n";
@@ -142,7 +144,6 @@ public class Person {
 		return null;
 	}
 
-
 	/**
 	 * This method gets the discount percentage based on a specific person type. It
 	 * only returns the pure percentage, no calculations are made.
@@ -161,4 +162,5 @@ public class Person {
 		}
 	}
 
+	
 }
